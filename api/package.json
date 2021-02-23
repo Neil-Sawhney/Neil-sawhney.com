@@ -1,0 +1,21 @@
+{
+  "name": "Neil-Sawhney-Api",
+  "version": "1.0.0",
+  "description": "local inheritant static init mat schematic stata. IOT sss, do i sound smart yet i made all these up",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "author": "Neil Sawhney",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.11.13",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}

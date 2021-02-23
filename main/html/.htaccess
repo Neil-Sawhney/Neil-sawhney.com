@@ -1,0 +1,10 @@
+Options +ExecCGI
+AddHandler cgi-script .cgi
+AddHandler cgi-script .py
+<FilesMatch ".c$">
+	deny from all 
+</FilesMatch> <FilesMatch ".h$">
+	deny from all 
+</FilesMatch> <FilesMatch ".htaccess$">
+	deny from all
+</FilesMatch>
