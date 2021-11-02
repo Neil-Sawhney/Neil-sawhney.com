@@ -47,6 +47,31 @@
 
 }
 
+.theShopMobile {
+        display: none;
+}
+
+.articleTitle {
+	order: 8;
+	position: absolute;
+        width: 51vw !important;
+        top: 110vw;
+        left: 25vw;
+}
+
+.articleTitleTransition{
+	transition: top 2s ease, left 2s ease, width 2s ease;
+
+}
+
+.articleTitleGone {
+	order: 8;
+	position: absolute;
+        width: 21vw !important;
+        top: 125vw;
+        left: 40vw;
+}
+
 .blackStripeCircle {
         width: 43.43vw;
         top: 114.84vw;
@@ -164,9 +189,6 @@ body {
 
 }
 
-.parrot {
-        width: 100vw;
-}
 
 .container {
         position: relative;
@@ -195,7 +217,7 @@ body {
         left: 6.25vw;
         font: 8.8vw/11.72vw monospace;
         letter-spacing: 1px;
-        color: transparent;
+	color:  #00b3b3;
         z-index: 3;
         -webkit-text-stroke: .21vw white;
 }
@@ -218,7 +240,7 @@ body {
         top: 18vw;
         left: 6.5vw;
         width: 56.166666vw;
-        display: none;
+        display: block;
         font: 300 2.03vw/2.448vw monospace;
         letter-spacing: 2px;
         color: #7B7B7B;
@@ -248,6 +270,30 @@ body {
 
 }
 
+
+.theShop {
+        position: absolute;
+        top: 69vw;
+        left: 0px;
+        width: 100vw;
+        letter-spacing: 1vw;
+        font: 900 10vw monospace;
+        color: black;
+        z-index: 3;
+        -webkit-text-stroke: .425vw white;
+        text-decoration: none;
+        transition: color .1s ease;
+        justify-content: center;
+        display: flex;
+}
+
+
+
+.theShop:hover {
+        color: #5aa19b;
+
+}
+
 .pages {
         display: flex;
         /*justify-content: space-evenly;
@@ -268,7 +314,7 @@ body {
         justify-content: center;
         align-items: center;
         width: 13vw;
-        border-radius: 1vw;
+        border-radius: .1vw;
         margin-right: 2vw;
         text-decoration: none;
         color: #999999;
@@ -286,7 +332,7 @@ body {
         top: 18vw;
         left: 6.5vw;
         width: 100vw;
-        height: 25vw;
+        height: 45vw;
         border-radius: 20px;
 }
 
@@ -294,20 +340,21 @@ body {
         position: relative;
         height: 10vw;
         margin-right: 2vw;
-        border-radius: 1vw;
         transition: box-shadow .4s ease, transform .4s ease, width .4s ease, height .4s ease;
         z-index: 3;
+	margin-top: 2vw;
 }
 
 .pagesWrapper .video {
         position: relative;
         height: 10vw;
-        border-radius: 1vw;
         margin-right: 2vw;
         transition: box-shadow .4s ease, transform .4s ease, width .4s ease, height .4s ease;
         z-index: 3;
         overflow: hidden;
         width: 12.933vw;
+	margin-top: 2vw;
+}
 }
 
 .pagesWrapper img:hover {
@@ -335,29 +382,41 @@ body {
         display: none;
         flex-wrap: wrap;
         justify-content: left;
-        align-items: top;
+        align-items: flex-start;
         position: relative;
         top: 0px;
         left: 0px;
         width: 95%;
-        height: 100%;
+        height: 5%;
 }
 
 .page2Content {
         display: none;
         justify-content: left;
-        align-items: top;
+        align-items: flex-start;
         flex-wrap: wrap;
         position: relative;
         top: 0px;
         left: 0px;
         width: 95%;
-        height: 100%;
+        height: 5%;
+}
+
+.page3Content {
+        display: none;
+        justify-content: left;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        position: relative;
+        top: 0px;
+        left: 0px;
+        width: 95%;
+        height: 5%;
 }
 
 .quote {
         opacity: 0;
-        border-radius: .2vw;
+        border-radius: .1vw;
         overflow: hidden;
         white-space: nowrap;
         transition: width .3s linear;
@@ -412,7 +471,31 @@ body {
 
 @media only screen and (max-width: 800px) {
 
-        .whiteCurvy, .sexyline1, .sexyline2, .woodCurvy, .blackStripeCircle, .whiteRing, .aperatureWrapper {
+        .theShopMobile {
+                display: block;
+                font-family: monospace;
+                font-size: 3vw;
+                margin-top: 8vw;
+                margin-left: 5vw;
+                color: #999999;
+                background-color: #262626;
+                border-radius: .3vw;
+                padding: 2vw;
+        }
+
+        .theShopWrap {
+                width: 100%;
+                display: flex;
+                justify-content: left;
+        }
+
+        .whiteCurvy,
+        .sexyline1,
+        .sexyline2,
+        .woodCurvy,
+        .blackStripeCircle,
+        .whiteRing,
+        .aperatureWrapper {
                 display: none;
                 position: absolute;
 
@@ -425,13 +508,6 @@ body {
                 margin: auto;
         }
 
-        .parrot {
-                display: none;
-        }
-
-        .parrotEye {
-                display: none;
-        }
 
         .wood {
                 display: none;
@@ -445,6 +521,10 @@ body {
                 display: none;
         }
 
+        .theShop {
+                display: none;
+        }
+
         .pages {
                 top: 16vw;
                 display: flex;
@@ -454,13 +534,13 @@ body {
                 width: 100vw;
                 height: 10vw;
                 z-index: 3;
-                font: 500 4vw monospace;
+                font: 500 3.5vw monospace;
         }
 
         .page {
                 background: #262626;
                 width: 40vw;
-                border-radius: 1vw;
+                border-radius: .3vw;
                 margin-right: 6vw;
                 text-decoration: none;
                 color: #999999;
@@ -474,7 +554,7 @@ body {
                 position: absolute;
                 top: 38vw;
                 left: 7vw;
-                width: 100vw;
+                width: 95vw;
                 height: auto;
         }
 
@@ -483,7 +563,6 @@ body {
                 height: 20vw;
                 margin-top: 5vw;
                 margin-bottom: 3vw;
-                border-radius: 1vw;
                 transition: box-shadow .4s ease, transform .4s ease, width .4s ease, height .4s ease;
                 z-index: 3;
         }
@@ -494,7 +573,6 @@ body {
                 width: calc(25vw * 1.293333);
                 margin-top: 5vw;
                 margin-bottom: 3vw;
-                border-radius: 1vw;
                 transition: box-shadow .4s ease, transform .4s ease, width .4s ease, height .4s ease;
                 z-index: 3;
                 overflow: hidden;
@@ -620,7 +698,10 @@ body {
                 width: 90vw;
                 height: 200vw;
                 border-radius: 3vw;
-                background-color: white;
+                background-color: black;
+                border-style: solid;
+                border-color: white;
+                border-width: .5vw;
         }
 
 
@@ -656,7 +737,3 @@ body {
 
 
 }
-
-
-
-

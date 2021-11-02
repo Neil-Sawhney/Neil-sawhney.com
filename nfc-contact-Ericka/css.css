@@ -1,0 +1,83 @@
+html,
+body {
+        max-width: 100%;
+        overflow-x: hidden;
+}
+
+
+body {
+        padding: 2vw;
+        background-color: #262626;
+        margin: 0px;
+        font-family: monospace;
+        font: 300 5vw/10vw monospace;
+        letter-spacing: 2px;
+        color: white;
+	position: absolute;
+	left: -2vw;
+	top: -2vw;
+
+}
+
+titleWrapper {
+        display: flex;
+        height: 28vw;
+        background-color: #1E1E1E;
+        width: 100vw;
+        align-items: center;
+        justify-content: center;
+        padding-top: 5vw;
+
+}
+
+.titleName {
+
+        font: 100 8vw monospace;
+        padding-left: 2vw;
+}
+
+.logo {
+	width: 17vw;
+}
+
+a {
+        color: #B7B5B5;
+        text-decoration: none;
+        font: 300 3.5vw monospace;
+}
+
+wrapper.social {
+        display: flex;
+        width: 100vw;
+        height: 140vw;
+        flex-wrap: wrap;
+	margin-top: 2vwl
+}
+
+.box {
+        display: flex;
+        height: 28vw;
+        background-color: #1E1E1E;
+        width: 100vw;
+        align-items: center;
+}
+
+.contactBox {
+        display: flex;
+        background-color: #2E2D2D;
+        padding: 2vw;
+        height: 5vw;
+        width: 100vw;
+        align-items: center;
+        justify-content: center;
+}
+
+.username {
+        padding-left: 7vw;
+        font: 100 5vw monospace;
+}
+
+.img {
+        padding-left: 12.5vw;
+        width: 16.4vw;
+}

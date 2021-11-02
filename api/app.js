@@ -7,9 +7,10 @@ const mongoose = require('mongoose');
 const theDials = require('./api/dials');
 const trafficLight = require('./api/trafficLight');
 
-mongoose.connect('mongodb+srv://Neil:' + process.env.MONGO_ATLAS_PW + '@trafficlight.ogvol.mongodb.net/Neil?retryWrites=true&w=majority',
+mongoose.connect('mongodb+srv://Neil:m3cEQejWoY@trafficlight.ogvol.mongodb.net/Neil?retryWrites=true&w=majority',
 	{
-		useMongoClient: true
+		useNewUrlParser: true,
+		useUnifiedTopology: true
 	}
 );
 

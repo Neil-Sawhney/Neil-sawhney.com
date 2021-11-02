@@ -5,9 +5,11 @@ const about = document.querySelector(".about");
 const cover = document.querySelector(".cover");
 const page1 = document.querySelector(".page1");
 const page2 = document.querySelector(".page2");
+const page3 = document.querySelector(".page3");
 const quote = document.querySelector(".quote");
 const page1Content = document.querySelector(".page1Content");
 const page2Content = document.querySelector(".page2Content");
+const page3Content = document.querySelector(".page3Content");
 const quoteContent = document.querySelector(".quoteContent");
 
 var mobileMinWidth = 800;
@@ -80,19 +82,22 @@ function clearBox() {
 	about.style.display = "none";
 	page1Content.style.display = "none";
 	page2Content.style.display = "none";
+	page3Content.style.display = "none";
 	page1.classList.remove('pageHover');
 	page2.classList.remove('pageHover');
+	page3.classList.remove('pageHover');
 	name.style.color = "transparent";
 	toggleAbout = true;
 	togglePage1 = true;
 	togglePage2 = true;
+	togglePage3 = true;
 	quoteContent.style.display = "none";
 	toggleQuote = true;
 }
 
 name.onmouseover = function() {
 	name.style.color = nameColor;
-	if (toggleAbout == togglePage1 == togglePage2 == true) {
+	if (toggleAbout == togglePage1 == togglePage2 == togglePage3 == true) {
 		about.style.display = "block"
 	}
 };
@@ -105,7 +110,7 @@ name.onmouseout = function() {
 };
 
 name.onclick = showAbout;
-var toggleAbout = true;
+var toggleAbout = false;
 
 function showAbout() {
 	if (toggleAbout) {
@@ -187,6 +192,37 @@ function showPage2() {
 }
 
 
+
+page3.onmouseover = function() {
+	page3.classList.add('pageHover');
+};
+page3.onmouseout = function() {
+	if (togglePage3) {
+		page3.classList.remove('pageHover');
+	}
+};
+
+page3.onclick = showPage3;
+var togglePage3 = true;
+
+function showPage3() {
+	if (togglePage3) {
+		clearBox();
+		page3.classList.add('pageHover');
+		page3Content.style.display = "flex";
+		quote.classList.add('quoteAppear');
+		togglePage3 = false;
+	} else {
+		page3Content.style.display = "none";
+		quote.classList.remove('quoteAppear');
+		quoteContent.style.display = "none";
+		toggleQuote = true;
+		togglePage3 = true;
+
+	}
+}
+
+
 quote.onclick = showQuote;
 var toggleQuote = true;
 
@@ -215,6 +251,22 @@ for (let i = 0; i < imgStuff.length; i++) {
 	};
 }
 
+function iframeThingNull(){
+ 	stuff = document.getElementsByClassName("iframeWatch");
+	for(let i = 0; i< stuff.length; i++){
+		stuff[i]. style.pointerEvents = null;
+	}
+
+}
+
+function iframeThingNone(){
+ 	stuff = document.getElementsByClassName("iframeWatch");
+	for(let i = 0; i< stuff.length; i++){
+		stuff[i]. style.pointerEvents = "none";
+	}
+
+}
+
 
 function enlargeImage(i) {
 	if (toggle123) {
@@ -223,7 +275,7 @@ function enlargeImage(i) {
 		else
 
 			imgStuff[i].style.transform = "matrix( 3, 0, 0, 3," + ((document.body.clientWidth / 2) - (imgStuff[i].getBoundingClientRect().left + (imgStuff[i].getBoundingClientRect().width / 2))) + "," + ((document.documentElement.clientHeight / 2) - (imgStuff[i].getBoundingClientRect().top + (imgStuff[i].getBoundingClientRect().height / 2))) + ")";
-		document.querySelector(".iframeWatch").style.pointerEvents = null;
+		iframeThingNull();
 		imgStuff[i].id = "imageClick";
 		toggle123 = false;
 		setTimeout(function() {
@@ -237,7 +289,7 @@ function enlargeImage(i) {
 
 function clearEnlargedImage() {
 	document.onclick = undefined;
-	document.querySelector(".iframeWatch").style.pointerEvents = "none";
+	iframeThingNone();
 	for (let i = 0; i < imgStuff.length; ++i) {
 		imgStuff[i].style.removeProperty('transform');
 		setTimeout(() => {
