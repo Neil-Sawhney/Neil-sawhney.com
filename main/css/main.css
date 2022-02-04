@@ -1,6 +1,32 @@
 .whiteCurvy,
 .woodCurvy,
 .whiteRing,
+
+.obitagGameWrapper {
+	display: flex;
+	position:absolute;	
+	justify-content: center;
+	align-items:center;
+	width: 100%;
+	top: 85vw;
+}
+.obitagGame{
+	border: 1vw;
+	width:75vw;
+	height:48.875vw;
+}
+.dev {
+	position: absolute;	
+        top: 82vw;
+        left: 0px;
+        width: 100vw;
+        letter-spacing: 1vw;
+        font: 900 2vw monospace;
+        color: black;
+        z-index: 5;
+        justify-content: center;
+        display: flex;
+}
 .blackStripeCircle {
         display: block;
         position: absolute;
@@ -257,35 +283,36 @@ body {
         color: transparent;
         z-index: 3;
         -webkit-text-stroke: .425vw white;
-        text-decoration: none;
-        transition: color .1s ease;
         justify-content: center;
         display: flex;
 }
 
 
-
+/*
 .obitag:hover {
         color: #5aa19b;
 
 }
+*/
 
 
 .theShop {
         position: absolute;
-        top: 69vw;
+        top: 140vw;
         left: 0px;
         width: 100vw;
         letter-spacing: 1vw;
+        color: white;
         font: 900 10vw monospace;
-        color: black;
         z-index: 3;
-        -webkit-text-stroke: .425vw white;
+        -webkit-text-stroke: .425vw black;
         text-decoration: none;
         transition: color .1s ease;
         justify-content: center;
         display: flex;
+	background-color: rgb(15,15,15);
 }
+
 
 
 
@@ -470,6 +497,9 @@ body {
 
 
 @media only screen and (max-width: 800px) {
+	.obitagGameWrapper {
+		display: none;
+	}
 
         .theShopMobile {
                 display: block;
