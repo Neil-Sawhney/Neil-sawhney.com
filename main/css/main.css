@@ -497,6 +497,10 @@ body {
 
 
 @media only screen and (max-width: 800px) {
+	.dev {
+		display: none; 
+	}
+
 	.obitagGameWrapper {
 		display: none;
 	}
