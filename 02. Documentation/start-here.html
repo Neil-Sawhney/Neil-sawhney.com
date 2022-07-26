@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Legendary One Page template documentation.">
+    <meta name="keywords" content="legendary,one,page,html,template,documentation">
+
+    <title>Documentation | REFRAME Personal HTML Template</title>
+    
+    <link rel="icon" type="image/png" href="assets/img/favicon.png">
+    
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,100,300,900,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,300,100,200,500,600,700,800,900" rel="stylesheet" type="text/css">
+    
+    <link href="assets/css/style.css" rel="stylesheet">
+    
+  </head>
+
+  <body data-spy="scroll" data-target=".sidebar" data-offset="180">
+       
+       
+        <!-- SIDEBAR -->
+        <div class="sidebar sidebar-line">
+
+          <ul class="nav sidenav dropable sticky">
+            
+            <li>
+            
+            	<a href="#getting-started">Getting Started</a>
+                <ul>
+              	
+                <li><a href="#getting-started-requirements">Requirements</a></li>
+              	<li><a href="#getting-started-install">Installation</a></li>
+                
+              </ul>
+              
+            </li>
+            
+            <li><a href="#file-structure">File Structure</a></li>
+            
+            
+            <li>
+            
+              <a href="#essentials">Essentials</a>
+              <ul>
+              
+              	<li><a href="#essentials-background">Background</a></li>
+                <li><a href="#essentials-hover-effect">Image Hover Effect</a></li>
+                <li><a href="#essentials-color-scheme ">Color scheme</a></li>
+                <li><a href="#essentials-scrollbar ">Scrollbar</a></li>
+                <li><a href="#essentials-cursor ">Cursor</a></li>
+                <li><a href="#essentials-cform">Contact Form</a></li>
+                <li><a href="#essentials-scroll-animations">Scroll Animation</a></li>
+                
+              </ul>
+              
+            </li>
+            
+            
+            <li><a href="#credits">Assets Used</a></li>
+            
+            
+            <li><a href="#support">Support</a></li>
+            
+            
+          </ul>
+
+        </div>
+        <!-- /SIDEBAR -->
+
+
+
+        <!-- MAIN -->
+        <div class="main">
+        
+        
+        
+          <div id="background-pattern"></div>
+          <div id="background-color"></div>
+        
+        
+          
+          <!-- HEADER -->
+          <header>
+          
+              <div class="container-mid">
+          
+                  <h1><strong>REFRAME</strong>Documentation<span>for V 1.1</span></h1>
+                  <p>by Avanzare</p>
+                
+              </div>
+          
+          </header>
+          <!-- /HEADER -->
+          
+        
+          
+          <!-- CONTAINER -->
+          <div class="container-fluid">
+              
+              
+              <section>
+              
+                <h2 id="getting-started">Getting started</h2>
+                
+                <p>If you already have experience in web design and template editing, uploading, and server environment then you can skip this section.</p>
+                
+                <h3 id="getting-started-requirements">Requirements</h3>
+                
+                <p>Excluding the language skills mentioned before you need also proper software to edit the template files.</p>
+                <p>You can find a recommendation for software in the support section at the bottom of the page.</p>
+                <p>You also need a hosting service where you can upload your files to the internet.</p>
+                <br>
+                <h3 id="getting-started-install">Installation</h3>
+                
+                <p>This is a very generic guide for installing/uploading an HTML template.</p>
+                <p>If your hosting provider is providing a guide on how to upload a static HTML website/template you should use it instead.</p>
+                
+                <ol class="steps">
+                
+                 <li>
+                    <h5>Get your files</h5>
+                    <p>Open the HTML files folder that is including your main template files.</p>
+                  </li>
+                
+                  <li>
+                    <h5>Log In</h5>
+                    <p>Log into your hosting space via FTP software ( <a href="https://filezilla-project.org/" target="_blank">Filezilla</a> or <a href="https://cyberduck.io/" target="_blank">Cyberduck</a> for example ).</p>
+
+                  </li>
+                
+                  <li>
+                    <h5>Upload</h5>
+                    <p>Upload all files from your HTML files folder into another folder on your hosting space via FTP software.</p>
+                  </li>
+                  
+               </ol>
+               <br>
+               <h3 id="getting-started-requirements">Local Server Environment</h3>
+                
+                <p>You have to set up a Local Server Environment to use the image hover effect on your local device due to Javascript AJAX.</p>
+                
+                <p><a href="https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb?hl=en" target="_blank">Chrome Web Server</a> - Local Server Environment in your chrome browser ( Very easy to set up ) </p>
+                <p><a href="https://www.mamp.info/" target="_blank">MAMP</a> - Local Server Environment for MAC & Windows</p>
+                
+                
+                
+              </section>
+    
+    
+              <section>
+              
+                <h2 id="file-structure">File Structure</h2>
+                
+                <p>Below you can find the file structure from your "01. Main Files" folder including a small description for each file.</p>
+                
+                <div class="callout callout-success" role="alert">
+                  <h4>Notice!</h4>
+                  <p>Each folder below can be opened or closed by clicking.</p>
+                </div>
+                
+                <div class="file-browser">
+                
+                  <ul>
+                  
+                  
+                    <li class="is-folder">
+                      assets<i>Libraries and assets</i>
+                      
+                      <ul>
+
+                        <li class="is-folder">
+                          audio<i>Includes all audio files</i>
+                        </li>
+                      
+                      
+                        <li class="is-folder">
+                          css<i>Includes all css files</i>
+                          
+                          <ul>
+                            <li class="is-file">colors.css<i>Stylesheet for all color skins</i></li>
+                            <li class="is-file">elements.css<i>Stylesheet for all reusable elements</i></li>
+                            <li class="is-file">plugins.css<i>Includes all css plugins / libraries</i></li>
+                            <li class="is-file">style.css<i>Stylesheet for general styling</i></li>
+                          </ul>
+                          
+                        </li>
+                        
+                        
+                        <li class="is-folder">
+                          fonts<i>Includes all font files</i>
+                          
+                          <ul>
+                            
+                            <li class="is-file">et-line.eot<i>ET Line icons font file</i></li>
+                            <li class="is-file">et-line.svg<i>ET Line icons svg file</i></li>
+                            <li class="is-file">et-line.ttf<i>ET Line icons font file</i></li>
+                            <li class="is-file">et-line.woff<i>ET Line icons font file</i></li>
+                            <li class="is-file">themify.eot<i>Themify icons font file</i></li>
+                            <li class="is-file">themify.svg<i>Themify icons svg file</i></li>
+                            <li class="is-file">themify.ttf<i>Themify icons font file</i></li>
+                            <li class="is-file">themify.woff<i>Themify icons font file</i></li>
+                            
+                          </ul>
+                          
+                        </li>
+                        
+
+                        <li class="is-folder">images<i>Includes all image files</i></li>
+                        
+
+                        <li class="is-folder">
+                          js<i>Includes all javascript files</i>
+                          
+                          <ul>
+                            <li class="is-file">background.js<i>Includes all background js code</i></li>
+                            <li class="is-file">plugins.js<i>Includes all js plugins</i></li>
+                            <li class="is-file">scripts.js<i>Contains all js script code</i></li>
+                          </ul>
+                          
+                        </li>
+
+
+                        <li class="is-folder">
+                          php<i>Includes all php files</i>
+                          
+                          <ul>
+                            <li class="is-file">contact.php<i>Send mail php script</i></li>
+                          </ul>
+                          
+                        </li>
+
+                        <li class="is-folder">videos<i>Includes all video files</i></li>
+
+                        
+                      </ul>
+                      
+                    </li>
+
+                    <li class="is-file">config.js<i>Configuration js file</i></li>
+                    <li class="is-file">index.html<i>Index html file</i></li>
+                    <li class="is-file">shortcodes.html<i>Shortcodes/Elements html file</i></li>
+                    
+                    
+                  </ul>
+                  
+                </div>
+    
+              </section>
+              
+    
+              <section>
+              
+                <h2 id="essentials">Essentials</h2>
+
+                <h3 id="essentials-background">Background</h3>
+				        <p>Choose from 6 different and unique background effects.<br>You can change and modify the background via the included <code>config.js.</code> file for mobile and non-mobile devices under section <code>4. BACKGROUND CONFIG</code>.</p>
+                <br><pre><code>var option_hero_background_mode = "image";<br><br>var option_hero_background_mode_mobile = "image";</code></pre>
+
+                <br><br>
+
+                <h3 id="essentials-hover-effect">Image Hover Effect</h3>
+                <div class="callout callout-success" role="alert">
+                  <h4>Notice!</h4>
+                  <p>The image hover effect requires a local server environment to function due to Javascript AJAX.</p>
+                </div>
+				        <p>All settings including the image selection and effect can be modified via the included <code>config.js.</code> under section <code>3. PROFILE PICTURE CONFIG</code>.</p>
+                <br>
+                <p>Additionally, you can create your own hover effect with the guide below.</p>
+
+                <ol class="steps">
+                
+                  <li>
+                     <h5>Set to Custom</h5>
+                     <p>Set the value from <code>var config_profile_image_effect = "tech";</code> to <code>"custom"</code> in your <code>config.js</code>file.</p>
+                   </li>
+                 
+                   <li>
+                     <h5>Create Image</h5>
+                     <p>Create or save an image in your <code>assets/images/effect_maps</code> folder and name it <code>custom.jpg</code>.</p>
+                     
+                   </li>
+                   
+                </ol>
+
+                <br><br>
+
+
+                <h3 id="essentials-color-scheme">Color Scheme</h3>
+				        <p>You can change the color scheme via the variable <code>var config_color_scheme = "warning_yellow";</code> in your <code>config.js.</code> file under section <code>2. BASIC CONFIG</code>.</p>
+                
+
+
+                <br><br>
+
+                <h3 id="essentials-scrollbar">Scrollbar</h3>
+				        <p>You can select from 3 different scroll indicators via the variable <code>var config_scroll_bar = "bar";</code> in the included <code>config.js.</code> file under section <code>2. BASIC CONFIG</code>.</p>
+                
+
+
+                <br><br>
+
+
+                <h3 id="essentials-cursor">Cursor</h3>
+				        <p>You can select from 3 different cursor setups via the variable <code>var config_cursor_mode = "cursor_2";</code> in the included <code>config.js.</code> file under section <code>2. BASIC CONFIG</code>.</p>
+                
+
+
+                <br><br>
+
+                <h3 id="essentials-cform">Contact Form</h3>
+                <div class="callout callout-success" role="alert">
+                  <h4>Notice!</h4>
+                  <p>PHP mail() function support is required for contact form function.</p>
+                </div>
+				        <p>Find out how to set up the contact form below.</p>
+                
+
+                <ol class="steps">
+                
+                  <li>
+                     <h5>Open File</h5>
+                     <p>Open the <code>assets/php/contact.php</code> file.</p>
+                   </li>
+                 
+                   <li>
+                     <h5>Change Email</h5>
+                     <p>Locate the following line of code in your <code>contact.php</code> file and replace <code>your@mail.com</code> with your email address.</p>
+                     <br><pre><code>$emailTo = "your@mail.com";</code></pre>
+                   </li>
+                 
+                   <li>
+                     <h5>Save</h5>
+                     <p>Don't forget to save the <code>contact.php</code> file.</p>
+                   </li>
+                   
+                </ol>
+
+
+
+
+                <br><br>
+                <h3 id="essentials-scroll-animations">Scrolling Animations</h3>
+                <p>Add scroll animations to any element inside the <code>&lt;div class=&quot;section-container&quot;&gt;&lt;/div&gt;</code></code> DOM element.</p>
+                <p>You only have to add the class <code>scroll-animation</code> to an element to activate the default scroll animation. You can modify the default animation in your <code>config.js</code> file.</p>
+                <br>
+                <p>Additionally, you can configure each element independently by adding data attributes as seen below.</p>
+                <br><pre>
+                  <code>  
+  &lt;div class=&quot;scroll-animation&quot; data-animation=&quot;rotate_up&quot; data-animation-duration=&quot;1.5&quot; data-animation-ease=&quot;power4.out&quot; &gt;&lt;/div&gt;
+                  </code>
+                </pre>
+                <br>
+
+
+                <p>Data scroll animation settings:</p>
+                <br>
+                <table style="width:100%">
+                  <tr>
+                    <th>Option</th>
+                    <th>Values</th>
+
+                    <th>Info</th>
+                  </tr>
+                  <tr>
+                    <td>data-animation=</td>
+                    <td><ul>
+                      <li>"fade_from_left"</li>
+                      <li>"fade_from_right"</li>
+                      <li>"fade_from_bottom"</li>
+                      <li>"rotate_up"</li>
+                    </ul></td>
+                    <td>* Animation of the element</td>
+                  </tr>
+                  <tr>
+                    <td>data-animation-duration=</td>
+                    <td><ul>
+                      <li>"1.2"</li>
+                    </ul></td>
+                    <td>* Animation Duration of the element.<br>The value number equals seconds. Set any number</td>
+                  </tr>
+                  <tr>
+                    <td>data-animation-ease=</td>
+                    <td><ul>
+                      <li>"power1.out"</li>
+                      <li>"power2.out"</li>
+                      <li>"power3.out"</li>
+                      <li>"power4.out"</li>
+                      <li>"expo.out"</li>
+                      <li>"sine.out"</li>
+                      <li>"none"</li>
+                    </ul></td>
+                    <td>* Ease of the Animation</td>
+                  </tr>
+                </table>
+                
+                <br>
+                
+              </section>
+              
+              
+              <section>
+
+                <h2 id="credits">Assets Used</h2>
+
+                <h3 id="credits-fonts">Fonts</h3>
+                <p><a href="https://fonts.google.com/specimen/Source+Sans+Pro" target="_blank">Source Sans Pro</a> - Sans Serif Google Font</p>
+               
+                <h3 id="credits-icons">Icons</h3>
+                <p><a href="https://themify.me/themify-icons" target="_blank">Themify</a> - Icon pack</p>
+                <p><a href="https://www.elegantthemes.com/blog/freebie-of-the-week/free-line-style-icons" target="_blank">ET Line</a> - Icon pack</p>
+                
+                <h3 id="credits-code">Third Party Code</h3>
+                <p><a href="https://jquery.com/" target="_blank">jQuery</a> - Jquery javascript library</p>
+                <p><a href="https://greensock.com/gsap/" target="_blank">GSAP</a> - Animations plugin</p>
+                <p><a href="https://kenwheeler.github.io/slick/" target="_blank">Slick</a> - Carousel plugin</p>
+                <p><a href="https://threejs.org/" target="_blank">Three.js</a> - JavaScript 3D library</p>
+                <p><a href="https://biati-digital.github.io/glightbox/" target="_blank">GLightbox</a> - Lightbox plugin</p>
+                <p><a href="https://accordion.js.org/" target="_blank">Accordion.JS</a> - jQuery Accordion plugin</p>
+                <p><a href="https://github.com/vdw/Tabslet" target="_blank">Tabslet</a> - Tabs jQuery plugin</p>
+                <p><a href="https://github.com/wnr/element-resize-detector" target="_blank">Element Resize Detector</a> - Element Resize Event plugin</p>
+                
+                <h3 id="credits-images">Images/Videos</h3>
+                <p><a href="https://www.pexels.com/" target="_blank">Pexels</a> - (Images/Videos included in download package ) Royalty free stock photos/videos under Creative Commons CC0</p>
+                <p><a href="https://pixabay.com/" target="_blank">Pixabay</a> - (Images/Videos included in download package ) Royalty free stock photos/videos under Creative Commons CC0</p>
+                <p><a href="https://unsplash.com/" target="_blank">Unsplash</a> - (Images included in download package ) Royalty free stock photos under Creative Commons CC0</p>
+                
+                
+              </section>
+              
+              
+              <section>
+              
+                <h2 id="support">Support</h2>
+
+                <h3 id="#support-help">Help</h3>
+                <p><a href="https://themeforest.net/user/avanzare" target="_blank">FAQ</a> - Frequently asked questions</p>
+                
+                <p><a href="https://themeforest.net/user/avanzare" target="_blank">Email</a> - Support via Envato contact form</p>
+                <h3 id="#support-software">Recommended Software</h3>
+                <p><a href="https://code.visualstudio.com/" target="_blank">VS Code</a> - Free. Built on open source. Runs everywhere.</p>
+                
+              </section>
+              
+              
+              <section>
+              
+                <h2></h2>
+                <p>© <a href="http://themeforest.net/user/avanzare">Avanzare.</a> All rights reserved.</p>
+                
+              </section>         
+              
+              
+              
+              
+            </div>
+            <!-- /CONTAINER -->
+        
+        
+        </div>
+        <!-- /MAIN -->
+        
+        
+
+    <!-- Scripts -->
+    <script src="assets/js/scripts.js"></script>
+    
+    
+
+  </body>
+  
+</html>
