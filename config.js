@@ -59,7 +59,7 @@
 		// "eco_green" = ECO GREEN COLOR SCHEME
 		// "colors_coated_grey" = COATED GREY COLOR SCHEME
 
-		var config_color_scheme = "future_blue";
+		var config_color_scheme = "dreamy_turquoise";
 
 
 
