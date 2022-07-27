@@ -1,15 +1,3 @@
-/******************************************************************
-	
-	
-	@ Item          REFRAME - Personal One Page HTML Template
-	@ Version       1.1
-	@ Author		Avanzare
-	@ Website		http://themeforest.net/user/avanzare 
-	
-
- ******************************************************************/
- 
- 
  /******************************************************************
 
 
@@ -60,6 +48,8 @@ function core_init() {
 	window.addEventListener("load", scroll_bar());
 	//options_panel();
 	image_setup();
+
+	cycle_introduction();
 
 } core_init();
 
@@ -185,6 +175,31 @@ function smooth_scroll() {
 
 /** 4. Content Elements
 *******************************************************************/
+
+/* Cycle Introduction */
+function cycle_introduction() {
+
+	const introduction = {
+		element: document.querySelector("#introContent"),
+
+		current_content: 0,
+
+		intro_content: config_introduction_content,
+
+		serve_content: function() {
+			if (this.current_content === this.intro_content.length) {
+				this.current_content = 0;
+			}
+			return this.intro_content[this.current_content++];
+		}
+
+	}
+
+	window.setInterval(function() {
+		introduction.element.innerHTML = introduction.serve_content();
+	}, 2000);
+
+}
 
 /* Accordion */
 function accordions_setup() {
