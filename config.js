@@ -122,7 +122,7 @@ var config_introduction_content = [
 	"I'm a Mechanical Engineer",
 	"I'm a Computer Scientist",
 	"I'm a Web Developer",
-	"I'm a Maker of Cool Things"
+	"I'm a Maker"
 ]
 
 

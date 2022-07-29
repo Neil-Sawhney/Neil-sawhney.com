@@ -62,10 +62,8 @@ body
     font-size: 1.4rem;
     font-family: 'Source Sans Pro', sans-serif;
     font-weight: 300;
-
     color: #fff;
-    background:#212121;
-
+    background: #242424;
     -webkit-font-smoothing: antialiased;
 }
 
