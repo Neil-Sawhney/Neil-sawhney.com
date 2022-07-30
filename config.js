@@ -313,7 +313,7 @@ var option_hero_background_circle_speed = 0.035;
 
 
 // LINE COLOR
-var option_hero_background_lines_line_color = "#e3af00";
+var option_hero_background_lines_line_color = "#ffffff";
 
 
 
