@@ -120,7 +120,7 @@ var config_scroll_animation_defaults = {
 // INTRODUCTION CONTENT
 var config_introduction_content = [
 	"I'm a Mechanical Engineer",
-	"I'm a Computer Scientist",
+	"I'm a Computer Programmer",
 	"I'm a Web Developer",
 	"I'm a Maker"
 ]
