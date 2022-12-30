@@ -842,10 +842,23 @@ function lightbox_setup() {
 		// Set lightbox instance
 		var lightbox = GLightbox({
 			touchNavigation: true,
-			loop: false,
+			loop: true,
 			preload: true,
 			zoomable: false,
 			closeOnOutsideClick: false,
+			autoplayVideos: true,
+			plyr: {
+				config: {
+					hideControls: true,
+					muted: true,
+					loop: {
+						active: true,
+					},
+					controls: [
+					],
+					clickToPlay: true,
+				}
+			},
 			lightboxHTML: generate_lightbox_html( $(this).find(".info-content").html() ),
 		});
 
@@ -854,10 +867,10 @@ function lightbox_setup() {
 		$( $(this).find(".lightbox-images .item") ).each(function(){
 
 			var url = $(this).data("image");
+			var url = (url == undefined) ? $(this).data("video") : url;
 
 			lightbox.insertSlide({
 				'href': url,
-				'type': 'image',
 				'zoomable': false,
 			});
 
