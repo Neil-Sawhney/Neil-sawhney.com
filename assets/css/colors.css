@@ -46,12 +46,12 @@
     border-color: #e3af00 !important;
 }
 
-.colors_warning_yellow ::selection 
+.colors_warning_yellow::selection 
 {
     color: #fdc60c !important;
 }
 
-.colors_warning_yellow ::-moz-selection 
+.colors_warning_yellow::-moz-selection 
 {
     color: #fdc60c !important;
 }
@@ -85,12 +85,12 @@
     border-color: #1338f3 !important;
 }
 
-.colors_future_blue ::selection
+.colors_future_blue::selection
 {
     color: #1338f3 !important;
 }
 
-.colors_future_blue ::-moz-selection 
+.colors_future_blue::-moz-selection 
 {
     color: #1338f3 !important;
 }
@@ -124,12 +124,12 @@
     border-color: #f31313 !important;
 }
 
-.colors_dynamic_red ::selection
+.colors_dynamic_red::selection
 {
     color: #f31313 !important;
 }
 
-.colors_dynamic_red ::-moz-selection 
+.colors_dynamic_red::-moz-selection 
 {
     color: #f31313 !important;
 }
@@ -163,12 +163,12 @@
     border-color: #ff6f1e !important;
 }
 
-.colors_mystic_orange ::selection
+.colors_mystic_orange::selection
 {
     color: #ff6f1e !important;
 }
 
-.colors_mystic_orange ::-moz-selection 
+.colors_mystic_orange::-moz-selection 
 {
     color: #ff6f1e !important;
 }
@@ -202,12 +202,12 @@
     border-color: #0bc5fc !important;
 }
 
-.colors_dreamy_turquoise ::selection
+.colors_dreamy_turquoise::selection
 {
     color: #0bc5fc !important;
 }
 
-.colors_dreamy_turquoise ::-moz-selection 
+.colors_dreamy_turquoise::-moz-selection 
 {
     color: #0bc5fc !important;
 }
@@ -241,12 +241,12 @@
     border-color: #fff !important;
 }
 
-.colors_polar_white ::selection
+.colors_polar_white::selection
 {
     color: #fff !important;
 }
 
-.colors_polar_white ::-moz-selection 
+.colors_polar_white::-moz-selection 
 {
     color: #fff !important;
 }
@@ -280,12 +280,12 @@
     border-color: #ff99cc !important;
 }
 
-.colors_sweet_purple ::selection
+.colors_sweet_purple::selection
 {
     color: #ff99cc !important;
 }
 
-.colors_sweet_purple ::-moz-selection 
+.colors_sweet_purple::-moz-selection 
 {
     color: #ff99cc !important;
 }
@@ -319,12 +319,12 @@
     border-color: #0dd02e !important;
 }
 
-.colors_eco_green ::selection
+.colors_eco_green::selection
 {
     color: #0dd02e !important;
 }
 
-.colors_eco_green ::-moz-selection 
+.colors_eco_green::-moz-selection 
 {
     color: #0dd02e !important;
 }
@@ -358,12 +358,12 @@
     border-color: #cceb00 !important;
 }
 
-.colors_acid_green ::selection
+.colors_acid_green::selection
 {
     color: #cceb00 !important;
 }
 
-.colors_acid_green ::-moz-selection 
+.colors_acid_green::-moz-selection 
 {
     color: #cceb00 !important;
 }
@@ -397,12 +397,12 @@
     border-color: #c0c0c0 !important;
 }
 
-.colors_coated_grey ::selection
+.colors_coated_grey::selection
 {
     color: #c0c0c0 !important;
 }
 
-.colors_coated_grey ::-moz-selection 
+.colors_coated_grey::-moz-selection 
 {
     color: #c0c0c0 !important;
 }
