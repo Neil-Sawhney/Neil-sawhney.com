@@ -71,7 +71,6 @@ function page_intro() {
 
 /** 3. Smooth Page Scroll
 *******************************************************************/
-
 function smooth_scroll() {
 
 	viewport = null;

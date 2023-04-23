@@ -87,11 +87,11 @@
                 <li><a href="../../index.html#articles"><span class="ti-user"></span>
                         <p class="small">Articles</p>
                     </a></li>
-                <li><a href="../../index.html#resume"><span class="ti-align-left"></span>
-                        <p class="small">Resume</p>
-                    </a></li>
                 <li><a href="../../index.html#portfolio"><span class="ti-view-grid"></span>
                         <p class="small">Portfolio</p>
+                    </a></li>
+                <li><a href="../../index.html#resume"><span class="ti-align-left"></span>
+                        <p class="small">Resume</p>
                     </a></li>
                 <li><a href="../../index.html#contact"><span class="ti-comments"></span>
                         <p class="small">Contact</p>
@@ -198,12 +198,12 @@
             <p class="m-t-3">Dont have a programmer? Neither do I, but I do have a ton of arduinos and esp32's and esp8266's laying around, so lets convert one of those into an AVRISP programmer.</p>
             <p class="m-t-3">I'm using an esp8266 mounted on a WeMos D1 mini Dev board.</p>
             <p class="m-t-3">Lucky for us, code to make our board act as an AVRISP is provided to us by the arduino foundation as example code. You can go ahead and pull up that example code in the Arduino IDE, make the neccessary pin changes, and upload it. That being said, we have platformIO now, so let's get some practice using that instead.</p>
-            <p class="m-t-3 color-white">Download the arduino example code from the following <a class="externLink" href="https://gist.github.com/srmq/0217a2844a9d82a6913ff989472a98dd" target="_blank">github repo</a></p>
+            <p class="m-t-3 color-white">Download the arduino example code from the following <a class="externLink" href="https://gist.github.com/srmq/0217a2844a9d82a6913ff989472a98dd" target="_blank">github repo.</a></p>
             <p class="m-t-3 color-white"> In VSCode, Click the PlatformIO icon (the alien) in the bottom left corner of VSCode and click "PIO Home → Open" under QUICK ACCESS.</p>
-            <p class="m-t-3">If you're using an esp family board, make sure to install the correct platform for that board, in my case it is the "Espressif 8266" platform. Refer to <a class="scroll-to scrollLink" href="#platformInstall">my explanation</a> of the installation of the Atmel AVR platform for an example on how to install platforms</p>
-            <p class="m-t-3 color-white">Click on "Import Arduino Project", and select the place in which you saved the example code (make sure to unzip it first). Also select your board in the dropdown, in my case, I've selected "WeMos D1 R2 and mini (WEMOS). Click "Import"</p>
+            <p class="m-t-3">If you're using an esp family board, make sure to install the correct platform for that board, in my case it is the "Espressif 8266" platform. Click on "Platforms" on the left, then "Embedded" on the top, then finally find and click on "Espressif 8266" and install it.
+            <p class="m-t-3 color-white">Click on "Import Arduino Project", and select the place in which you saved the example code (make sure to unzip it first). Also select your board in the dropdown, in my case, I've selected "WeMos D1 R2 and mini (WEMOS). Click "Import".</p>
             <img src="./assets/images/importArduino.png" alt="">
-            <p class="m-t-3 color-white">Find the following lines of code in the folder named "src"</p>
+            <p class="m-t-3 color-white">Find the following lines of code in the folder named "src".</p>
             <pre><code>
 // The standard pin configuration.
 #ifndef ARDUINO_HOODLOADER2
@@ -232,7 +232,7 @@ upload_port = COM10
             </pre></code>
             <p class="m-t-3 color-white"> Otherwise, That's it for the programmer software! Go ahead and upload the code! You can do so by clicking ctrl-alt-u or finding the dropdown next to the checkmark in the top right, and pressing "Upload".</p>
 
-            <p class="m-t-3 color-white">All that's left is to connect the MOSI, MISO, SCK, VCC, GND and the RESET pin (which we just defined) on your programmer to the respective pins on your microcontroller. You should be able to find this by googling the pinout of the two boards. Here is the wiring for the ATMega8 to the WeMoS D1 mini</p>
+            <p class="m-t-3 color-white">All that's left is to connect the MOSI, MISO, SCK, VCC, GND and the RESET pin (which we just defined) on your programmer to the respective pins on your microcontroller. You should be able to find this by googling the pinout of the two boards. Here is the wiring for the ATMega8 to the WeMoS D1 mini.</p>
             <dev class="flex">
                 <img src="./assets/images/ATMEGA8toAVRISP.jpg" alt="">
                 <img src="./assets/images/WeMosD1mini.jpg" alt="">
@@ -242,7 +242,7 @@ upload_port = COM10
 
             <h3 class="step"> Step 2: Create a new project</h3>
             <p class="m-t-3 color-white"> Click the PlatformIO icon (the alien) in the bottom left corner of VSCode and click "PIO Home → Open" under QUICK ACCESS.</p>
-            <p class="m-t-3">We need to add the Atmel AVR Platform so that we can get access to all the necessary libraries for using the IO Ports on our microcontroller. This also automatically defines certain board specific variables that will help make uploading work properly</p>
+            <p class="m-t-3">We need to add the Atmel AVR Platform so that we can get access to all the necessary libraries for using the IO Ports on our microcontroller. This also automatically defines certain board specific variables that will help make uploading work properly.</p>
             <p class="m-t-3 color-white" id="platformInstall">Click on "Platforms" on the left, then "Embedded" on the top, then finally find and click on "Atmel AVR" and install it. The default version should be fine.</p>
             <div class="flex">
                 <img src="./assets/images/AtmelPlatform.png" alt="">
@@ -254,11 +254,11 @@ upload_port = COM10
 
 
             <h3 class="step">Step 3: Edit the platformio.ini file in your project</h3>
-            <p class="m-t-3 color-white">First thing's first, if you dont want to use the arduino framework, delete</p>
+            <p class="m-t-3 color-white">First thing's first, if you dont want to use the arduino framework, delete the following line.</p>
             <pre><code>
 framework = arduino
             </code></pre>
-            <p class="m-t-3">We're going to blink an led here, so the arduino framework is wayyy overkill... deleted</p>
+            <p class="m-t-3">We're going to blink an led here, so the arduino framework is wayyy overkill... deleted.</p>
             <p class="m-t-3 color-white">I happen to be using an esp8266 programmed to act as an AVRISP, so from the <a class="externLink" href="https://docs.platformio.org/en/stable/platforms/atmelavr.html">PlatformIO documentation for Atmel AVR boards</a>, lets grab all the juicy stuff under "AVRISP" in the "Configuration for the programmers" section.</p>
             <pre><code>
 upload_protocol = custom
@@ -278,17 +278,17 @@ upload_flags =
     stk500v1
 upload_command = avrdude $UPLOAD_FLAGS -U flash:w:$SOURCE:i
             </pre></code> 
-            <p class="m-t-3">Change the words "SERIAL_PORT_HERE" with the serial port your programmer is plugged into. In my case it's COM3</p>
+            <p class="m-t-3">Change the words "SERIAL_PORT_HERE" with the serial port your programmer is plugged into. In my case it's COM3.</p>
             <p class="m-t-3 color-white">Almost done, all that's left is to add 2 <strong style="font-size: 5rem;">extremely important</strong> lines.</p>
-            <p class="m-t-3 color-white">We need to tell platformIO the clock frequency of our chip, and whether we plan on using the internal oscillator, or if we plan to wire up an external one. By default, plaformio assumes the cpu fqz is 16MHz, the ATMega8 that I am using has an 8MHz internal oscillator. PlatformIO assumes the oscillator is external by default. </p>
-            <p class="m-t-3"> This is all in the documentation, but I bricked a microcontroller anyway by not paying close attention to this. If you do not set this correctly, your micrcontroller will not be able to communicate with your computer! Check the documentation of your microcontroller!</p>
+            <p class="m-t-3 color-white">We need to tell platformIO the clock frequency of our chip, and whether we plan on using the internal oscillator, or if we plan to wire up an external one. By default, plaformIO assumes the cpu fqz is 16MHz, the ATMega8 that I am using has an 8MHz internal oscillator. PlatformIO assumes the oscillator is external by default. </p>
+            <p class="m-t-3"> This is all in the documentation, but I bricked a microcontroller anyway by not paying close attention to this. If you do not set this correctly, your microcontroller will not be able to communicate with your computer! Check the documentation of your microcontroller!</p>
 
-            <p class="m-t-3 color-white">We need to add the following two lines, make sure to change the cpu and oscillator type to your needs</p>
+            <p class="m-t-3 color-white">We need to add the following two lines, make sure to change the cpu and oscillator type to your needs.</p>
             <pre><code>
 board_build.f_cpu = 8000000L
 board_hardware.oscillator = internal
             </pre></code>
-            <p class="m-t-3 color-white">Here is my entire platform.ini file</p>
+            <p class="m-t-3 color-white">Here is my entire platform.ini file.</p>
             <pre><code>
 [env:ATmega8]
 platform = atmelavr
@@ -316,9 +316,9 @@ upload_command = avrdude $UPLOAD_FLAGS -U flash:w:$SOURCE:i
 
             <h3 class="step"> Step 4: Create a Program</h3>
             <p class="m-t-3 color-white">Click on the folder named "src" to reveal its contents. You should see that platformIO rudely put disgusting arduino code here in a file called main.cpp. If you want to use the arduino framework, go ahead, but we're going to go ahead and delete that file.</p>
-            <p class="m-t-3 color-white">Create a new file under src called main.c </p>
-            <p class="m-t-3">It's also possible to use assembly or cpp, but I'm going to use C for this tutorial</p>
-            <p class="m-t-3 color-white">The following code blinks an LED on PD6 of the ATMega8, slap whatever you want in main if you had bigger plans in mind</p>
+            <p class="m-t-3 color-white">Create a new file under src called main.c. </p>
+            <p class="m-t-3">It's also possible to use assembly or cpp, but I'm going to use C for this tutorial.</p>
+            <p class="m-t-3 color-white">The following code blinks an LED on PD6 of the ATMega8, slap whatever you want in main if you had bigger plans in mind.</p>
             <pre><code>
 #include &ltavr/io.h>
 #include &ltutil/delay.h>
