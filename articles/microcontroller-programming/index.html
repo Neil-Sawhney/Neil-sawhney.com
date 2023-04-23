@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <!-- META -->
     <meta charset="utf-8">
@@ -18,9 +19,7 @@
     <!-- GOOGLE FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap" rel="stylesheet">
 
 
     <!-- STYLESHEETS -->
@@ -108,8 +107,7 @@
             </div>
             <div class="social-items">
 
-                <div class="item"><a href="https://www.linkedin.com/in/neil-sawhney-b16547224/"><span
-                            class="ti-linkedin"></span></a></div>
+                <div class="item"><a href="https://www.linkedin.com/in/neil-sawhney-b16547224/"><span class="ti-linkedin"></span></a></div>
                 <div class="item"><a href="https://github.com/Neil-Sawhney"><span class="ti-github"></span></a></div>
             </div>
             <!-- /SOCIAL ITEMS -->
@@ -125,37 +123,84 @@
     <!-- MAIN -->
     <div id="main">
 
-            <!-- INNER CONTENT -->
-            <div class="content">
+        <!-- INNER CONTENT -->
+        <div class="content m-l-3 m-t-5 m-r-3" style="padding-bottom:20rem;">
 
 
-                <!-- SECTION CONTAINER -->
-                <div class="section-container articles">
+            <!-- /SECTION ( TITLE ) -->
+            <div class="title">
+                <h2 class="colors_sweet_purple" style="color:rgb(92, 193, 160)">How to Program AVR Microcontroller's Using PlatformIO and VSCode</h2>
+                <p class="colors_dreamy_turquoise">-Neil Sawhney</p>
+                <div class="seperator-line m-t-2"></div>
+            </div>
+            <!-- /SECTION ( TITLE ) -->
 
 
-                <!-- /SECTION ( INTRODUCTION ) -->
-                </div class="title">
-                    <h2 class="m-t-5 m-l-3 colors_sweet_purple">How to Program AVR Microcontroller's Using PlatformIO and VSCode WITHOUT the Arduino Framework</h2>
-                    <p class="m-l-3 colors_dreamy_turquoise">-Neil Sawhney</p>
-                    <div class="seperator-line m-l-3 m-r-3 m-t-2"></div>
-                </div>
-                <!-- /SECTION ( INTRODUCTION ) -->
+            <p class="m-t-6 color-white"> As an alternative to programming your avr microcontrollers in MPLAB or Atmel Studio, you can use VSCode with the PlatformIO extension. </p>
+
+            <div class="pros_cons_container m-t-3">
+
+                <h3>Pros</h3>
+                <ul>
+                    <li class="m-t-2">
+                        <p>PlatformIO is versatile and can be used for programming a vast variety of microcontrollers and development boards in almost any language and framework, as opposed to MPLAB which is only used for programming their microcontroller families.</p>
+                    </li>
+                    <li class="m-t-2">
+                        <p>If you're an avid programmer, there's a high chance you're already using and familiar with VSCode as opposed to MPLAB. Instead of learning many different ide's for each purpose, you can use VSCode.  Some programming you can do in VSCode includes python, jupyter notebooks, c++, c, c#, matlab, javascript, php, the list goes on.</p>
+                    </li>
+                </ul>
 
 
-                <!-- SECTION ( BODY ) -->
-                <p class="m-l-3 m-t-6 color-white"> hola </p>
+                <h3>Cons</h3>
+                <ul>
+                    <li class="m-t-2">
+                        <p>MPLAB provides official, dedicated support and seamless compatibility with Microchip's microcontrollers.</p>
+                    </li>
+                    <li class="m-t-2">
+                        <p>Built-in tools in MPLAB are tailored for Microchip's devices, offering better integration than PlatformIO and VSCode.</p>
+                    </li>
+                    <li class="m-t-2">
+                        <p>Atmel Studio, while still supported, is gradually being overtaken by MPLAB.</p> 
+                    </li>
+                </ul>
 
             </div>
 
-                <!-- /SECTION ( BODY ) -->
+
+            <p class="m-t-6 color-white"> There are good motives for both methods, but personally I prefer the VSCode route. Unfortanately i've found this method to be somewhat tricky to get started without lots of research, despite being extremely simple. Hopefully this article solves that problem.</p>
+
+            <h3 class="m-t-6"> Some prerequisites/supplies to follow this guide:</h3>
 
 
+            <!-- PREREQUISITES -->
+            <div class="pills m-b-5 m-t-3">
+
+                <div class="pill">
+                    <p>VSCode installed + familiarity of the basics</p>
                 </div>
-                <!-- /SECTION CONTAINER -->
-
+                <div class="pill">
+                    <p>Basic breadboarding ability</p>
+                </div>
+                <div class="pill">
+                    <p>An AVR Microntroller</p>
+                </div>
+                <div class="pill">
+                    <p>A Programmer for the Microcontroller (can be an arduino or esp8266)</p>
+                </div>
 
             </div>
-            <!-- /INNER CONTENT -->
+            <!-- /PREREQUISITES -->
+
+
+            <h3 class="step"> Step 1: Install The PlatformIO Extension in VSCode</h3>
+
+            <img class="img-responsive m-t-3" src="./assets/images/platformIOExtension.png" alt="">
+
+
+            <h3 class="step"> Step 2: Create a new project</h3>
+            <p class="m-t-3 color-white"> Click the PlatformIO icon (the alien) in the bottom left corner of VSCode and click "PIO Home"</p>
+        </div>
+        <!-- /INNER CONTENT -->
 
 
         <!-- /RIGHT CONTENT -->
@@ -169,4 +214,3 @@
     <script src="./assets/js/script.js"></script>
 
 </body>
-    
