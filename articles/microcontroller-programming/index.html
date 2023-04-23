@@ -242,14 +242,14 @@ upload_port = COM10
 
             <h3 class="step"> Step 2: Create a new project</h3>
             <p class="m-t-3 color-white"> Click the PlatformIO icon (the alien) in the bottom left corner of VSCode and click "PIO Home → Open" under QUICK ACCESS.</p>
-            <p class="m-t-3 color-white">We need to add the Atmel AVR Platform so that we can get access to all the necessary libraries and such for using the IO Ports on our microcontroller.</p>
-            <p class="m-t-3 color-white" id="platformInstall">Click on "Platforms" on the left, then "Embedded" on the top, find and click on "Atmel AVR" and install it. The default version should be fine.</p>
+            <p class="m-t-3">We need to add the Atmel AVR Platform so that we can get access to all the necessary libraries for using the IO Ports on our microcontroller. This also automatically defines certain board specific variables that will help make uploading work properly</p>
+            <p class="m-t-3 color-white" id="platformInstall">Click on "Platforms" on the left, then "Embedded" on the top, then finally find and click on "Atmel AVR" and install it. The default version should be fine.</p>
             <div class="flex">
                 <img src="./assets/images/AtmelPlatform.png" alt="">
                 <img src="./assets/images/install.png" alt="">
             </div>
             <p class="m-t-6 color-white">Sweet, now lets create our new project. Go back to "PIO Home → Open", and click the "New Project" button.</p>
-            <p class="m-t-6 color-white">Name the project whatever you want. In my case my board is an ATmega8, but select whichever board you are using. Feel free to change the location your project is saved by unchecking the Location box. Click Finish.</p>
+            <p class="m-t-6 color-white">Name the project whatever you want. In my case my board is an ATmega8, but select whichever board you are using. Feel free to change the location your project is saved by unchecking the "Use default location" box. Click Finish.</p>
             <img src="./assets/images/createProject.png" alt="">
 
 
@@ -258,16 +258,32 @@ upload_port = COM10
             <pre><code>
 framework = arduino
             </code></pre>
-            <p class="m-t-3 color-white">We're going to blink an led here, so the arduino framework is wayyy overkill here... deleted</p>
-            <p class="m-t-3 color-white">I happen to be using an esp8266 programmed to act as an AVRISP, so from the <a class="externLink" href="https://docs.platformio.org/en/stable/platforms/atmelavr.html">PlatformIO documentation for Atmel AVR boards. </a>, lets grab all the juicy stuff under "AVRISP" where it says "Configuration for the programmers". The juicy stuff is everything underneath the following line. Do the same under the configuration of whatever programmer you're using</p>
+            <p class="m-t-3">We're going to blink an led here, so the arduino framework is wayyy overkill... deleted</p>
+            <p class="m-t-3 color-white">I happen to be using an esp8266 programmed to act as an AVRISP, so from the <a class="externLink" href="https://docs.platformio.org/en/stable/platforms/atmelavr.html">PlatformIO documentation for Atmel AVR boards</a>, lets grab all the juicy stuff under "AVRISP" in the "Configuration for the programmers" section.</p>
             <pre><code>
-framework = arduino
+upload_protocol = custom
+upload_port = SERIAL_PORT_HERE
+upload_speed = 19200
+upload_flags =
+    -C
+    ; use "tool-avrdude-megaavr" for the atmelmegaavr platform
+    ${platformio.packages_dir}/tool-avrdude/avrdude.conf
+    -p
+    $BOARD_MCU
+    -P
+    $UPLOAD_PORT
+    -b
+    $UPLOAD_SPEED
+    -c
+    stk500v1
+upload_command = avrdude $UPLOAD_FLAGS -U flash:w:$SOURCE:i
             </pre></code> 
-            <p class="m-t-3 color-white">Change the words "SERIAL_PORT_HERE" with the serial port your programmer is plugged into. In my case it's COM3</p>
-            <p class="m-t-3 color-white">Almost done, all thats left is to add 2 <strong style="font-size: 5rem;">extremely important</strong> lines.</p>
-            <p class="m-t-3 color-white">We need to tell platformIO the clock frequency of our chip, and whether we plan on using the internal oscillator, or if we plan to connect up an external one. By default, plaformio assumes the cpu fqz is 16MHz, the ATMega8 that I am using has an 8MHz internal oscillator. PlatformIO assumes the oscillator is external by default. This is all in the documentation, but I bricked a microcontroller anyway by not paying close attention to this. If you do not set this correctly, your micrcontroller will not be able to communicate with your computer! Check the documentation of your microcontroller!</p>
+            <p class="m-t-3">Change the words "SERIAL_PORT_HERE" with the serial port your programmer is plugged into. In my case it's COM3</p>
+            <p class="m-t-3 color-white">Almost done, all that's left is to add 2 <strong style="font-size: 5rem;">extremely important</strong> lines.</p>
+            <p class="m-t-3 color-white">We need to tell platformIO the clock frequency of our chip, and whether we plan on using the internal oscillator, or if we plan to wire up an external one. By default, plaformio assumes the cpu fqz is 16MHz, the ATMega8 that I am using has an 8MHz internal oscillator. PlatformIO assumes the oscillator is external by default. </p>
+            <p class="m-t-3"> This is all in the documentation, but I bricked a microcontroller anyway by not paying close attention to this. If you do not set this correctly, your micrcontroller will not be able to communicate with your computer! Check the documentation of your microcontroller!</p>
 
-            <p class="m-t-3 color-white">Long story short, we need to add the following two lines, make sure to change the cpu and oscillator type to your needs</p>
+            <p class="m-t-3 color-white">We need to add the following two lines, make sure to change the cpu and oscillator type to your needs</p>
             <pre><code>
 board_build.f_cpu = 8000000L
 board_hardware.oscillator = internal
@@ -300,7 +316,8 @@ upload_command = avrdude $UPLOAD_FLAGS -U flash:w:$SOURCE:i
 
             <h3 class="step"> Step 4: Create a Program</h3>
             <p class="m-t-3 color-white">Click on the folder named "src" to reveal its contents. You should see that platformIO rudely put disgusting arduino code here in a file called main.cpp. If you want to use the arduino framework, go ahead, but we're going to go ahead and delete that file.</p>
-            <p class="m-t-3 color-white">Create a new file under src called main.c, or main.asm if you want to use assembly. We're going to use C.</p>
+            <p class="m-t-3 color-white">Create a new file under src called main.c </p>
+            <p class="m-t-3">It's also possible to use assembly or cpp, but I'm going to use C for this tutorial</p>
             <p class="m-t-3 color-white">The following code blinks an LED on PD6 of the ATMega8, slap whatever you want in main if you had bigger plans in mind</p>
             <pre><code>
 #include &ltavr/io.h>
@@ -325,15 +342,15 @@ int main()
 
 
 
-            <h3 class="step">Step 4: Set Fuses</h3>
-            <p class="m-t-3 color-white">This is the scary part that could destroy your micrcontroller. Double tripple check that you set your cpu fqz and oscillator type correctly in the platform.ini file. Rest assured, the name "fuse" is a misnomer, as long as you can still communicate with the chip, you'll be able to change the fuse values again later, incase you decide later that you do or dont want to use an external oscillator.</p>
+            <h3 class="step">Step 5: Set Fuses</h3>
+            <p class="m-t-3">This is the scary part that could destroy your micrcontroller. Double tripple check that you set your cpu fqz and oscillator type correctly in the platform.ini file. Rest assured, the name "fuse" is a misnomer, as long as you can still communicate with the chip, you'll be able to change the fuse values again later, incase you decide later that you do or dont want to use an external oscillator.</p>
             <p class="m-t-3 color-white">Click the alien in the bottom left, then navigate to the Set Fuses button and give it a click. Note, if you want to use the arduino framework, you'll also have to click the burn bootloader button.</p>
             <img src="./assets/images/fuses.png" alt="">
 
 
             <h3 class="step">Step 5: Upload your code</h3>
-            <p class="m-t-3 color-white">Yay! Just press ctrl-alt-u, or find the "upload" button in the top right corner, or above the set fuses button, or in the other places its probably hidden to upload your code (which builds first by default) and watch that led blink!</p>
-            <p class="m-t-3 color-white">Note that your program wont actually run until you disconnect the Reset pin on the microcontroller from your programmer. For this reason i've wired a push button inbetween my programmer and the microcontroller in the normally open configuration, This means I can leave everything plugged into my breadboard, and all I have to do is hold down the button when I'm uploading my code.</p>
+            <p class="m-t-3 color-white">Yay! Just press ctrl-alt-u, or find the "upload" button in the top right corner, or above the set fuses button, or in any of the other places its probably hidden to upload your code (which builds first by default) and watch that led blink!</p>
+            <p class="m-t-3 color-white">Note that your microcontroller won't actually execute the code until you disconnect the Reset pin on the microcontroller from your programmer. For this reason i've wired a push button inbetween the reset pin of my programmer and microcontroller in the normally open configuration. This makes it so that you can leave everything plugged into the breadboard, and all you have to do is hold down the button when the code is uploading.</p>
 
             <div style="height: 10rem;">  </div>
         </div>
