@@ -1,9 +1,107 @@
+.scrollLink{
+    color: #814c81;
+    text-decoration: none;
+    margin: 0 1rem;
+}
+
+.externLink{
+    color: #4c7581;
+    text-decoration: none;
+    margin: 0 1rem;
+}
+
+.title, code::selection{
+    color:rgb(92, 193, 160)
+}
+
 .step{
-    margin-top: 6rem;
+    margin-top: 10rem;
     color: rgb(183, 65, 65);
 }
 
 .step::selection{
     margin-top: 6rem;
     color: red;
+}
+
+img{
+    max-width: 100%;
+    height: auto;
+    margin-top: 3rem;
+}
+
+.flex{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 5rem;
+    margin-bottom: 5rem;
+}
+
+.flex img{
+    height: 100%;
+}
+
+code{
+    background-color: #000000;
+    padding: 1rem;
+    border-radius: 5px;
+    margin-top: 2rem;
+    display: block;
+}
+
+/* mobile */
+@media screen and (max-width: 800px){
+    .flex{
+        display: block;
+    }
+}
+
+w-1
+{
+    width: 10%;
+}
+
+.w-2
+{
+    width: 20%;
+}
+
+.w-3
+{
+    width: 30%;
+}
+
+.w-4
+{
+    width: 40%;
+}
+
+.w-5
+{
+    width: 50%;
+}
+
+.w-6
+{
+    width: 60%;
+}
+
+.w-7
+{
+    width: 70%;
+}
+
+.w-8
+{
+    width: 80%;
+}
+
+.w-9
+{
+    width: 90%;
+}
+
+.w-10
+{
+    width: 100%;
 }
