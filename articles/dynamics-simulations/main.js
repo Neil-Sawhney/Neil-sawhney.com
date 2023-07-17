@@ -1,8 +1,6 @@
-import * as THREE from 'three';
+import * as THREE from './node_modules/three/build/three.module.js';
 
-import { FontLoader } from 'three/addons/loaders/FontLoader.js';
-import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
-import { Clock } from 'three/src/core/Clock.js';
+import { Clock } from './node_modules/three/src/core/Clock.js';
 
 
 const scene = new THREE.Scene();
