@@ -1,5 +1,5 @@
-import * as THREE from '/articles/dynamics-simulations/node_modules/three/build/three.module.js';
-import { Clock } from '/articles/dynamics-simulations/node_modules/three/src/core/Clock.js';
+import * as THREE from '/node_modules/three/build/three.module.js';
+import { Clock } from '/node_modules/three/src/core/Clock.js';
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
@@ -17,15 +17,6 @@ camera.rotateZ(Math.PI/2);
 camera.rotateY(Math.PI/4);
 camera.position.set(2, 2, 1);
 
-
-var axis = new THREE.Vector3(1, 1, 1);
-// Set the amount to rotate (in radians; e.g., 90 degrees)
-var angle = Math.PI / 2; // 90 degrees
-// Assuming `object` is the object you want to rotate
-// camera.rotateOnAxis(axis, angle);
-
-
-
 // Axes
 const axesHelper = new THREE.AxesHelper( 5 );
 scene.add( axesHelper );
@@ -33,13 +24,15 @@ scene.add( axesHelper );
 // Sphere
 const sphere = new THREE.Object3D();
 const geometry = new THREE.SphereGeometry(0.5, 25, 25);
-const material = new THREE.MeshBasicMaterial( { color: 0x005555, transparent: true, opacity: 1} );
+const material = new THREE.MeshBasicMaterial( { color: 0x00AAAA, transparent: true, opacity: 1} );
 const sphereGeom = new THREE.Mesh( geometry, material );
+
 const edges = new THREE.EdgesGeometry(geometry);
 const edgeMaterial = new THREE.LineBasicMaterial({color: 0x000000, linewidth: 2});
 const wireframe = new THREE.LineSegments(edges, edgeMaterial);
 sphere.add( sphereGeom );
 sphereGeom.add( wireframe );
+wireframe.rotateX(Math.PI/2);
 sphereGeom.position.set(0, 0, 0.5);
 scene.add( sphere );
 
