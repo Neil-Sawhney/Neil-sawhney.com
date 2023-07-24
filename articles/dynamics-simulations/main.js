@@ -189,7 +189,6 @@ function animate() {
         for (let i = 0; i < lines.length; i++) {
             scene.remove(lines[i]);
         }
-        var lightness = 1;
     }
 
     let phi = result.at(time)[0];
@@ -211,10 +210,15 @@ function animate() {
     var line = new THREE.Line( lineGeometry, lineMaterial );
 
     // FIXME: if statement is temporary untill line thing is fixed
-    if (time > 2){
-        scene.add(line);
-        lines.push(line);
+    if (time < 2) {
+        // remove all lines
+        for (let i = 0; i < lines.length; i++) {
+            scene.remove(lines[i]);
+        }
     }
+
+    scene.add(line);
+    lines.push(line);
 
     if (recentLines.push(line) > 10) {
         var oldestLine = recentLines.shift();
