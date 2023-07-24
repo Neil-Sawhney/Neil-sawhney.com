@@ -102,7 +102,8 @@ phi0Slider.oninput = function() {
 }
 
 theta0Slider.oninput = function() {
-    theta0 = this.value;
+    theta0 = Math.round(this.value);
+    theta0 = theta0 == 0 ? 1e-3 : theta0;
     document.getElementById("theta0Value").innerHTML = theta0;
     restart();
 }
@@ -114,19 +115,22 @@ psi0Slider.oninput = function() {
 }
 
 phiDot0Slider.oninput = function() {
-    phiDot0 = this.value
+    phiDot0 = Math.round(this.value);
+    phiDot0 = phiDot0 == 0 ? 1e-3 : phiDot0;
     document.getElementById("phiDot0Value").innerHTML = phiDot0;
     restart();
 }
 
 thetaDot0Slider.oninput = function() {
-    thetaDot0 = this.value;
+    thetaDot0 = Math.round(this.value);
+    thetaDot0 = thetaDot0 == 0 ? 1e-3 : thetaDot0;
     document.getElementById("thetaDot0Value").innerHTML = thetaDot0;
     restart();
 }
 
 psiDot0Slider.oninput = function() {
-    psiDot0 = this.value;
+    psiDot0 = Math.round(this.value);
+    psiDot0 = psiDot0 == 0 ? 1e-3 : psiDot0;
     document.getElementById("psiDot0Value").innerHTML = psiDot0;
     restart();
 }
