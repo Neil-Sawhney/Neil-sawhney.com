@@ -1,0 +1,19 @@
+body{
+    background-color: black;
+    color: white;
+}
+
+parameterWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 1vw;
+    width: 100vw;
+}
+
+.parameter {
+    margin: 1vw;
+}
+
+main {
+    width: 100vw;
+}

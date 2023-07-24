@@ -65,14 +65,81 @@ const I1 = 2/5 * m * Math.pow(l, 2); // moment of inertia about the first axis
 const I3 = 2/5 * m * Math.pow(l, 2); // moment of inertia about the third axis
 
 // Initial conditions
-let phi0 = 1e-3; // degrees
-let theta0 = 5; // degrees
-let psi0 = 1e-3; // degrees
-let phiDot0 = 1e-3; // degrees per second
-let thetaDot0 = 1e-3; // degrees per second
+let phi0 = 0; // degrees
+let theta0 = 10; // degrees
+let psi0 = 0; // degrees
+let phiDot0 = 1e-9; // degrees per second
+let thetaDot0 = 1e-9; // degrees per second
 let psiDot0 = 3000; // degrees per second
+let damping = 0.1; // decay of the ball's spin
 
-const psiDecay = 1.5; // decay of the ball's spin
+var phi0Slider = document.getElementById("phi0");
+var theta0Slider = document.getElementById("theta0");
+var psi0Slider = document.getElementById("psi0");
+var phiDot0Slider = document.getElementById("phiDot0");
+var thetaDot0Slider = document.getElementById("thetaDot0");
+var psiDot0Slider = document.getElementById("psiDot0");
+var dampingSlider = document.getElementById("damping");
+
+document.getElementById("phi0Value").innerHTML = phi0;
+document.getElementById("theta0Value").innerHTML = theta0;
+document.getElementById("psi0Value").innerHTML = psi0;
+document.getElementById("phiDot0Value").innerHTML = phiDot0;
+document.getElementById("thetaDot0Value").innerHTML = thetaDot0;
+document.getElementById("psiDot0Value").innerHTML = psiDot0;
+document.getElementById("dampingValue").innerHTML = damping;
+phi0Slider.value = phi0;
+theta0Slider.value = theta0;
+psi0Slider.value = psi0;
+phiDot0Slider.value = phiDot0;
+thetaDot0Slider.value = thetaDot0;
+psiDot0Slider.value = psiDot0;
+dampingSlider.value = damping;
+
+phi0Slider.oninput = function() {
+    phi0 = this.value;
+    document.getElementById("phi0Value").innerHTML = phi0;
+    restart();
+}
+
+theta0Slider.oninput = function() {
+    theta0 = this.value;
+    document.getElementById("theta0Value").innerHTML = theta0;
+    restart();
+}
+
+psi0Slider.oninput = function() {
+    psi0 = this.value;
+    document.getElementById("psi0Value").innerHTML = psi0;
+    restart();
+}
+
+phiDot0Slider.oninput = function() {
+    phiDot0 = Math.round(this.value);
+    document.getElementById("phiDot0Value").innerHTML = phiDot0;
+    restart();
+}
+
+thetaDot0Slider.oninput = function() {
+    thetaDot0 = Math.round(this.value);
+    document.getElementById("thetaDot0Value").innerHTML = thetaDot0;
+    restart();
+}
+
+psiDot0Slider.oninput = function() {
+    psiDot0 = Math.round(this.value);
+    document.getElementById("psiDot0Value").innerHTML = psiDot0;
+    restart();
+}
+
+dampingSlider.oninput = function() {
+    damping = Math.round((this.value/6000 * 3)*100)/100;
+    document.getElementById("dampingValue").innerHTML = damping;
+    restart();
+}
+
+
+
 
 
 // Your differential equations
@@ -82,7 +149,12 @@ const equations = function(t, y) {
     // Calculate second derivatives based on your equations
     let thetaDotDot = Math.sin(theta)*(m*g*l/I1 + Math.pow(phiDot, 2) * Math.cos(theta) - I3/I1 * Math.pow(phiDot, 2) * Math.cos(theta) - I3/I1*phiDot*psiDot);
     let phiDotDot = thetaDot/(I1*Math.sin(theta)) * (I3*psiDot + I3*phiDot*Math.cos(theta) - 2*I1*phiDot*Math.cos(theta));
-    let psiDotDot = -1/Math.tan(theta) *(I3/I1 *thetaDot * psiDot + I3/I1 * thetaDot * phiDot * Math.cos(theta) - 2*thetaDot*phiDot*Math.cos(theta)) + thetaDot*phiDot*Math.sin(theta) - psiDecay;
+    let psiDotDot = -1/Math.tan(theta) *(I3/I1 *thetaDot * psiDot + I3/I1 * thetaDot * phiDot * Math.cos(theta) - 2*thetaDot*phiDot*Math.cos(theta)) + thetaDot*phiDot*Math.sin(theta);
+
+    thetaDotDot -= thetaDotDot > 1e-6 ? damping * thetaDot : 1e-6;
+    phiDotDot -= phiDotDot > 1e-6 ? damping * phiDot : 1e-6;;
+    psiDotDot -= psiDotDot > 1e-6 ? damping * psiDot : 1e-6;
+
     return [phiDot, thetaDot, psiDot, phiDotDot, thetaDotDot, psiDotDot];
 };
 
@@ -100,12 +172,22 @@ let pointToTrace = new THREE.Vector3(0, 0.119*2, 0);
 var points = [];
 var lines = [];
 var recentLines = [];
+let animationId;
 
-const clock = new Clock();
+let clock = new Clock();
+let time = clock.getElapsedTime();
 function animate() {
-	requestAnimationFrame( animate );
+	animationId = requestAnimationFrame( animate );
 
-    let time = clock.getElapsedTime() % tf;
+    if (time >= tf) {
+        clock = new Clock();
+
+        // remove all lines
+        for (let i = 0; i < lines.length; i++) {
+            scene.remove(lines[i]);
+        }
+        var lightness = 1;
+    }
 
     let phi = result.at(time)[0];
     let theta = result.at(time)[1];
@@ -121,14 +203,6 @@ function animate() {
     var worldPointToTrace = basketballOffset.localToWorld(pointToTrace.clone());
     points.push(worldPointToTrace);
 
-    if (time < 1) {
-        // remove all lines
-        for (let i = 0; i < lines.length; i++) {
-            scene.remove(lines[i]);
-        }
-        var lightness = 1;
-    }
-
     var lineGeometry = new THREE.BufferGeometry().setFromPoints( points.slice(-2) );
     var lineMaterial = new THREE.LineBasicMaterial({ color: 0xFFFFFF });
     var line = new THREE.Line( lineGeometry, lineMaterial );
@@ -143,16 +217,21 @@ function animate() {
 
     }
 
+    time = clock.getElapsedTime();
+
 	renderer.render( scene, camera );
-}
+};
+
 window.onload = function() {
     animate();
 };
 
-function reset() {
-    points = [];
-    if (line) {
-        scene.remove(line);
-        line = undefined;
-    }
+let restart = function() {
+    cancelAnimationFrame(animationId);
+    // Call the ode solver
+    let y0 = [phi0 * Math.PI / 180, theta0 * Math.PI / 180, psi0 * Math.PI / 180, thetaDot0 * Math.PI / 180, phiDot0 * Math.PI / 180, psiDot0 * Math.PI / 180];
+    result = numeric.dopri(t0, tf, y0, equations, 1e-6, 5e4);
+
+    time = tf;
+    animate();
 }
