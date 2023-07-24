@@ -211,7 +211,7 @@ function animate() {
     var line = new THREE.Line( lineGeometry, lineMaterial );
 
     // FIXME: if statement is temporary untill line thing is fixed
-    if (time > 1){
+    if (time > 2){
         scene.add(line);
         lines.push(line);
     }
