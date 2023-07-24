@@ -210,7 +210,7 @@ function animate() {
     var line = new THREE.Line( lineGeometry, lineMaterial );
 
     // FIXME: if statement is temporary untill line thing is fixed
-    if (time < 2) {
+    if (time < 0.1) {
         // remove all lines
         for (let i = 0; i < lines.length; i++) {
             scene.remove(lines[i]);
