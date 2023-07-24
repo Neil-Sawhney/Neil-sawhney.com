@@ -210,9 +210,11 @@ function animate() {
     var lineMaterial = new THREE.LineBasicMaterial({ color: 0xFFFFFF });
     var line = new THREE.Line( lineGeometry, lineMaterial );
 
-    // Add this line to the scene and to the lines array
-    scene.add(line);
-    lines.push(line);
+    // FIXME: if statement is temporary untill line thing is fixed
+    if (time > 1){
+        scene.add(line);
+        lines.push(line);
+    }
 
     if (recentLines.push(line) > 10) {
         var oldestLine = recentLines.shift();
