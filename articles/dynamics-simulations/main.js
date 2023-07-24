@@ -67,8 +67,8 @@ const I3 = 2/5 * m * Math.pow(l, 2); // moment of inertia about the third axis
 let phi0 = 0; // degrees
 let theta0 = 10; // degrees
 let psi0 = 0; // degrees
-let phiDot0 = 1e-9; // degrees per second
-let thetaDot0 = 1e-9; // degrees per second
+let phiDot0 = 1e-3; // degrees per second
+let thetaDot0 = 1e-3; // degrees per second
 let psiDot0 = 3000; // degrees per second
 let damping = 0.1; // decay of the ball's spin
 
