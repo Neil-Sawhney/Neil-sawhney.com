@@ -26,6 +26,11 @@ topLight.position.set(500, 500, 500);
 topLight.castShadow = true;
 scene.add( topLight );
 
+const oppositeLight = new THREE.DirectionalLight( 0xffffff, 1);
+oppositeLight.position.set(-500, -500, -500);
+oppositeLight.castShadow = true;
+scene.add( oppositeLight );
+
 
 // Camera
 camera.position.set(0.3,0.5,0.3);
