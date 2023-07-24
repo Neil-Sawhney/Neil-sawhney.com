@@ -35,12 +35,6 @@ scene.add( oppositeLight );
 // Camera
 camera.position.set(0.3,0.5,0.3);
 camera.lookAt(0,0,0);
-// camera.position.set(2, 0, 0);
-// camera.lookAt(0, 0, 0);
-
-// camera.rotateZ(Math.PI/2);
-// camera.rotateY(Math.PI/4);
-// camera.position.set(2, 2, 1);
 
 // Axes
 const axesHelper = new THREE.AxesHelper( 5 );
@@ -121,18 +115,21 @@ psi0Slider.oninput = function() {
 
 phiDot0Slider.oninput = function() {
     phiDot0 = Math.round(this.value);
+    phiDot0 = phiDot0 == 0 ? 1e-3 : phiDot0;
     document.getElementById("phiDot0Value").innerHTML = phiDot0;
     restart();
 }
 
 thetaDot0Slider.oninput = function() {
     thetaDot0 = Math.round(this.value);
+    thetaDot0 = thetaDot0 == 0 ? 1e-3 : thetaDot0;
     document.getElementById("thetaDot0Value").innerHTML = thetaDot0;
     restart();
 }
 
 psiDot0Slider.oninput = function() {
     psiDot0 = Math.round(this.value);
+    psiDot0 = psiDot0 == 0 ? 1e-3 : psiDot0;
     document.getElementById("psiDot0Value").innerHTML = psiDot0;
     restart();
 }
