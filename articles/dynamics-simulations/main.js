@@ -103,7 +103,7 @@ phi0Slider.oninput = function() {
 
 theta0Slider.oninput = function() {
     theta0 = Math.round(this.value);
-    theta0 = theta0 == 0 ? 1e-3 : theta0;
+    theta0 = theta0 == 0 ? 1e-1 : theta0;
     document.getElementById("theta0Value").innerHTML = theta0;
     restart();
 }
