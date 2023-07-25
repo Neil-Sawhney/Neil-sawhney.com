@@ -63,105 +63,59 @@ const l = 0.119; // length to center of mass
 const I1 = 2/5 * m * Math.pow(l, 2); // moment of inertia about the first axis
 const I3 = 2/5 * m * Math.pow(l, 2); // moment of inertia about the third axis
 
-// Initial conditions
-let phi0 = 0; // degrees
-let theta0 = 10; // degrees
-let psi0 = 0; // degrees
-let phiDot0 = 1e-3; // degrees per second
-let thetaDot0 = 1e-3; // degrees per second
-let psiDot0 = 3000; // degrees per second
-let damping = 0.1; // decay of the ball's spin
+const Parameters = {
+    Phi: { value: 0, min: 0, max: 360},
+    Theta: { value: 10, min: 1e-1, max: 180},
+    Psi: { value: 0, min: 0, max: 360}, 
+    PhiDot: { value: 1e-3, min: 1e-3, max: 1000},
+    ThetaDot: { value: 1e-3, min: 1e-3, max: 300},
+    PsiDot: { value: 3000, min: 1e-3, max: 5000},
+    Damping: { value: 0.1, min: 0, max: 1}
+};
 
-var phi0Slider = document.getElementById("phi0");
-var theta0Slider = document.getElementById("theta0");
-var psi0Slider = document.getElementById("psi0");
-var phiDot0Slider = document.getElementById("phiDot0");
-var thetaDot0Slider = document.getElementById("thetaDot0");
-var psiDot0Slider = document.getElementById("psiDot0");
-var dampingSlider = document.getElementById("damping");
+let parameterWrapper = document.getElementsByTagName("parameterWrapper")[0];
 
-document.getElementById("phi0Value").innerHTML = phi0;
-document.getElementById("theta0Value").innerHTML = theta0;
-document.getElementById("psi0Value").innerHTML = psi0;
-document.getElementById("phiDot0Value").innerHTML = phiDot0;
-document.getElementById("thetaDot0Value").innerHTML = thetaDot0;
-document.getElementById("psiDot0Value").innerHTML = psiDot0;
-document.getElementById("dampingValue").innerHTML = damping;
-phi0Slider.value = phi0;
-theta0Slider.value = theta0;
-psi0Slider.value = psi0;
-phiDot0Slider.value = phiDot0;
-thetaDot0Slider.value = thetaDot0;
-psiDot0Slider.value = psiDot0;
-dampingSlider.value = damping;
+let y0 = [];
+function setupSlider(slider, output, parameter) {
+  output.innerHTML = parameter.value;
 
-phi0Slider.oninput = function() {
-    phi0 = this.value;
-    document.getElementById("phi0Value").innerHTML = phi0;
+  slider.min = parameter.min;
+  slider.max = parameter.max;
+  slider.value = parameter.value;
+
+  parameter.index = y0.push(parameter.value * Math.PI / 180) - 1;
+  slider.addEventListener("input", function() {
+    let variable = Math.round(this.value * 100) / 100 || parameter.min;
+    output.innerHTML = variable;
+    parameter.value = variable;
+    y0[parameter.index] = variable * Math.PI / 180;
     restart();
+  });
 }
 
-theta0Slider.oninput = function() {
-    theta0 = Math.round(this.value);
-    theta0 = theta0 == 0 ? 1e-1 : theta0;
-    document.getElementById("theta0Value").innerHTML = theta0;
-    restart();
-}
-
-psi0Slider.oninput = function() {
-    psi0 = this.value;
-    document.getElementById("psi0Value").innerHTML = psi0;
-    restart();
-}
-
-phiDot0Slider.oninput = function() {
-    phiDot0 = Math.round(this.value);
-    phiDot0 = phiDot0 == 0 ? 1e-3 : phiDot0;
-    document.getElementById("phiDot0Value").innerHTML = phiDot0;
-    restart();
-}
-
-thetaDot0Slider.oninput = function() {
-    thetaDot0 = Math.round(this.value);
-    thetaDot0 = thetaDot0 == 0 ? 1e-3 : thetaDot0;
-    document.getElementById("thetaDot0Value").innerHTML = thetaDot0;
-    restart();
-}
-
-psiDot0Slider.oninput = function() {
-    psiDot0 = Math.round(this.value);
-    psiDot0 = psiDot0 == 0 ? 1e-3 : psiDot0;
-    document.getElementById("psiDot0Value").innerHTML = psiDot0;
-    restart();
-}
-
-dampingSlider.oninput = function() {
-    damping = Math.round((this.value/6000 * 3)*100)/100;
-    document.getElementById("dampingValue").innerHTML = damping;
-    restart();
-}
-
-
-
-
+setupSlider(document.getElementById("phi0"), document.getElementById("phi0Value"), Parameters.Phi);
+setupSlider(document.getElementById("theta0"), document.getElementById("theta0Value"), Parameters.Theta);
+setupSlider(document.getElementById("psi0"), document.getElementById("psi0Value"), Parameters.Psi);
+setupSlider(document.getElementById("phiDot0"), document.getElementById("phiDot0Value"), Parameters.PhiDot);
+setupSlider(document.getElementById("thetaDot0"), document.getElementById("thetaDot0Value"), Parameters.ThetaDot);
+setupSlider(document.getElementById("psiDot0"), document.getElementById("psiDot0Value"), Parameters.PsiDot);
+setupSlider(document.getElementById("damping"), document.getElementById("dampingValue"), Parameters.Damping);
 
 // Your differential equations
 const equations = function(t, y) {
-    // y = [theta, phi, psi, thetaDot, phiDot, psiDot]
-    let phi = y[0], theta = y[1], psi = y[2], phiDot = y[3], thetaDot = y[4], psiDot = y[5];
+    let phi = y[Parameters.Phi.index], theta = y[Parameters.Theta.index], psi = y[Parameters.Psi.index], phiDot = y[Parameters.PhiDot.index], thetaDot = y[Parameters.ThetaDot.index], psiDot = y[Parameters.PsiDot.index];
+
     // Calculate second derivatives based on your equations
     let thetaDotDot = Math.sin(theta)*(m*g*l/I1 + Math.pow(phiDot, 2) * Math.cos(theta) - I3/I1 * Math.pow(phiDot, 2) * Math.cos(theta) - I3/I1*phiDot*psiDot);
     let phiDotDot = thetaDot/(I1*Math.sin(theta)) * (I3*psiDot + I3*phiDot*Math.cos(theta) - 2*I1*phiDot*Math.cos(theta));
     let psiDotDot = -1/Math.tan(theta) *(I3/I1 *thetaDot * psiDot + I3/I1 * thetaDot * phiDot * Math.cos(theta) - 2*thetaDot*phiDot*Math.cos(theta)) + thetaDot*phiDot*Math.sin(theta);
 
-    thetaDotDot -= thetaDotDot > 1e-6 ? damping * thetaDot : 1e-6;
-    phiDotDot -= phiDotDot > 1e-6 ? damping * phiDot : 1e-6;;
-    psiDotDot -= psiDotDot > 1e-6 ? damping * psiDot : 1e-6;
+    thetaDotDot -= thetaDotDot > 1e-6 ? Parameters.Damping.value * thetaDot : 1e-6;
+    phiDotDot -= phiDotDot > 1e-6 ? Parameters.Damping.value * phiDot : 1e-6;;
+    psiDotDot -= psiDotDot > 1e-6 ? Parameters.Damping.value * psiDot : 1e-6;
 
     return [phiDot, thetaDot, psiDot, phiDotDot, thetaDotDot, psiDotDot];
 };
-
-let y0 = [phi0 * Math.PI / 180, theta0 * Math.PI / 180, psi0 * Math.PI / 180, thetaDot0 * Math.PI / 180, phiDot0 * Math.PI / 180, psiDot0 * Math.PI / 180];
 
 // Time span
 let t0 = 0, tf = 20;
@@ -238,7 +192,6 @@ window.onload = function() {
 let restart = function() {
     cancelAnimationFrame(animationId);
     // Call the ode solver
-    let y0 = [phi0 * Math.PI / 180, theta0 * Math.PI / 180, psi0 * Math.PI / 180, thetaDot0 * Math.PI / 180, phiDot0 * Math.PI / 180, psiDot0 * Math.PI / 180];
     result = numeric.dopri(t0, tf, y0, equations, 1e-6, 5e4);
 
     time = tf;
