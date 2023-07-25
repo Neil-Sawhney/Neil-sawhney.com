@@ -63,43 +63,63 @@ const l = 0.119; // length to center of mass
 const I1 = 2/5 * m * Math.pow(l, 2); // moment of inertia about the first axis
 const I3 = 2/5 * m * Math.pow(l, 2); // moment of inertia about the third axis
 
+let y0 = [];
 const Parameters = {
-    Phi: { value: 0, min: 0, max: 360},
-    Theta: { value: 10, min: 1e-1, max: 180},
-    Psi: { value: 0, min: 0, max: 360}, 
-    PhiDot: { value: 1e-3, min: 1e-3, max: 1000},
-    ThetaDot: { value: 1e-3, min: 1e-3, max: 300},
-    PsiDot: { value: 3000, min: 1e-3, max: 5000},
-    Damping: { value: 0.1, min: 0, max: 1}
+    Phi: { value: 0, min: 0, max: 360, id: '\\( \\phi_0 \\)' },
+    Theta: { value: 10, min: 1e-1, max: 180, id: '\\( \\theta_0 \\)'},
+    Psi: { value: 0, min: 0, max: 360, id: '\\( \\psi_0 \\)'},
+    PhiDot: { value: 1e-3, min: 1e-3, max: 1000, id: '\\( \\dot{\\phi}_0 \\)'},
+    ThetaDot: { value: 1e-3, min: 1e-3, max: 300, id: '\\( \\dot{\\theta}_0 \\)'},
+    PsiDot: { value: 3000, min: 1e-3, max: 5000, id: '\\( \\dot{\\psi}_0 \\)'},
+    Damping: { value: 0.1, min: 0, max: 2, id: 'damping'},
 };
 
-let parameterWrapper = document.getElementsByTagName("parameterWrapper")[0];
+function setupSlider(parameter) {
+    let parameterWrapper = document.getElementsByTagName("parameterWrapper")[0];
 
-let y0 = [];
-function setupSlider(slider, output, parameter) {
-  output.innerHTML = parameter.value;
+    // create a wrapper for the slider within parameterWrapper
+    let sliderWrapper = document.createElement("sliderWrapper");
+    parameterWrapper.appendChild(sliderWrapper);
 
-  slider.min = parameter.min;
-  slider.max = parameter.max;
-  slider.value = parameter.value;
+    // create a label for the slider
+    let label = document.createElement("label");
+    label.innerText = parameter.id;
+    label.htmlFor = parameter.id;
+    sliderWrapper.appendChild(label);
 
-  parameter.index = y0.push(parameter.value * Math.PI / 180) - 1;
-  slider.addEventListener("input", function() {
-    let variable = Math.round(this.value * 100) / 100 || parameter.min;
-    output.innerHTML = variable;
-    parameter.value = variable;
-    y0[parameter.index] = variable * Math.PI / 180;
-    restart();
-  });
+    // create the slider
+    let slider = document.createElement("input");
+    slider.type = "range";
+    slider.class = "slider";
+    sliderWrapper.appendChild(slider);
+
+    // create the output
+    let output = document.createElement("output");
+    sliderWrapper.appendChild(output);
+
+    slider.min = parameter.min;
+    slider.max = parameter.max;
+    slider.value = parameter.value;
+    slider.step = 0.01;
+    output.innerHTML = parameter.value;
+
+    parameter.index = y0.push(parameter.value * Math.PI / 180) - 1;
+    slider.addEventListener("input", function() {
+        let variable = Math.round(this.value * 100) / 100 || parameter.min;
+        output.innerHTML = variable;
+        parameter.value = variable;
+        y0[parameter.index] = variable * Math.PI / 180;
+        restart();
+    });
 }
 
-setupSlider(document.getElementById("phi0"), document.getElementById("phi0Value"), Parameters.Phi);
-setupSlider(document.getElementById("theta0"), document.getElementById("theta0Value"), Parameters.Theta);
-setupSlider(document.getElementById("psi0"), document.getElementById("psi0Value"), Parameters.Psi);
-setupSlider(document.getElementById("phiDot0"), document.getElementById("phiDot0Value"), Parameters.PhiDot);
-setupSlider(document.getElementById("thetaDot0"), document.getElementById("thetaDot0Value"), Parameters.ThetaDot);
-setupSlider(document.getElementById("psiDot0"), document.getElementById("psiDot0Value"), Parameters.PsiDot);
-setupSlider(document.getElementById("damping"), document.getElementById("dampingValue"), Parameters.Damping);
+setupSlider(Parameters.Phi);
+setupSlider(Parameters.Theta);
+setupSlider(Parameters.Psi);
+setupSlider(Parameters.PhiDot);
+setupSlider(Parameters.ThetaDot);
+setupSlider(Parameters.PsiDot);
+setupSlider(Parameters.Damping);
 
 // Your differential equations
 const equations = function(t, y) {

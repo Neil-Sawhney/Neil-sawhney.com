@@ -6,11 +6,11 @@ body{
 parameterWrapper {
     display: flex;
     flex-wrap: wrap;
-    margin: 1vw;
+    margin: 20px;
     width: 100vw;
 }
 
-.parameter {
+sliderWrapper {
     margin: 1vw;
 }
 
