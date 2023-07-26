@@ -83,8 +83,6 @@ loader.load( './assets/hand.glb?v=${cacheBuster}', function ( gltf ) {
 const g = 9.80665; // acceleration due to gravity
 const m = 0.635; // mass of the ball
 const l = 0.119; // length to center of mass
-const I1 = 2/5 * m * Math.pow(l, 2); // moment of inertia about the first axis
-const I3 = 2/5 * m * Math.pow(l, 2); // moment of inertia about the third axis
 
 let y0 = [];
 const Parameters = {
@@ -93,7 +91,7 @@ const Parameters = {
     Psi: { value: 0, min: 0, max: 360, id: '\\( \\psi_0 \\)', units: '\\( ^{\\circ} \\)'},
     PhiDot: { value: 1e-3, min: 1e-3, max: 1000, id: '\\( \\dot{\\phi}_0 \\)', units: ' \\( \\frac{deg}{s} \\)'},
     ThetaDot: { value: 1e-3, min: 1e-3, max: 300, id: '\\( \\dot{\\theta}_0 \\)', units: ' \\( \\frac{deg}{s} \\)'},
-    PsiDot: { value: 3000, min: 1e-3, max: 5000, id: '\\( \\dot{\\psi}_0 \\)', units: ' \\( \\frac{deg}{s} \\)'},
+    PsiDot: { value: 5000, min: 1e-3, max: 10000, id: '\\( \\dot{\\psi}_0 \\)', units: ' \\( \\frac{deg}{s} \\)'},
     Damping: { value: 0.1, min: 0, max: 2, id: 'Damping', units: ''},
     Time: { value: 10, min: 1, max: 60, id: 'Run Time', units: ' \\( s \\)'}
 };
@@ -151,14 +149,13 @@ setupSlider(Parameters.PsiDot);
 setupSlider(Parameters.Damping);
 setupSlider(Parameters.Time);
 
-// Differential Equations
 const equations = function(t, y) {
     let phi = y[Parameters.Phi.index], theta = y[Parameters.Theta.index], psi = y[Parameters.Psi.index], phiDot = y[Parameters.PhiDot.index], thetaDot = y[Parameters.ThetaDot.index], psiDot = y[Parameters.PsiDot.index];
 
     // Calculate second derivatives based on your equations
-    let thetaDotDot = Math.sin(theta)*(m*g*l/I1 + Math.pow(phiDot, 2) * Math.cos(theta) - I3/I1 * Math.pow(phiDot, 2) * Math.cos(theta) - I3/I1*phiDot*psiDot);
-    let phiDotDot = thetaDot/(I1*Math.sin(theta)) * (I3*psiDot + I3*phiDot*Math.cos(theta) - 2*I1*phiDot*Math.cos(theta));
-    let psiDotDot = -1/Math.tan(theta) *(I3/I1 *thetaDot * psiDot + I3/I1 * thetaDot * phiDot * Math.cos(theta) - 2*thetaDot*phiDot*Math.cos(theta)) + thetaDot*phiDot*Math.sin(theta);
+    let psiDotDot = -(5*Math.sin(theta)*phiDot + (2*psiDot)/Math.tan(theta) - (12*phiDot)/(Math.sin(theta)))*thetaDot/7;
+    let thetaDotDot = (5*g*Math.sin(theta))/(7*l) - (5*Math.sin(psi - 3*theta)*Math.sin(psi)*Math.pow(phiDot,2))/(56*Math.sin(theta)) + (5*Math.sin(psi + theta)*Math.sin(psi)*Math.pow(phiDot,2))/(56*Math.sin(theta)) - (5*Math.sin(psi)*Math.cos(psi + theta)*Math.cos(theta)*Math.pow(phiDot,2))/14 + (5*Math.sin(theta)*Math.pow(Math.cos(psi), 2)*Math.cos(theta)*Math.pow(phiDot,2))/7 - (2*Math.sin(theta)*phiDot*psiDot)/7
+    let phiDotDot = -(2*(6*Math.cos(theta)*phiDot - psiDot)*thetaDot)/(7*Math.sin(theta))
 
     thetaDotDot -= thetaDotDot > 1e-6 ? Parameters.Damping.value * thetaDot : 1e-6;
     phiDotDot -= phiDotDot > 1e-6 ? Parameters.Damping.value * phiDot : 1e-6;;
