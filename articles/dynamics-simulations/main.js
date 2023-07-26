@@ -47,8 +47,9 @@ scene.add( axesHelper );
 const basketballOffset = new THREE.Object3D();
 let basketball;
 const loader = new GLTFLoader();
+const cacheBuster = new Date().getTime(); // Get the current timestamp
 
-loader.load( './assets/basketball.glb', function ( gltf ) {
+loader.load( './assets/basketball.glb?v=${cacheBuster}', function ( gltf ) {
     basketball = gltf.scene;
     basketball.scale.set(0.119/1.6143269538879395, 0.119/1.6143269538879395, 0.119/1.6143269538879395);
     basketball.position.set(0, 0.119, 0);
@@ -58,7 +59,7 @@ loader.load( './assets/basketball.glb', function ( gltf ) {
 );
 scene.add(basketballOffset)
 
-loader.load( './assets/hand.glb', function ( gltf ) {
+loader.load( './assets/hand.glb?v=${cacheBuster}', function ( gltf ) {
     // apply a metal material
     let handMaterial = new THREE.MeshStandardMaterial( {
         color: 0x888888,
