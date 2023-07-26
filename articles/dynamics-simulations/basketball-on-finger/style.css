@@ -1,0 +1,20 @@
+body{
+    background-color: black;
+    color: white;
+    overflow: hidden;
+}
+
+parameterWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 20px;
+    width: 100vw;
+}
+
+sliderWrapper {
+    margin: 1vw;
+}
+
+main {
+    width: 100vw;
+}
