@@ -22,14 +22,17 @@ controls.update();
 
 // Light
 const topLight = new THREE.DirectionalLight( 0xffffff, 1);
-topLight.position.set(500, 500, 500);
+topLight.position.set(5, 5, 5);
 topLight.castShadow = true;
 scene.add( topLight );
 
-const oppositeLight = new THREE.DirectionalLight( 0xffffff, 1);
-oppositeLight.position.set(-500, -500, -500);
+const oppositeLight = new THREE.DirectionalLight( 0xffffff, 0.3);
+oppositeLight.position.set(-5, -5, -10);
 oppositeLight.castShadow = true;
 scene.add( oppositeLight );
+
+const ambientLight = new THREE.AmbientLight( 0x404040 ); // soft white light
+scene.add( ambientLight );
 
 
 // Camera
@@ -40,7 +43,7 @@ camera.lookAt(0,0,0);
 const axesHelper = new THREE.AxesHelper( 5 );
 scene.add( axesHelper );
 
-// Load model
+// Load models
 const basketballOffset = new THREE.Object3D();
 let basketball;
 const loader = new GLTFLoader();
@@ -54,6 +57,25 @@ loader.load( './assets/basketball.glb', function ( gltf ) {
 }
 );
 scene.add(basketballOffset)
+
+loader.load( './assets/hand.glb', function ( gltf ) {
+    // apply a metal material
+    let handMaterial = new THREE.MeshStandardMaterial( {
+        color: 0x888888,
+        roughness: 0.5,
+    } );
+    let hand = gltf.scene;
+    hand.scale.set(1,1,1);
+    hand.rotation.set(0, 0, -Math.PI/2);
+    hand.position.set(-1.468,-.868, -.1);
+    hand.traverse( function ( child ) {
+        if ( child.isMesh ) {
+            child.material = handMaterial;
+        }
+    } );   
+    scene.add( hand );
+}
+);
 
 
 // Constants
