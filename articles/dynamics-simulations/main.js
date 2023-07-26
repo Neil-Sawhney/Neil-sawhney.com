@@ -88,13 +88,14 @@ const I3 = 2/5 * m * Math.pow(l, 2); // moment of inertia about the third axis
 
 let y0 = [];
 const Parameters = {
-    Phi: { value: 0, min: 0, max: 360, id: '\\( \\phi_0 \\)' },
-    Theta: { value: 10, min: 1e-1, max: 180, id: '\\( \\theta_0 \\)'},
-    Psi: { value: 0, min: 0, max: 360, id: '\\( \\psi_0 \\)'},
-    PhiDot: { value: 1e-3, min: 1e-3, max: 1000, id: '\\( \\dot{\\phi}_0 \\)'},
-    ThetaDot: { value: 1e-3, min: 1e-3, max: 300, id: '\\( \\dot{\\theta}_0 \\)'},
-    PsiDot: { value: 3000, min: 1e-3, max: 5000, id: '\\( \\dot{\\psi}_0 \\)'},
-    Damping: { value: 0.1, min: 0, max: 2, id: 'damping'},
+    Phi: { value: 0, min: 0, max: 360, id: '\\( \\phi_0 \\)', units: '\\( ^{\\circ} \\)' },
+    Theta: { value: 10, min: 1e-1, max: 180, id: '\\( \\theta_0 \\)', units: '\\( ^{\\circ} \\)'},
+    Psi: { value: 0, min: 0, max: 360, id: '\\( \\psi_0 \\)', units: '\\( ^{\\circ} \\)'},
+    PhiDot: { value: 1e-3, min: 1e-3, max: 1000, id: '\\( \\dot{\\phi}_0 \\)', units: ' \\( \\frac{deg}{s} \\)'},
+    ThetaDot: { value: 1e-3, min: 1e-3, max: 300, id: '\\( \\dot{\\theta}_0 \\)', units: ' \\( \\frac{deg}{s} \\)'},
+    PsiDot: { value: 3000, min: 1e-3, max: 5000, id: '\\( \\dot{\\psi}_0 \\)', units: ' \\( \\frac{deg}{s} \\)'},
+    Damping: { value: 0.1, min: 0, max: 2, id: 'Damping', units: ''},
+    Time: { value: 10, min: 1, max: 60, id: 'Run Time', units: ' \\( s \\)'}
 };
 
 function setupSlider(parameter) {
@@ -126,6 +127,11 @@ function setupSlider(parameter) {
     slider.step = 0.01;
     output.innerHTML = parameter.value;
 
+    // create the units
+    let units = document.createElement("units");
+    units.innerHTML = parameter.units;
+    sliderWrapper.appendChild(units);
+
     parameter.index = y0.push(parameter.value * Math.PI / 180) - 1;
     slider.addEventListener("input", function() {
         let variable = Math.round(this.value * 100) / 100 || parameter.min;
@@ -143,8 +149,9 @@ setupSlider(Parameters.PhiDot);
 setupSlider(Parameters.ThetaDot);
 setupSlider(Parameters.PsiDot);
 setupSlider(Parameters.Damping);
+setupSlider(Parameters.Time);
 
-// Your differential equations
+// Differential Equations
 const equations = function(t, y) {
     let phi = y[Parameters.Phi.index], theta = y[Parameters.Theta.index], psi = y[Parameters.Psi.index], phiDot = y[Parameters.PhiDot.index], thetaDot = y[Parameters.ThetaDot.index], psiDot = y[Parameters.PsiDot.index];
 
@@ -161,10 +168,10 @@ const equations = function(t, y) {
 };
 
 // Time span
-let t0 = 0, tf = 20;
+let t0 = 0, tf = Parameters.Time.value;
 
 // Call the ode solver
-let result = numeric.dopri(t0, tf, y0, equations, 1e-6, 5e4);
+let result = numeric.dopri(t0, Parameters.Time.value, y0, equations, 1e-6, 5e4);
 
 console.log(result)
 
@@ -179,7 +186,7 @@ let time = clock.getElapsedTime();
 function animate() {
 	animationId = requestAnimationFrame( animate );
 
-    if (time >= tf) {
+    if (time >= Parameters.Time.value) {
         clock = new Clock();
 
         // remove all lines
@@ -235,8 +242,8 @@ window.onload = function() {
 let restart = function() {
     cancelAnimationFrame(animationId);
     // Call the ode solver
-    result = numeric.dopri(t0, tf, y0, equations, 1e-6, 5e4);
+    result = numeric.dopri(t0, Parameters.Time.value, y0, equations, 1e-6, 5e4);
 
-    time = tf;
+    time = Parameters.Time.value;
     animate();
 }
