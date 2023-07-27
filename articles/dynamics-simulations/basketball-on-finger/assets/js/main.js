@@ -37,7 +37,7 @@ scene.add( ambientLight );
 
 // Camera
 camera.position.set(0.3,0.5,0.3);
-camera.lookAt(0,0,0);
+camera.lookAt(0,-0.2,0);
 
 // Axes
 const axesHelper = new THREE.AxesHelper( 5 );
@@ -49,7 +49,7 @@ let basketball;
 const loader = new GLTFLoader();
 const cacheBuster = new Date().getTime(); // Get the current timestamp
 
-loader.load( './assets/basketball.glb?v=${cacheBuster}', function ( gltf ) {
+loader.load( './assets/3d-models/basketball.glb?v=${cacheBuster}', function ( gltf ) {
     basketball = gltf.scene;
     basketball.scale.set(0.119/1.6143269538879395, 0.119/1.6143269538879395, 0.119/1.6143269538879395);
     basketball.position.set(0, 0.119, 0);
@@ -59,7 +59,7 @@ loader.load( './assets/basketball.glb?v=${cacheBuster}', function ( gltf ) {
 );
 scene.add(basketballOffset)
 
-loader.load( './assets/hand.glb?v=${cacheBuster}', function ( gltf ) {
+loader.load( './assets/3d-models/hand.glb?v=${cacheBuster}', function ( gltf ) {
     // apply a metal material
     let handMaterial = new THREE.MeshStandardMaterial( {
         color: 0x888888,
@@ -93,7 +93,7 @@ const Parameters = {
     ThetaDot: { value: 1e-3, min: 1e-3, max: 300, id: '\\( \\dot{\\theta}_0 \\)', units: ' \\( \\frac{deg}{s} \\)'},
     PsiDot: { value: 5000, min: 1e-3, max: 10000, id: '\\( \\dot{\\psi}_0 \\)', units: ' \\( \\frac{deg}{s} \\)'},
     Damping: { value: 0.1, min: 0, max: 2, id: 'Damping', units: ''},
-    Time: { value: 10, min: 1, max: 60, id: 'Run Time', units: ' \\( s \\)'}
+    Time: { value: 20, min: 1, max: 60, id: 'Run Time', units: ' \\( s \\)'}
 };
 
 function setupSlider(parameter) {
