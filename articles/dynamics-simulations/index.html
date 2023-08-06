@@ -28,6 +28,40 @@
     <link rel="stylesheet" type="text/css" href="../../assets/css/elements.css">
     <link rel="stylesheet" type="text/css" href="../../assets/css/colors.css">
     <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
+
+    <!-- Load mathjax -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS_CHTML-full,Safe"> </script>
+    <!-- MathJax configuration -->
+    <script type="text/x-mathjax-config">
+    init_mathjax = function() {
+        if (window.MathJax) {
+        // MathJax loaded
+            MathJax.Hub.Config({
+                TeX: {
+                    equationNumbers: {
+                    autoNumber: "AMS",
+                    useLabelIds: true
+                    }
+                },
+                tex2jax: {
+                    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                    processEscapes: true,
+                    processEnvironments: true
+                },
+                displayAlign: 'center',
+                CommonHTML: {
+                    linebreaks: {
+                    automatic: true
+                    }
+                }
+            });
+
+            MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+        }
+    }
+    init_mathjax();
+    </script>
 </head>
 
 <body>
@@ -136,9 +170,9 @@
             <!-- /SECTION ( TITLE ) -->
 
             <p class="m-t-6 color-white"> If you've worked with some advanced dynamics problems, you'll know that it's often next to impossible to derive the equations of motion by hand.</p>
-            
-            <p class="m-t-6">While most courses will teach you how to solve these kinds of systems using matrices in matlab or python, I'll show you how to use the Sympy.physics.mechanics module in python to solve for the equations of motion symbolically.</p>
-            
+
+            <p class="m-t-2">While most courses will teach you how to solve these kinds of systems using matrices in matlab or python, I'll show you how to use the Sympy.physics.mechanics module in python to solve for the equations of motion symbolically.</p>
+
             <p class="m-t-2">These can then be visualized by numerical integration of the equations of motion. Below is a visualization I made of a basketball spinning on a finger, which we will use as an example.</p>
 
             <iframe class="m-t-6 simulation" src="./basketball-on-finger/index.html" width="70%" height="700rem"></iframe>
@@ -148,10 +182,20 @@
                 <h3>Pros of using this method</h3>
                 <ul>
                     <li class="m-t-2">
-                        <p>PlatformIO is versatile and can be used for programming a vast variety of microcontrollers and development boards in almost any language and framework, as opposed to MPLAB which is only used for programming their microcontroller families.</p>
+                        <p>
+                            When you're dealing with vectors, you noramlly have to be very concious about what frame of reference it is expressed in. When using multiple vectors in an equation, you normally must first make sure to apply the approriate rotation matrices to each vector to ensure that they are expressed in the same frame.
+
+                            However, when using the sympy.physics.mechanics module, vectors are defined in any frame of reference you want, and the module will take care of the rotation matrices in the background, allowing you to multiply vectors without worrying about which frame they are expressed in.
+
+                            When you want to print out the result of your equation, you can use the express() funtion, which will print it out in the frame of reference you specify.</p>
+                        <p>
+                            Because the sympy.physics.mechanics module uses symbolic python (sympy) you obtain exact solutions instead of numerical approximations.
+                        </p>
                     </li>
                     <li class="m-t-2">
-                        <p>If you're an avid programmer, there's a high chance you're already using and familiar with VSCode as opposed to MPLAB. Instead of learning many different ide's for each purpose, you can use one.</p>
+                        <p>
+                            The sympy.physics.mechanics module includes many useful functions for solving dynamics problems that bypass some of the more tedious steps. For example, the angular velocity of a frame e_b wrt to frame N whose position has been defined wrt any number of other fully defined frames in terms of any number of translation/rotation variables can be found in terms of those variables using e_b.ang_vel_in(N), and the direction cosine matrix of frame e_b wrt to N can be easily found by e_b.dcm(N).
+                        </p>
                     </li>
                 </ul>
 
@@ -159,17 +203,17 @@
                 <h3>Cons of using this method</h3>
                 <ul>
                     <li class="m-t-2">
-                        <p>MPLAB provides official, dedicated support and seamless compatibility with Microchip's microcontrollers.</p>
-                    </li>
-                    <li class="m-t-2">
-                        <p>Built-in tools in MPLAB are tailored for Microchip's devices, offering better integration than PlatformIO and VSCode.</p>
+                        <p>
+                            The sympy.physics.mechanics module has minimal documentation, and it can be difficult to find examples of how to use it.
+                        </p>
+                        <p>
+                            If you're taking a class on advanced dynamics, you should probably learn how to solve these problems by hand first, as it will help you understand the concepts better and catch mistakes when you notice an equation that doesn't make sense.
+                        </p>
                     </li>
                 </ul>
 
             </div>
 
-
-            <p class="m-t-6 color-white"> There are good motives for both methods, but personally I prefer the VSCode route. Unfortanately i've found this method to be somewhat tricky to get started without lots of research, despite being extremely simple. Hopefully this article solves that problem.</p>
 
             <h3 class="m-t-6"> Some prerequisites/supplies to follow this guide:</h3>
 
@@ -181,180 +225,70 @@
                     <p>VSCode installed + familiarity of the basics</p>
                 </div>
                 <div class="pill">
-                    <p>Basic breadboarding ability</p>
+                    <p>Jupyter Notebook installed + familiarity of the basics</p>
                 </div>
                 <div class="pill">
-                    <p>An AVR Microntroller</p>
-                </div>
-                <div class="pill">
-                    <p>A Programmer for the Microcontroller (can be any arduino or esp)</p>
+                    <p>A basic understanding of dynamics</p>
                 </div>
 
             </div>
+
+            <p class="m-t-3 color-white">
+                The Jupyter Notebook code for this project can be found <a class="externLink" href="https://github.com/Neil-Sawhney/SpaceDynamics_SpinningBasketball" target="_blank">here</a>.
+
+                The javascript code for the visualization shown above can be found using the developer console of your browser <a class="externLink" href="./basketball-on-finger/" target="_blank">here</a>.
+            </p>
+
             <!-- /PREREQUISITES -->
-            <h3 class="step"> Step 1: Install The PlatformIO Extension in VSCode</h3>
-            <img class="w-7" src="./assets/images/platformIOExtension.png" alt="">
+            <h3 class="step">Jupyter Cell 1: Setup reference frames using a 3-1-3 Euler angle sequence. </h3>
 
+            <div class="code">
+                <iframe src="https://carbon.now.sh/embed?bg=rgba%280%2C0%2C0%2C0%29&t=panda-syntax&wt=boxy&l=python&width=508&ds=false&dsyoff=65px&dsblur=81px&wc=false&wa=true&pv=0px&ph=0px&ln=true&fl=1&fm=Hack&fs=14px&lh=137%25&si=false&es=2x&wm=false&code=from%2520IPython.display%2520import%2520Markdown%250Aimport%2520sympy%2520as%2520sp%250Afrom%2520sympy.physics.mechanics%2520import%2520*%250Atheta%252C%2520phi%252C%2520psi%2520%253D%2520dynamicsymbols%28%27theta%2520phi%2520psi%27%29%250A%250AN%2520%253D%2520ReferenceFrame%28%27N%27%29%250AA%2520%253D%2520N.orientnew%28%27A%27%252C%2520%27Axis%27%252C%2520%255Bphi%252C%2520N.z%255D%29%250AB%2520%253D%2520A.orientnew%28%27B%27%252C%2520%27Axis%27%252C%2520%255Btheta%252C%2520A.x%255D%29%250Ae_b%2520%253D%2520B.orientnew%28%27e_b%27%252C%2520%27Axis%27%252C%2520%255Bpsi%252C%2520B.z%255D%29%250A%250ADCMphi%2520%253D%2520A.dcm%28N%29%250ADCMtheta%2520%253D%2520B.dcm%28A%29%250ADCMpsi%2520%253D%2520e_b.dcm%28B%29%250ADCM%2520%253D%2520DCMphi%2520*%2520DCMtheta%2520*%2520DCMpsi%250A%250Aomega%2520%253D%2520e_b.ang_vel_in%28N%29%250Adisplay%28Markdown%28r%27%2524%255Comega_%257BB%252FN%257D%255E%257B%28b%29%257D%2520%253D%2520%27%2520%252B%2520sp.latex%28omega.express%28e_b%29.simplify%28%29%29%2520%252B%2520r%27%2524%27%29%2520%2520%2520" style="width: 508px; height: 374px; border:0; transform: scale(1); overflow:hidden;" sandbox="allow-scripts allow-same-origin">
+                </iframe>
 
-            <h3 class="step">OPTIONAL STEP: Set up an arduino or esp as a programmer</h3>
-            <p class="m-t-3">Dont have a programmer? Neither do I, but I do have a ton of arduinos and esp32's and esp8266's laying around, so lets convert one of those into an AVRISP programmer.</p>
-            <p class="m-t-3">I'm using an esp8266 mounted on a WeMos D1 mini Dev board.</p>
-            <p class="m-t-3">Lucky for us, code to make our board act as an AVRISP is provided to us by the arduino foundation as example code. You can go ahead and pull up that example code in the Arduino IDE, make the neccessary pin changes, and upload it. That being said, we have platformIO now, so let's get some practice using that instead.</p>
-            <p class="m-t-3 color-white">Download the arduino example code from the following <a class="externLink" href="https://gist.github.com/srmq/0217a2844a9d82a6913ff989472a98dd" target="_blank">github repo.</a></p>
-            <p class="m-t-3 color-white"> In VSCode, Click the PlatformIO icon (the alien) in the bottom left corner of VSCode and click "PIO Home → Open" under QUICK ACCESS.</p>
-            <p class="m-t-3">If you're using an esp family board, make sure to install the correct platform for that board, in my case it is the "Espressif 8266" platform. Click on "Platforms" on the left, then "Embedded" on the top, then finally find and click on "Espressif 8266" and install it.
-            <p class="m-t-3 color-white">Click on "Import Arduino Project", and select the place in which you saved the example code (make sure to unzip it first). Also select your board in the dropdown, in my case, I've selected "WeMos D1 R2 and mini (WEMOS). Click "Import".</p>
-            <img src="./assets/images/importArduino.png" alt="">
-            <p class="m-t-3 color-white">Find the following lines of code in the folder named "src".</p>
-            <pre><code>
-// The standard pin configuration.
-#ifndef ARDUINO_HOODLOADER2
-
-#define RESET     10 // Use pin 10 to reset the target rather than SS
-#define LED_HB    9
-#define LED_ERR   8
-#define LED_PMODE 7
-
-            </pre></code> 
-            <p class="m-t-3">GPIO7 - 10 on my board is not accessible, so I changed this to the following, note that the D infront of the number specifies that i'm referring to the digital pin (the label on the dev board) and not the gpio pin.</p>
-            <pre><code>
-// The standard pin configuration.
-#ifndef ARDUINO_HOODLOADER2
-
-#define RESET     D8 // Use pin 10 to reset the target rather than SS
-#define LED_HB    D1
-#define LED_ERR   D2
-#define LED_PMODE D3
-            </pre></code>
-            <p class="m-t-3">Wire LED's to the defined LED pins for some extra debugging info during programming.</p>
-            <p class="m-t-3 color-white">You may have to add the following lines to your platformio.ini with your boards upload speed, and the com port that your board is plugged into.</p>
-            <pre><code>
-upload_speed = 9600
-upload_port = COM10
-            </pre></code>
-            <p class="m-t-3 color-white"> Otherwise, That's it for the programmer software! Go ahead and upload the code! You can do so by clicking ctrl-alt-u or finding the dropdown next to the checkmark in the top right, and pressing "Upload".</p>
-
-            <p class="m-t-3 color-white">All that's left is to connect the MOSI, MISO, SCK, VCC, GND and the RESET pin (which we just defined) on your programmer to the respective pins on your microcontroller. You should be able to find this by googling the pinout of the two boards. Here is the wiring for the ATMega8 to the WeMoS D1 mini.</p>
-            <dev class="flex">
-                <img src="./assets/images/ATMEGA8toAVRISP.jpg" alt="">
-                <img src="./assets/images/WeMosD1mini.jpg" alt="">
-            </dev>
-
-
-
-            <h3 class="step"> Step 2: Create a new project</h3>
-            <p class="m-t-3 color-white"> Click the PlatformIO icon (the alien) in the bottom left corner of VSCode and click "PIO Home → Open" under QUICK ACCESS.</p>
-            <p class="m-t-3">We need to add the Atmel AVR Platform so that we can get access to all the necessary libraries for using the IO Ports on our microcontroller. This also automatically defines certain board specific variables that will help make uploading work properly.</p>
-            <p class="m-t-3 color-white" id="platformInstall">Click on "Platforms" on the left, then "Embedded" on the top, then finally find and click on "Atmel AVR" and install it. The default version should be fine.</p>
-            <div class="flex">
-                <img src="./assets/images/AtmelPlatform.png" alt="">
-                <img src="./assets/images/install.png" alt="">
+                <div class="jp-output">
+                    $\omega_{B/N}^{(b)} = (\sin{\left(\psi{\left(t \right)} \right)} \sin{\left(\theta{\left(t \right)} \right)} \frac{d}{d t} \phi{\left(t \right)} + \cos{\left(\psi{\left(t \right)} \right)} \frac{d}{d t} \theta{\left(t \right)})\mathbf{\hat{e_b}_x} + (- \sin{\left(\psi{\left(t \right)} \right)} \frac{d}{d t} \theta{\left(t \right)} + \sin{\left(\theta{\left(t \right)} \right)} \cos{\left(\psi{\left(t \right)} \right)} \frac{d}{d t} \phi{\left(t \right)})\mathbf{\hat{e_b}_y} + (\cos{\left(\theta{\left(t \right)} \right)} \frac{d}{d t} \phi{\left(t \right)} + \frac{d}{d t} \psi{\left(t \right)})\mathbf{\hat{e_b}_z}$</div>
             </div>
-            <p class="m-t-6 color-white">Sweet, now lets create our new project. Go back to "PIO Home → Open", and click the "New Project" button.</p>
-            <p class="m-t-6 color-white">Name the project whatever you want. In my case my board is an ATmega8, but select whichever board you are using. Feel free to change the location your project is saved by unchecking the "Use default location" box. Click Finish.</p>
-            <img src="./assets/images/createProject.png" alt="">
 
-
-            <h3 class="step">Step 3: Edit the platformio.ini file in your project</h3>
-            <p class="m-t-3 color-white">First thing's first, if you dont want to use the arduino framework, delete the following line.</p>
-            <pre><code>
-framework = arduino
-            </code></pre>
-            <p class="m-t-3">We're going to blink an led here, so the arduino framework is wayyy overkill... deleted.</p>
-            <p class="m-t-3 color-white">I happen to be using an esp8266 programmed to act as an AVRISP, so from the <a class="externLink" href="https://docs.platformio.org/en/stable/platforms/atmelavr.html">PlatformIO documentation for Atmel AVR boards</a>, lets grab all the juicy stuff under "AVRISP" in the "Configuration for the programmers" section.</p>
-            <pre><code>
-upload_protocol = custom
-upload_port = SERIAL_PORT_HERE
-upload_speed = 19200
-upload_flags =
-    -C
-    ; use "tool-avrdude-megaavr" for the atmelmegaavr platform
-    ${platformio.packages_dir}/tool-avrdude/avrdude.conf
-    -p
-    $BOARD_MCU
-    -P
-    $UPLOAD_PORT
-    -b
-    $UPLOAD_SPEED
-    -c
-    stk500v1
-upload_command = avrdude $UPLOAD_FLAGS -U flash:w:$SOURCE:i
-            </pre></code> 
-            <p class="m-t-3">Change the words "SERIAL_PORT_HERE" with the serial port your programmer is plugged into. In my case it's COM3.</p>
-            <p class="m-t-3 color-white">Almost done, all that's left is to add 2 <strong style="font-size: 5rem;">extremely important</strong> lines.</p>
-            <p class="m-t-3 color-white">We need to tell platformIO the clock frequency of our chip, and whether we plan on using the internal oscillator, or if we plan to wire up an external one. By default, plaformIO assumes the cpu fqz is 16MHz, the ATMega8 that I am using has an 8MHz internal oscillator. PlatformIO assumes the oscillator is external by default. </p>
-            <p class="m-t-3"> This is all in the documentation, but I bricked a microcontroller anyway by not paying close attention to this. If you do not set this correctly, your microcontroller will not be able to communicate with your computer! Check the documentation of your microcontroller!</p>
-
-            <p class="m-t-3 color-white">We need to add the following two lines, make sure to change the cpu and oscillator type to your needs.</p>
-            <pre><code>
-board_build.f_cpu = 8000000L
-board_hardware.oscillator = internal
-            </pre></code>
-            <p class="m-t-3 color-white">Here is my entire platform.ini file.</p>
-            <pre><code>
-[env:ATmega8]
-platform = atmelavr
-board = ATmega8
-upload_protocol = custom
-upload_port = COM3
-upload_speed = 19200
-board_build.f_cpu = 8000000L
-board_hardware.oscillator = internal
-upload_flags =
-    -C
-    ; use "tool-avrdude-megaavr" for the atmelmegaavr platform
-    ${platformio.packages_dir}/tool-avrdude/avrdude.conf
-    -p
-    $BOARD_MCU
-    -P
-    $UPLOAD_PORT
-    -b
-    $UPLOAD_SPEED
-    -c
-    stk500v1
-upload_command = avrdude $UPLOAD_FLAGS -U flash:w:$SOURCE:i
-            </pre></code>
-
-
-            <h3 class="step"> Step 4: Create a Program</h3>
-            <p class="m-t-3 color-white">Click on the folder named "src" to reveal its contents. You should see that platformIO rudely put disgusting arduino code here in a file called main.cpp. If you want to use the arduino framework, go ahead, but we're going to go ahead and delete that file.</p>
-            <p class="m-t-3 color-white">Create a new file under src called main.c. </p>
-            <p class="m-t-3">It's also possible to use assembly or cpp, but I'm going to use C for this tutorial.</p>
-            <p class="m-t-3 color-white">The following code blinks an LED on PD6 of the ATMega8, slap whatever you want in main if you had bigger plans in mind.</p>
-            <pre><code>
-#include &ltavr/io.h>
-#include &ltutil/delay.h>
-
-int main()
-{
-
-    DDRD |= (1 &lt&lt PD6); // make PD6 an output
-
-    while (1)
-    {
-        PORTD |= (1 &lt&lt PD6);  // turn on led at PD6
-        _delay_ms(500);      // delay for a second
-        PORTD &= ~(1 &lt&lt PD6); // turn off led at PD6
-        _delay_ms(500);      // delay for a second
-    }
-
-    return 0; // the program executed successfully
-}
-            </pre></code>
+            <div class="code">
+                <iframe src="https://carbon.now.sh/embed?bg=rgba%280%2C0%2C0%2C0%29&t=panda-syntax&wt=boxy&l=python&width=508&ds=false&dsyoff=65px&dsblur=81px&wc=false&wa=true&pv=0px&ph=0px&ln=true&fl=1&fm=Hack&fs=14px&lh=137%25&si=false&es=2x&wm=false&code=t%2520%253D%2520sp.symbols%28%27t%27%29%250Ar%2520%253D%2520sp.symbols%28%27r%27%29%250A%250AP%2520%253D%2520Point%28%27P%27%29%2520%2523%2520The%2520point%2520of%2520contact%2520with%2520the%2520finger%250ACM%2520%253D%2520P.locatenew%28%27CM%27%252C%2520r*e_b.z%29%250Ar_P_CM%2520%253D%2520CM.pos_from%28P%29%250AP.set_vel%28N%252C%25200%29%250AP.set_vel%28e_b%252C%25200%29%250ACM.set_vel%28e_b%252C%25200%29%250ACM.set_vel%28N%252C%2520omega.cross%28r_P_CM%29%29%250A%250Adisplay%28Markdown%28r%27%2524%255Cvec%257Bv%257D_%257BCM%257D%2520%253D%2520%27%2520%252B%2520sp.latex%28CM.vel%28N%29.express%28e_b%29.simplify%28%29%29%2520%252B%2520r%27%2524%27%29%29%250Adisplay%28Markdown%28r%27%2524%255Cvec%257Ba%257D_%257BCM%257D%2520%253D%2520%27%2520%252B%2520sp.latex%28CM.acc%28N%29.express%28e_b%29.simplify%28%29%29%2520%252B%2520r%27%2524%27%29%29" style="width: 508px; height: 317px; border:0; transform: scale(1); overflow:hidden;" sandbox="allow-scripts allow-same-origin">
+                </iframe>
+                <div class="jp-output">
+                    $\vec{v}_{CM} = r \left(- \sin{\left(\psi{\left(t \right)} \right)} \frac{d}{d t} \theta{\left(t \right)} + \sin{\left(\theta{\left(t \right)} \right)} \cos{\left(\psi{\left(t \right)} \right)} \frac{d}{d t} \phi{\left(t \right)}\right)\mathbf{\hat{e_b}_x} - r \left(\sin{\left(\psi{\left(t \right)} \right)} \sin{\left(\theta{\left(t \right)} \right)} \frac{d}{d t} \phi{\left(t \right)} + \cos{\left(\psi{\left(t \right)} \right)} \frac{d}{d t} \theta{\left(t \right)}\right)\mathbf{\hat{e_b}_y}$
 
 
 
-            <h3 class="step">Step 5: Set Fuses</h3>
-            <p class="m-t-3">This is the scary part that could destroy your micrcontroller. Double tripple check that you set your cpu fqz and oscillator type correctly in the platform.ini file. Rest assured, the name "fuse" is a misnomer, as long as you can still communicate with the chip, you'll be able to change the fuse values again later, incase you decide later that you do or dont want to use an external oscillator.</p>
-            <p class="m-t-3 color-white">Click the alien in the bottom left, then navigate to the Set Fuses button and give it a click. Note, if you want to use the arduino framework, you'll also have to click the burn bootloader button.</p>
-            <img src="./assets/images/fuses.png" alt="">
+                    $\vec{a}_{CM} = r \left(\frac{\left(\cos{\left(\psi{\left(t \right)} - 2 \theta{\left(t \right)} \right)} - \cos{\left(\psi{\left(t \right)} + 2 \theta{\left(t \right)} \right)}\right) \left(\frac{d}{d t} \phi{\left(t \right)}\right)^{2}}{4} - \sin{\left(\psi{\left(t \right)} \right)} \frac{d^{2}}{d t^{2}} \theta{\left(t \right)} + \sin{\left(\theta{\left(t \right)} \right)} \cos{\left(\psi{\left(t \right)} \right)} \frac{d^{2}}{d t^{2}} \phi{\left(t \right)} + 2 \cos{\left(\psi{\left(t \right)} \right)} \cos{\left(\theta{\left(t \right)} \right)} \frac{d}{d t} \phi{\left(t \right)} \frac{d}{d t} \theta{\left(t \right)}\right)\mathbf{\hat{e_b}_x} + r \left(\frac{\left(- \sin{\left(\psi{\left(t \right)} - 2 \theta{\left(t \right)} \right)} + \sin{\left(\psi{\left(t \right)} + 2 \theta{\left(t \right)} \right)}\right) \left(\frac{d}{d t} \phi{\left(t \right)}\right)^{2}}{4} - \sin{\left(\psi{\left(t \right)} \right)} \sin{\left(\theta{\left(t \right)} \right)} \frac{d^{2}}{d t^{2}} \phi{\left(t \right)} - 2 \sin{\left(\psi{\left(t \right)} \right)} \cos{\left(\theta{\left(t \right)} \right)} \frac{d}{d t} \phi{\left(t \right)} \frac{d}{d t} \theta{\left(t \right)} - \cos{\left(\psi{\left(t \right)} \right)} \frac{d^{2}}{d t^{2}} \theta{\left(t \right)}\right)\mathbf{\hat{e_b}_y} - r \left(\sin^{2}{\left(\theta{\left(t \right)} \right)} \left(\frac{d}{d t} \phi{\left(t \right)}\right)^{2} + \left(\frac{d}{d t} \theta{\left(t \right)}\right)^{2}\right)\mathbf{\hat{e_b}_z}$
+                </div>
+            </div>
+
+            <div class="code">
+                <iframe src="https://carbon.now.sh/embed?bg=rgba%280%2C0%2C0%2C0%29&t=panda-syntax&wt=boxy&l=python&width=508&ds=false&dsyoff=65px&dsblur=81px&wc=false&wa=true&pv=0px&ph=0px&ln=true&fl=1&fm=Hack&fs=14px&lh=137%25&si=false&es=2x&wm=false&code=m%252C%2520g%252C%2520t%2520%2520%253D%2520sp.symbols%28%27m%2520g%2520t%27%29%250Atheta_0%252C%2520phi_0%252C%2520psi_0%252C%2520thetadot_0%252C%2520phidot_0%252C%2520psidot_0%252C%2520phidot_0%2520%253D%2520sp.symbols%28%27theta_0%2520phi_0%2520psi_0%2520thetadot_0%2520phidot_0%2520psidot_0%2520phidot_0%27%29%250A%250AIxx%2520%253D%25202%2520*%2520m%2520*%2520r**2%2520%252F%25205%250AIyy%2520%253D%25202%2520*%2520m%2520*%2520r**2%2520%252F%25205%250AIzz%2520%253D%25202%2520*%2520m%2520*%2520r**2%2520%252F%25205%250AI_c%2520%253D%2520inertia%28e_b%252C%2520Ixx%252C%2520Iyy%252C%2520Izz%29%250Adisplay%28Markdown%28%2522%2524I%255E%257B%28B%29%257D%2520%253D%2520%2522%2520%2520%252B%2520sp.latex%28I_c.express%28e_b%29.to_matrix%28e_b%29%29%2520%252B%2520%2522%2524%2522%29%29%250A%250A%2523%2520Eulers%2520first%2520law%250AFg%2520%253D%2520-m%2520*%2520g%2520*%2520N.z%250Adisplay%28Markdown%28%2522%2524F_g%2520%253D%2520%2522%2520%252B%2520sp.latex%28Fg.express%28N%29%29%2520%252B%2520%2522%2524%2522%29%29%250AFr%2520%253D%2520m*CM.acc%28N%29%2520-%2520Fg%250A%250A%2523%2520Eulers%2520second%2520law%250AHc%2520%253D%2520I_c.dot%28omega%29%250AHcdot%2520%253D%2520Hc.diff%28t%252C%2520N%29%250Ar_p%2520%253D%2520-r_P_CM%250AM%2520%253D%2520r_p.cross%28Fr%29%250A%250AfancyWayToWriteZero%2520%2520%253D%2520%28Hcdot%2520-%2520M%29.express%28e_b%29.simplify%28%29%250Adisplay%28Markdown%28%2522%2524%2520%255Cdot%257BH%257D_c%2520-%2520M%2520%253D%2520%2522%2520%252B%2520sp.latex%28fancyWayToWriteZero%29%2520%252B%2520%2522%2524%2522%29%29" style="width: 508px; height: 566px; border:0; transform: scale(1); overflow:hidden;" sandbox="allow-scripts allow-same-origin">
+                </iframe>
+            </div>
+
+            <div class="code">
+                <iframe src="https://carbon.now.sh/embed?bg=rgba%280%2C0%2C0%2C0%29&t=panda-syntax&wt=boxy&l=python&width=508&ds=false&dsyoff=65px&dsblur=81px&wc=false&wa=true&pv=0px&ph=0px&ln=true&fl=1&fm=Hack&fs=14px&lh=137%25&si=false&es=2x&wm=false&code=FrInBody%2520%253D%2520Fr.express%28e_b%29.simplify%28%29%250Adisplay%28Markdown%28%2522%2524F_r%2520%253D%2520%2522%2520%252B%2520sp.latex%28FrInBody.simplify%28%29%29%2520%252B%2520%2522%2524%2522%29%29%250A%250Aprint%28%2522F_r%2520in%2520the%25201%2520direction%2520is%253A%2520%2522%29%250Adisplay%28FrInBody.dot%28e_b.x%29%29%250A%250Aprint%28%2522F_r%2520in%2520the%25202%2520direction%2520is%253A%2520%2522%29%250Adisplay%28FrInBody.dot%28e_b.y%29%29%250A%250Aprint%28%2522F_r%2520in%2520the%25203%2520direction%2520is%253A%2520%2522%29%250Adisplay%28FrInBody.dot%28e_b.z%29%29" style="width: 508px; height: 259px; border:0; transform: scale(1); overflow:hidden;" sandbox="allow-scripts allow-same-origin">
+                </iframe>
+            </div>
+
+            <div class="code">
+                <iframe src="https://carbon.now.sh/embed?bg=rgba%280%2C0%2C0%2C0%29&t=panda-syntax&wt=boxy&l=python&width=508&ds=false&dsyoff=65px&dsblur=81px&wc=false&wa=true&pv=0px&ph=0px&ln=true&fl=1&fm=Hack&fs=14px&lh=137%25&si=false&es=2x&wm=false&code=eq1%2520%253D%2520dot%28fancyWayToWriteZero%252C%2520e_b.x%29%250Aeq2%2520%253D%2520dot%28fancyWayToWriteZero%252C%2520e_b.y%29%250Aeq3%2520%253D%2520dot%28fancyWayToWriteZero%252C%2520e_b.z%29%250A%250Asol%2520%253D%2520sp.solve%28%255Beq1%252C%2520eq2%252C%2520eq3%255D%252C%2520%255Bpsi.diff%28t%252C2%29%252C%2520theta.diff%28t%252C2%29%252C%2520phi.diff%28t%252C2%29%255D%252C%2520dict%253DTrue%29%250A%250Adisplay%28Markdown%28%2522%2524%255Cddot%257B%255Cpsi%257D%2520%253D%2520%2522%2520%252B%2520sp.latex%28sol%255B0%255D%255Bpsi.diff%28t%252C2%29%255D.simplify%28%29%29%2520%252B%2520%2522%2524%2522%29%29%250Adisplay%28Markdown%28r%2522%2524%255Cddot%257B%255Ctheta%257D%2520%253D%2520%2522%2520%252B%2520sp.latex%28sol%255B0%255D%255Btheta.diff%28t%252C2%29%255D.simplify%28%29%29%2520%252B%2520%2522%2524%2522%29%29%250Adisplay%28Markdown%28%2522%2524%255Cddot%257B%255Cphi%257D%2520%253D%2520%2522%2520%252B%2520sp.latex%28sol%255B0%255D%255Bphi.diff%28t%252C2%29%255D.simplify%28%29%29%2520%252B%2520%2522%2524%2522%29%29" style="width: 508px; height: 278px; border:0; transform: scale(1); overflow:hidden;" sandbox="allow-scripts allow-same-origin">
+                </iframe>
+                <div class="jp-output">
+                    $\ddot{\psi} = - \frac{\left(5 \sin{\left(\theta{\left(t \right)} \right)} \frac{d}{d t} \phi{\left(t \right)} + \frac{2 \frac{d}{d t} \psi{\left(t \right)}}{\tan{\left(\theta{\left(t \right)} \right)}} - \frac{12 \frac{d}{d t} \phi{\left(t \right)}}{\sin{\left(\theta{\left(t \right)} \right)}}\right) \frac{d}{d t} \theta{\left(t \right)}}{7}$
 
 
-            <h3 class="step">Step 5: Upload your code</h3>
-            <p class="m-t-3 color-white">Yay! Just press ctrl-alt-u, or find the "upload" button in the top right corner, or above the set fuses button, or in any of the other places its probably hidden to upload your code (which builds first by default) and watch that led blink!</p>
-            <p class="m-t-3 color-white">Note that your microcontroller won't actually execute the code until you disconnect the Reset pin on the microcontroller from your programmer. For this reason i've wired a push button inbetween the reset pin of my programmer and microcontroller in the normally open configuration. This makes it so that you can leave everything plugged into the breadboard, and all you have to do is hold down the button when the code is uploading.</p>
 
-            <div style="height: 10rem;">  </div>
+                    $\ddot{\theta} = \frac{5 g \sin{\left(\theta{\left(t \right)} \right)}}{7 r} - \frac{5 \sin{\left(\psi{\left(t \right)} - 3 \theta{\left(t \right)} \right)} \sin{\left(\psi{\left(t \right)} \right)} \left(\frac{d}{d t} \phi{\left(t \right)}\right)^{2}}{56 \sin{\left(\theta{\left(t \right)} \right)}} + \frac{5 \sin{\left(\psi{\left(t \right)} + \theta{\left(t \right)} \right)} \sin{\left(\psi{\left(t \right)} \right)} \left(\frac{d}{d t} \phi{\left(t \right)}\right)^{2}}{56 \sin{\left(\theta{\left(t \right)} \right)}} - \frac{5 \sin{\left(\psi{\left(t \right)} \right)} \cos{\left(\psi{\left(t \right)} + \theta{\left(t \right)} \right)} \cos{\left(\theta{\left(t \right)} \right)} \left(\frac{d}{d t} \phi{\left(t \right)}\right)^{2}}{14} + \frac{5 \sin{\left(\theta{\left(t \right)} \right)} \cos^{2}{\left(\psi{\left(t \right)} \right)} \cos{\left(\theta{\left(t \right)} \right)} \left(\frac{d}{d t} \phi{\left(t \right)}\right)^{2}}{7} - \frac{2 \sin{\left(\theta{\left(t \right)} \right)} \frac{d}{d t} \phi{\left(t \right)} \frac{d}{d t} \psi{\left(t \right)}}{7}$
+
+
+
+                    $\ddot{\phi} = - \frac{2 \cdot \left(6 \cos{\left(\theta{\left(t \right)} \right)} \frac{d}{d t} \phi{\left(t \right)} - \frac{d}{d t} \psi{\left(t \right)}\right) \frac{d}{d t} \theta{\left(t \right)}}{7 \sin{\left(\theta{\left(t \right)} \right)}}$
+                </div>
+            </div>
+
+            <div style="height: 10rem;"> <br></div>
         </div>
 
 

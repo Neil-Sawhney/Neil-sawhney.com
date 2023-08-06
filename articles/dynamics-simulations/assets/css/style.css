@@ -1,3 +1,21 @@
+.jp-output span{
+    color:white;
+}
+
+.jp-output .mjx-box{
+    width: 95%;
+    white-space: normal;
+}
+
+.jp-output{
+    margin-top: 2rem;
+    padding: 2rem;
+    background-color: #292a2b;
+    border-radius: 5px;
+    width: 95%;
+    font-size: 2rem;
+}  
+
 .scrollLink{
     color: #814c81;
     text-decoration: none;
@@ -10,7 +28,7 @@
     margin: 0 1rem;
 }
 
-.title, code::selection{
+.title, .code::selection{
     color:rgb(92, 193, 160)
 }
 
@@ -41,13 +59,19 @@ img{
     height: 100%;
 }
 
-code{
+.code{
     background-color: #000000;
     padding: 1rem;
     border-radius: 5px;
     margin-top: 2rem;
-    display: block;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 }
+.code iframe{
+    width: 95% !important;
+}
+
 
 /* mobile */
 @media screen and (max-width: 800px){
@@ -58,6 +82,10 @@ code{
         width:90%;
     }
 }
+
+.jp-output{
+    font-size: 1.5rem;
+}  
 
 w-1
 {
