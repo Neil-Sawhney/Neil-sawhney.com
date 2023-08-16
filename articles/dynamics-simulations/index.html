@@ -188,7 +188,7 @@
                             However, when using the sympy.physics.mechanics module, vectors are defined in any frame of reference you want, and the module will take care of the rotation matrices in the background, allowing you to multiply vectors without worrying about which frame they are expressed in.
 
                             When you want to print out the result of your equation, you can use the express() funtion, which will print it out in the frame of reference you specify.</p>
-                        </li>
+                    </li>
                     <li class="m-t-2">
                         <p>
                             Because the sympy.physics.mechanics module uses symbolic python (sympy) you obtain exact solutions instead of numerical approximations.
@@ -254,33 +254,33 @@
 
                 <div class="jp-output">
                     $\omega_{B/N}^{(b)} = (\sin{\left(\psi{\left(t \right)} \right)} \sin{\left(\theta{\left(t \right)} \right)} \frac{d}{d t} \phi{\left(t \right)} + \cos{\left(\psi{\left(t \right)} \right)} \frac{d}{d t} \theta{\left(t \right)})\mathbf{\hat{e_b}_x} + (- \sin{\left(\psi{\left(t \right)} \right)} \frac{d}{d t} \theta{\left(t \right)} + \sin{\left(\theta{\left(t \right)} \right)} \cos{\left(\psi{\left(t \right)} \right)} \frac{d}{d t} \phi{\left(t \right)})\mathbf{\hat{e_b}_y} + (\cos{\left(\theta{\left(t \right)} \right)} \frac{d}{d t} \phi{\left(t \right)} + \frac{d}{d t} \psi{\left(t \right)})\mathbf{\hat{e_b}_z}$</div>
-                </div>
+            </div>
+            <p class="m-t-2">
+                On line 4, we define three dynamic symbols, $\theta$, $\psi$ and $\phi$, this tells sympy that these variables are functions of time.
+            </p>
+            <p class="m-t-2 color-white">
+                The jupyter cell above sets up the reference frames that define a 313 euler angle sequence. The animation below helps to visualize the sequence.
+            </p>
+            <div class="light-container m-t-2">
+                <img class="m-t-2" src="./assets/images/313.gif" alt="313 euler angle sequence">
                 <p class="m-t-2">
-                    On line 4, we define three dynamic symbols, $\theta$, $\psi$ and $\phi$, this tells sympy that these variables are functions of time.
+                    The animation above names the rotations in the order of $\psi$, $\theta$, $\phi$, but in my code I named them in the order of $\phi$, $\theta$, $\psi$. Close enough, you get the idea.
                 </p>
                 <p class="m-t-2 color-white">
-                    The jupyter cell above sets up the reference frames that define a 313 euler angle sequence. The animation below helps to visualize the sequence. 
+                    Frame A represents a rotation of the inertial frame about the 3 axis (N.z) by an angle $\phi$ <small style="color: dimgray">($\psi$ in the animation)</small>,
+                    <br>
+                    Frame B represents a rotation of the A frame about the A frame's 1 axis (A.x) by an angle $\theta$ <small style="color: dimgray">($\theta$ in the animation)</small>,
+                    <br>
+                    Frame e_b (the body fixed frame) represents a rotation of the B frame about the B frame's 3 axis (B.z) by an angle $\psi$ <small style="color: dimgray">($\phi$ in the animation)</small>.
                 </p>
-                <div class="light-container m-t-2">
-                    <img class="m-t-2" src="./assets/images/313.gif" alt="313 euler angle sequence">
-                    <p class="m-t-2">
-                        The animation above names the rotations in the order of $\psi$, $\theta$, $\phi$, but in my code I named them in the order of $\phi$, $\theta$, $\psi$. Close enough, you get the idea.
-                    </p>
-                    <p class="m-t-2 color-white">
-                        Frame A represents a rotation of the inertial frame about the 3 axis (N.z) by an angle $\phi$ <small style="color: dimgray">($\psi$ in the animation)</small>, 
-                        <br>
-                        Frame B represents a rotation of the A frame about the A frame's 1 axis (A.x) by an angle $\theta$ <small style="color: dimgray">($\theta$ in the animation)</small>,
-                        <br>
-                        Frame e_b (the body fixed frame) represents a rotation of the B frame about the B frame's 3 axis (B.z) by an angle $\psi$ <small style="color: dimgray">($\phi$ in the animation)</small>.
-                    </p>
-                </div>
-                <p class="m-t-2 color-white">
-                    Now that we're set up, sympy already shows off by allowing us to find the angular velocity of any of our defined frames wrt to any other in terms of the three euler angles we defined in a singular line of code. To get the angular velocity of frame e_b wrt to frame N ( $\omega_{B/N}$ ), we simply use
-                    <code>omega = e_b.ang_vel_in(N)</code>
-                </p>
-                <p class="m-t-2">
-                    If we want to print $\omega_{B/N}$ we can choose to express it in any frame of reference we want. For example, in the output cell of the above code, $\omega_{B/N}$ is being printed as expressed in the b frame (hence the (b) that looks like an exponent) using <code>omega.express(e_b)</code>, if we want to express it in the inertial frame N instead, we can similarly use <code>omega.express(N)</code>.
-                </p>
+            </div>
+            <p class="m-t-2 color-white">
+                Now that we're set up, sympy already shows off by allowing us to find the angular velocity of any of our defined frames wrt to any other in terms of the three euler angles we defined in a singular line of code. To get the angular velocity of frame e_b wrt to frame N ( $\omega_{B/N}$ ), we simply use
+                <code>omega = e_b.ang_vel_in(N)</code>
+            </p>
+            <p class="m-t-2">
+                If we want to print $\omega_{B/N}$ we can choose to express it in any frame of reference we want. For example, directly below the above code, $\omega_{B/N}$ is printed as expressed in the b frame (hence the (b) that looks like an exponent) using <code>omega.express(e_b)</code>, if we want to express it in the inertial frame N instead, we can similarly use <code>omega.express(N)</code>.
+            </p>
 
             <h3 class="step">Step 2: Define the kinematics. </h3>
             <div class="code">
@@ -302,23 +302,29 @@
             </p>
             <p class="m-t-2">Line 6 simply defines our $r_{cm}$ vector by stating that it points to point CM from point P.</p>
             <p class="m-t-2">
-                Lines 7 through 9 are the simplest ways to define points P and CM wrt to the previously defined frames of reference. 
+                Lines 7 through 9 are the simplest ways to define points P and CM wrt to the previously defined frames of reference.
             <ul>
-                <li><p class="color-white">The point of contact is not moving in the inertial frame, because the finger is perfectly still. </p></li>
-                <li><p class="color-white">The point of contact is also not moving in the body fixed frame, because the ball is always rotating about its bottom most point. </p></li>
-                <li><p class="color-white">The center of mass is not moving in the body fixed frame, almost by definition.</p></li>
+                <li>
+                    <p class="color-white">The point of contact is not moving in the inertial frame, because the finger is perfectly still. </p>
+                </li>
+                <li>
+                    <p class="color-white">The point of contact is also not moving in the body fixed frame, because the ball is always rotating about its bottom most point. </p>
+                </li>
+                <li>
+                    <p class="color-white">The center of mass is not moving in the body fixed frame, almost by definition.</p>
+                </li>
             </ul>
             <p class="m-t-2">
                 Line 10 finally enforces the rolling constraint by stating that the velocity of point CM in the intertial frame is equal to $\omega_{B/N} \times r_{cm}$
             </p>
             <p class="m-t-2 color-white">
-                Once this is done, we can easily obtain the velocity and acceleration of the center of mass wrt to any frame we want and expressed in any frame we want. For example, the output of the code cell above shows the velocity and acceleration of the center of mass with respect to the inertial frame as expressed in the body fixed frame which can be obtained with the following 2 lines of code. <code>CM.vel(N).express(e_b)</code> and <code>CM.acc(N).express(e_b)</code>
+                Once this is done, we can easily obtain the velocity and acceleration of the center of mass wrt to any frame we want and expressed in any frame we want. For example, directly below the code cell above shows the velocity and acceleration of the center of mass with respect to the inertial frame as expressed in the body fixed frame, which can be obtained with the following 2 lines of code. <code>CM.vel(N).express(e_b)</code> and <code>CM.acc(N).express(e_b)</code>.
             </p>
-        
-                
+
+
             <h3 class="step">Step 3: Define the kinetics. </h3>
             <div class="code">
-                <iframe src="https://carbon.now.sh/embed?bg=rgba%280%2C0%2C0%2C0%29&t=panda-syntax&wt=boxy&l=python&width=508&ds=false&dsyoff=65px&dsblur=81px&wc=false&wa=true&pv=0px&ph=0px&ln=true&fl=1&fm=Hack&fs=14px&lh=137%25&si=false&es=2x&wm=false&code=m%252C%2520g%252C%2520t%2520%2520%253D%2520sp.symbols%28%27m%2520g%2520t%27%29%250Atheta_0%252C%2520phi_0%252C%2520psi_0%252C%2520thetadot_0%252C%2520phidot_0%252C%2520psidot_0%252C%2520phidot_0%2520%253D%2520sp.symbols%28%27theta_0%2520phi_0%2520psi_0%2520thetadot_0%2520phidot_0%2520psidot_0%2520phidot_0%27%29%250A%250AIxx%2520%253D%25202%2520*%2520m%2520*%2520r**2%2520%252F%25205%250AIyy%2520%253D%25202%2520*%2520m%2520*%2520r**2%2520%252F%25205%250AIzz%2520%253D%25202%2520*%2520m%2520*%2520r**2%2520%252F%25205%250AI_c%2520%253D%2520inertia%28e_b%252C%2520Ixx%252C%2520Iyy%252C%2520Izz%29%250Adisplay%28Markdown%28%2522%2524I%255E%257B%28B%29%257D%2520%253D%2520%2522%2520%2520%252B%2520sp.latex%28I_c.express%28e_b%29.to_matrix%28e_b%29%29%2520%252B%2520%2522%2524%2522%29%29%250A%250A%2523%2520Eulers%2520first%2520law%250AFg%2520%253D%2520-m%2520*%2520g%2520*%2520N.z%250Adisplay%28Markdown%28%2522%2524F_g%2520%253D%2520%2522%2520%252B%2520sp.latex%28Fg.express%28N%29%29%2520%252B%2520%2522%2524%2522%29%29%250AFr%2520%253D%2520m*CM.acc%28N%29%2520-%2520Fg%250A%250A%2523%2520Eulers%2520second%2520law%250AHc%2520%253D%2520I_c.dot%28omega%29%250AHcdot%2520%253D%2520Hc.diff%28t%252C%2520N%29%250Ar_p%2520%253D%2520-r_P_CM%250AM%2520%253D%2520r_p.cross%28Fr%29%250A%250AfancyWayToWriteZero%2520%2520%253D%2520%28Hcdot%2520-%2520M%29.express%28e_b%29.simplify%28%29" style="width: 1024px; height: 451px; border:0; transform: scale(1); overflow:hidden;" sandbox="allow-scripts allow-same-origin">
+                <iframe src="https://carbon.now.sh/embed?bg=rgba%280%2C0%2C0%2C0%29&t=panda-syntax&wt=boxy&l=python&width=508&ds=false&dsyoff=65px&dsblur=81px&wc=false&wa=false&pv=0px&ph=0px&ln=true&fl=1&fm=Hack&fs=14px&lh=137%25&si=false&es=2x&wm=false&code=m%252C%2520g%252C%2520t%2520%2520%253D%2520sp.symbols%28%27m%2520g%2520t%27%29%250Atheta_0%252C%2520phi_0%252C%2520psi_0%252C%2520thetadot_0%252C%2520phidot_0%252C%2520psidot_0%252C%2520phidot_0%2520%253D%2520sp.symbols%28%27theta_0%2520phi_0%2520psi_0%2520thetadot_0%2520phidot_0%2520psidot_0%2520phidot_0%27%29%250A%250AIxx%2520%253D%25202%2520*%2520m%2520*%2520r**2%2520%252F%25205%250AIyy%2520%253D%25202%2520*%2520m%2520*%2520r**2%2520%252F%25205%250AIzz%2520%253D%25202%2520*%2520m%2520*%2520r**2%2520%252F%25205%250AI_c%2520%253D%2520inertia%28e_b%252C%2520Ixx%252C%2520Iyy%252C%2520Izz%29%250A%250A%2523%2520Eulers%2520first%2520law%250AFg%2520%253D%2520-m%2520*%2520g%2520*%2520N.z%250AFr%2520%253D%2520m*CM.acc%28N%29%2520-%2520Fg%250A%250A%2523%2520Eulers%2520second%2520law%250AHc%2520%253D%2520I_c.dot%28omega%29%250AHcdot%2520%253D%2520Hc.diff%28t%252C%2520N%29%250Ar_p%2520%253D%2520-r_P_CM%250AM%2520%253D%2520r_p.cross%28Fr%29%250A%250AfancyWayToWriteZero%2520%2520%253D%2520%28Hcdot%2520-%2520M%29" style="width: 508px; height: 432px; border:0; transform: scale(1); overflow:hidden;" sandbox="allow-scripts allow-same-origin">
                 </iframe>
             </div>
 
