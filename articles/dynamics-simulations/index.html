@@ -171,11 +171,11 @@
 
             <p class="m-t-6 color-white"> If you've worked with some advanced dynamics problems, you'll know that it's often next to impossible to derive the equations of motion by hand.</p>
 
-            <p class="m-t-2">While most courses will teach you how to solve these kinds of systems using matrices in matlab or python, I'll show you how to use the Sympy.physics.mechanics module in python to solve for the equations of motion symbolically.</p>
+            <p class="m-t-2 color-white">While most courses will teach you how to solve these kinds of systems using matrices and numerical methods, I'll show you how I use the Sympy.physics.mechanics module in python to solve for the equations of motion symbolically. These can then be visualized by numerical integration. </p>
 
-            <p class="m-t-2">These can then be visualized by numerical integration of the equations of motion. Below is a visualization I made of a basketball spinning on a finger, which we will use as an example.</p>
+            <p class="m-t-6 color-white">Below is a visualization I made of a basketball spinning on a finger, which we will use as an example. Feel free to orbit around and change the initial conditions.</p>
 
-            <iframe class="m-t-6 simulation" src="./basketball-on-finger/index.html" width="70%" height="700rem"></iframe>
+            <iframe class="m-t-2 simulation" src="./basketball-on-finger/index.html" width="70%" height="700rem"></iframe>
 
             <div class="pros_cons_container m-t-3">
 
@@ -183,11 +183,13 @@
                 <ul>
                     <li class="m-t-2">
                         <p>
-                            When you're dealing with vectors, you noramlly have to be very concious about what frame of reference it is expressed in. When using multiple vectors in an equation, you normally must first make sure to apply the approriate rotation matrices to each vector to ensure that they are expressed in the same frame.
+                            When you're dealing with vectors, you normally have to be very concious about what frame of reference it is expressed in. When using multiple vectors in an equation, you normally must first make sure to apply the approriate rotation matrices to each vector to ensure that they are expressed in the same frame.
 
                             However, when using the sympy.physics.mechanics module, vectors are defined in any frame of reference you want, and the module will take care of the rotation matrices in the background, allowing you to multiply vectors without worrying about which frame they are expressed in.
 
                             When you want to print out the result of your equation, you can use the express() funtion, which will print it out in the frame of reference you specify.</p>
+                        </li>
+                    <li class="m-t-2">
                         <p>
                             Because the sympy.physics.mechanics module uses symbolic python (sympy) you obtain exact solutions instead of numerical approximations.
                         </p>
@@ -206,8 +208,10 @@
                         <p>
                             The sympy.physics.mechanics module has minimal documentation, and it can be difficult to find examples of how to use it.
                         </p>
+                    </li>
+                    <li class="m-t-2">
                         <p>
-                            If you're taking a class on advanced dynamics, you should probably learn how to solve these problems by hand first, as it will help you understand the concepts better and catch mistakes when you notice an equation that doesn't make sense.
+                            If you're taking a class on advanced dynamics, you should probably learn how to solve these problems by hand first, as it will help you understand the concepts better and catch mistakes when you notice that an equation that doesn't make sense.
                         </p>
                     </li>
                 </ul>
@@ -236,11 +240,13 @@
             <p class="m-t-3 color-white">
                 The Jupyter Notebook code for this project can be found <a class="externLink" href="https://github.com/Neil-Sawhney/SpaceDynamics_SpinningBasketball" target="_blank">here</a>.
 
-                The javascript code for the visualization shown above can be found using the developer console of your browser <a class="externLink" href="./basketball-on-finger/" target="_blank">here</a>.
+                <br>
+
+                The javascript code for the visualization shown above can be found in the source code (using the developer console of your browser) <a class="externLink" href="./basketball-on-finger/" target="_blank">here</a>.
             </p>
 
             <!-- /PREREQUISITES -->
-            <h3 class="step">Jupyter Cell 1: Setup reference frames using a 3-1-3 Euler angle sequence. </h3>
+            <h3 class="step">Step 1: Setup reference frames using a 3-1-3 Euler angle sequence. </h3>
 
             <div class="code">
                 <iframe src="https://carbon.now.sh/embed?bg=rgba%280%2C0%2C0%2C0%29&t=panda-syntax&wt=boxy&l=python&width=508&ds=false&dsyoff=65px&dsblur=81px&wc=false&wa=true&pv=0px&ph=0px&ln=true&fl=1&fm=Hack&fs=14px&lh=137%25&si=false&es=2x&wm=false&code=from%2520IPython.display%2520import%2520Markdown%250Aimport%2520sympy%2520as%2520sp%250Afrom%2520sympy.physics.mechanics%2520import%2520*%250Atheta%252C%2520phi%252C%2520psi%2520%253D%2520dynamicsymbols%28%27theta%2520phi%2520psi%27%29%250A%250AN%2520%253D%2520ReferenceFrame%28%27N%27%29%250AA%2520%253D%2520N.orientnew%28%27A%27%252C%2520%27Axis%27%252C%2520%255Bphi%252C%2520N.z%255D%29%250AB%2520%253D%2520A.orientnew%28%27B%27%252C%2520%27Axis%27%252C%2520%255Btheta%252C%2520A.x%255D%29%250Ae_b%2520%253D%2520B.orientnew%28%27e_b%27%252C%2520%27Axis%27%252C%2520%255Bpsi%252C%2520B.z%255D%29%250A%250Aomega%2520%253D%2520e_b.ang_vel_in%28N%29%2520%2520" style="width: 465px; height: 240px; border:0; transform: scale(1); overflow:hidden;" sandbox="allow-scripts allow-same-origin">
@@ -248,7 +254,30 @@
 
                 <div class="jp-output">
                     $\omega_{B/N}^{(b)} = (\sin{\left(\psi{\left(t \right)} \right)} \sin{\left(\theta{\left(t \right)} \right)} \frac{d}{d t} \phi{\left(t \right)} + \cos{\left(\psi{\left(t \right)} \right)} \frac{d}{d t} \theta{\left(t \right)})\mathbf{\hat{e_b}_x} + (- \sin{\left(\psi{\left(t \right)} \right)} \frac{d}{d t} \theta{\left(t \right)} + \sin{\left(\theta{\left(t \right)} \right)} \cos{\left(\psi{\left(t \right)} \right)} \frac{d}{d t} \phi{\left(t \right)})\mathbf{\hat{e_b}_y} + (\cos{\left(\theta{\left(t \right)} \right)} \frac{d}{d t} \phi{\left(t \right)} + \frac{d}{d t} \psi{\left(t \right)})\mathbf{\hat{e_b}_z}$</div>
-            </div>
+                </div>
+                <p class="m-t-2">
+                    On line 4, we define three dynamic symbols, $\theta$, $\psi$ and $\phi$, this tells sympy that these variables are functions of time.
+                </p>
+                <p class="m-t-2 color-white">
+                    The jupyter cell above sets up the reference frames that define a 313 euler angle sequence. The animation below helps to visualize the sequence. 
+                </p>
+                <div class="light-container m-t-2">
+                    <img class="m-t-2" src="./assets/images/313.gif" alt="313 euler angle sequence">
+                    <p class="m-t-2 color-white">
+                        Frame A represents a rotation of the inertial frame about the 3 axis (N.z) by an angle $\phi$, 
+                        <br>
+                        Frame B represents a rotation of the A frame about the A frame's 1 axis (A.x) by an angle $\theta$
+                        <br>
+                        Frame e_b (the body fixed frame) represents a rotation of the B frame about the B frame's 3 axis (B.z) by an angle $\psi$.
+                    </p>
+                </div>
+                <p class="m-t-2 color-white">
+                    Now that we're set up, sympy already shows off by allowing us to find the angular velocity of any of our defined frames wrt to any other in terms of the three euler angles we defined in a singular line of code. To get the angular velocity of frame e_b wrt to frame N ( $\omega_{B/N}$ ), we simply use
+                    <code>omega = e_b.ang_vel_in(N)</code>
+                </p>
+                <p class="m-t-2">
+                    If we want to print $\omega_{B/N}$ we can choose to express it in any frame of reference we want. For example, in the output cell of the above code, $\omega_{B/N}$ is being printed as expressed in the b frame (hence the (b) that looks like an exponent) using <code>omega.express(e_b)</code>, if we want to express it in the inertial frame N instead, we can similarly use <code>omega.express(N)</code>.
+                </p>
 
             <div class="code">
                 <iframe src="https://carbon.now.sh/embed?bg=rgba%280%2C0%2C0%2C0%29&t=panda-syntax&wt=boxy&l=python&width=508&ds=false&dsyoff=65px&dsblur=81px&wc=false&wa=true&pv=0px&ph=0px&ln=true&fl=1&fm=Hack&fs=14px&lh=137%25&si=false&es=2x&wm=false&code=t%2520%253D%2520sp.symbols%28%27t%27%29%250Ar%2520%253D%2520sp.symbols%28%27r%27%29%250A%250AP%2520%253D%2520Point%28%27P%27%29%2520%2523%2520The%2520point%2520of%2520contact%2520with%2520the%2520finger%250ACM%2520%253D%2520P.locatenew%28%27CM%27%252C%2520r*e_b.z%29%250Ar_P_CM%2520%253D%2520CM.pos_from%28P%29%250AP.set_vel%28N%252C%25200%29%250AP.set_vel%28e_b%252C%25200%29%250ACM.set_vel%28e_b%252C%25200%29%250ACM.set_vel%28N%252C%2520omega.cross%28r_P_CM%29%29" style="width: 499px; height: 221px; border:0; transform: scale(1); overflow:hidden;" sandbox="allow-scripts allow-same-origin">
@@ -283,6 +312,10 @@
                 </div>
             </div>
 
+            <div class="code">
+                <iframe src="https://carbon.now.sh/embed?bg=rgba%280%2C0%2C0%2C0%29&t=panda-syntax&wt=boxy&l=javascript&width=508&ds=false&dsyoff=65px&dsblur=81px&wc=false&wa=true&pv=0px&ph=0px&ln=true&fl=1&fm=Hack&fs=14px&lh=137%25&si=false&es=2x&wm=false&code=let%2520quaternion%2520%253D%2520new%2520THREE.Quaternion%28%29%253B%250A%2520%2520%2520%2520quaternion.setFromEuler%28new%2520THREE.Euler%280%252C%2520phi%252C%25200%252C%2520%27XYZ%27%29%29%253B%250A%2520%2520%2520%2520quaternion.multiply%28new%2520THREE.Quaternion%28%29.setFromEuler%28new%2520THREE.Euler%280%252C%25200%252C%2520theta%252C%2520%27XYZ%27%29%29%29%253B%250A%2520%2520%2520%2520quaternion.multiply%28new%2520THREE.Quaternion%28%29.setFromEuler%28new%2520THREE.Euler%280%252C%2520psi%252C%25200%252C%2520%27XYZ%27%29%29%29%253B%250A%2520%2520%2520%2520basketballOffset.setRotationFromQuaternion%28quaternion%29%253B" style="width: 879px; height: 125px; border:0; transform: scale(1); overflow:hidden;" sandbox="allow-scripts allow-same-origin">
+                </iframe>
+            </div>
             <div style="height: 10rem;"> <br></div>
         </div>
 

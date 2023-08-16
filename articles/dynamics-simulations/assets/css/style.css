@@ -2,6 +2,15 @@
     color:white;
 }
 
+.light-container{
+    background-color: #292a2b;
+    color: white;
+    padding: 2rem;
+    border-radius: 5px;
+    width: 95%;
+    font-size: 2rem;
+}
+
 .jp-output .mjx-box{
     width: 95%;
     white-space: normal;
@@ -15,6 +24,19 @@
     width: 95%;
     font-size: 2rem;
 }  
+
+code{
+    background-color: #141414;
+    padding: 1rem;
+    border-radius: 5px;
+    margin-top: 2rem;
+    font-size: 2rem;
+    color: white;
+}
+
+code::selection{
+    color: teal;
+}
 
 .scrollLink{
     color: #814c81;
