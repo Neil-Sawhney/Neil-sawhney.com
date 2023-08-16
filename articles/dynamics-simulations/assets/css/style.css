@@ -34,10 +34,6 @@ code{
     color: white;
 }
 
-code::selection{
-    color: teal;
-}
-
 .scrollLink{
     color: #814c81;
     text-decoration: none;

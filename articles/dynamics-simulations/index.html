@@ -263,12 +263,15 @@
                 </p>
                 <div class="light-container m-t-2">
                     <img class="m-t-2" src="./assets/images/313.gif" alt="313 euler angle sequence">
+                    <p class="m-t-2">
+                        The animation above names the rotations in the order of $\psi$, $\theta$, $\phi$, but in my code I named them in the order of $\phi$, $\theta$, $\psi$. Close enough, you get the idea.
+                    </p>
                     <p class="m-t-2 color-white">
-                        Frame A represents a rotation of the inertial frame about the 3 axis (N.z) by an angle $\phi$, 
+                        Frame A represents a rotation of the inertial frame about the 3 axis (N.z) by an angle $\phi$ <small style="color: dimgray">($\psi$ in the animation)</small>, 
                         <br>
-                        Frame B represents a rotation of the A frame about the A frame's 1 axis (A.x) by an angle $\theta$
+                        Frame B represents a rotation of the A frame about the A frame's 1 axis (A.x) by an angle $\theta$ <small style="color: dimgray">($\theta$ in the animation)</small>,
                         <br>
-                        Frame e_b (the body fixed frame) represents a rotation of the B frame about the B frame's 3 axis (B.z) by an angle $\psi$.
+                        Frame e_b (the body fixed frame) represents a rotation of the B frame about the B frame's 3 axis (B.z) by an angle $\psi$ <small style="color: dimgray">($\phi$ in the animation)</small>.
                     </p>
                 </div>
                 <p class="m-t-2 color-white">
@@ -279,6 +282,7 @@
                     If we want to print $\omega_{B/N}$ we can choose to express it in any frame of reference we want. For example, in the output cell of the above code, $\omega_{B/N}$ is being printed as expressed in the b frame (hence the (b) that looks like an exponent) using <code>omega.express(e_b)</code>, if we want to express it in the inertial frame N instead, we can similarly use <code>omega.express(N)</code>.
                 </p>
 
+            <h3 class="step">Step 2: Define the kinematics. </h3>
             <div class="code">
                 <iframe src="https://carbon.now.sh/embed?bg=rgba%280%2C0%2C0%2C0%29&t=panda-syntax&wt=boxy&l=python&width=508&ds=false&dsyoff=65px&dsblur=81px&wc=false&wa=true&pv=0px&ph=0px&ln=true&fl=1&fm=Hack&fs=14px&lh=137%25&si=false&es=2x&wm=false&code=t%2520%253D%2520sp.symbols%28%27t%27%29%250Ar%2520%253D%2520sp.symbols%28%27r%27%29%250A%250AP%2520%253D%2520Point%28%27P%27%29%2520%2523%2520The%2520point%2520of%2520contact%2520with%2520the%2520finger%250ACM%2520%253D%2520P.locatenew%28%27CM%27%252C%2520r*e_b.z%29%250Ar_P_CM%2520%253D%2520CM.pos_from%28P%29%250AP.set_vel%28N%252C%25200%29%250AP.set_vel%28e_b%252C%25200%29%250ACM.set_vel%28e_b%252C%25200%29%250ACM.set_vel%28N%252C%2520omega.cross%28r_P_CM%29%29" style="width: 499px; height: 221px; border:0; transform: scale(1); overflow:hidden;" sandbox="allow-scripts allow-same-origin">
                 </iframe>
@@ -290,7 +294,29 @@
                     $\vec{a}_{CM} = r \left(\frac{\left(\cos{\left(\psi{\left(t \right)} - 2 \theta{\left(t \right)} \right)} - \cos{\left(\psi{\left(t \right)} + 2 \theta{\left(t \right)} \right)}\right) \left(\frac{d}{d t} \phi{\left(t \right)}\right)^{2}}{4} - \sin{\left(\psi{\left(t \right)} \right)} \frac{d^{2}}{d t^{2}} \theta{\left(t \right)} + \sin{\left(\theta{\left(t \right)} \right)} \cos{\left(\psi{\left(t \right)} \right)} \frac{d^{2}}{d t^{2}} \phi{\left(t \right)} + 2 \cos{\left(\psi{\left(t \right)} \right)} \cos{\left(\theta{\left(t \right)} \right)} \frac{d}{d t} \phi{\left(t \right)} \frac{d}{d t} \theta{\left(t \right)}\right)\mathbf{\hat{e_b}_x} + r \left(\frac{\left(- \sin{\left(\psi{\left(t \right)} - 2 \theta{\left(t \right)} \right)} + \sin{\left(\psi{\left(t \right)} + 2 \theta{\left(t \right)} \right)}\right) \left(\frac{d}{d t} \phi{\left(t \right)}\right)^{2}}{4} - \sin{\left(\psi{\left(t \right)} \right)} \sin{\left(\theta{\left(t \right)} \right)} \frac{d^{2}}{d t^{2}} \phi{\left(t \right)} - 2 \sin{\left(\psi{\left(t \right)} \right)} \cos{\left(\theta{\left(t \right)} \right)} \frac{d}{d t} \phi{\left(t \right)} \frac{d}{d t} \theta{\left(t \right)} - \cos{\left(\psi{\left(t \right)} \right)} \frac{d^{2}}{d t^{2}} \theta{\left(t \right)}\right)\mathbf{\hat{e_b}_y} - r \left(\sin^{2}{\left(\theta{\left(t \right)} \right)} \left(\frac{d}{d t} \phi{\left(t \right)}\right)^{2} + \left(\frac{d}{d t} \theta{\left(t \right)}\right)^{2}\right)\mathbf{\hat{e_b}_z}$
                 </div>
             </div>
-
+            <p class="m-t-2 color-white">
+                In this example, the kinematics are defined by enforcing the rolling constraint. The velocity of the center of mass of the ball about the point of contact between the ball and the finger is defined to equal to $\omega_{B/N} \times r_{cm}$, where $r_{cm}$ is the vector pointing from the point of contact between the finger and the ball to the center of mass of the ball.
+            </p>
+            <p class="m-t-2">
+                On lines 4 and 5, We define the position of our points P and CM, we tell sympy that the center of mass, (CM) is located r units away from point of contact (P) in the z direction wrt to the ball's frame of reference. The location of the point P doesn't actually matter since everything else is defined wrt to it.
+            </p>
+            <p class="m-t-2">Line 6 simply defines our $r_{cm}$ vector by stating that it points to point CM from point P.</p>
+            <p class="m-t-2">
+                Lines 7 through 9 are the simplest ways to define points P and CM wrt to the previously defined frames of reference. 
+            <ul>
+                <li><p class="color-white">The point of contact is not moving in the inertial frame, because the finger is perfectly still. </p></li>
+                <li><p class="color-white">The point of contact is also not moving in the body fixed frame, because the ball is always rotating about its bottom most point. </p></li>
+                <li><p class="color-white">The center of mass is not moving in the body fixed frame, almost by definition.</p></li>
+            </ul>
+            <p class="m-t-2">
+                Line 10 finally enforces the rolling constraint by stating that the velocity of point CM in the intertial frame is equal to $\omega_{B/N} \times r_{cm}$
+            </p>
+            <p class="m-t-2 color-white">
+                Once this is done, we can easily obtain the velocity and acceleration of the center of mass wrt to any frame we want and expressed in any frame we want. For example, the output of the code cell above shows the velocity and acceleration of the center of mass with respect to the inertial frame as expressed in the body fixed frame which can be obtained with the following 2 lines of code. <code>CM.vel(N).express(e_b)</code> and <code>CM.acc(N).express(e_b)</code>
+            </p>
+        
+                
+            <h3 class="step">Step 3: Define the kinetics. </h3>
             <div class="code">
                 <iframe src="https://carbon.now.sh/embed?bg=rgba%280%2C0%2C0%2C0%29&t=panda-syntax&wt=boxy&l=python&width=508&ds=false&dsyoff=65px&dsblur=81px&wc=false&wa=true&pv=0px&ph=0px&ln=true&fl=1&fm=Hack&fs=14px&lh=137%25&si=false&es=2x&wm=false&code=m%252C%2520g%252C%2520t%2520%2520%253D%2520sp.symbols%28%27m%2520g%2520t%27%29%250Atheta_0%252C%2520phi_0%252C%2520psi_0%252C%2520thetadot_0%252C%2520phidot_0%252C%2520psidot_0%252C%2520phidot_0%2520%253D%2520sp.symbols%28%27theta_0%2520phi_0%2520psi_0%2520thetadot_0%2520phidot_0%2520psidot_0%2520phidot_0%27%29%250A%250AIxx%2520%253D%25202%2520*%2520m%2520*%2520r**2%2520%252F%25205%250AIyy%2520%253D%25202%2520*%2520m%2520*%2520r**2%2520%252F%25205%250AIzz%2520%253D%25202%2520*%2520m%2520*%2520r**2%2520%252F%25205%250AI_c%2520%253D%2520inertia%28e_b%252C%2520Ixx%252C%2520Iyy%252C%2520Izz%29%250Adisplay%28Markdown%28%2522%2524I%255E%257B%28B%29%257D%2520%253D%2520%2522%2520%2520%252B%2520sp.latex%28I_c.express%28e_b%29.to_matrix%28e_b%29%29%2520%252B%2520%2522%2524%2522%29%29%250A%250A%2523%2520Eulers%2520first%2520law%250AFg%2520%253D%2520-m%2520*%2520g%2520*%2520N.z%250Adisplay%28Markdown%28%2522%2524F_g%2520%253D%2520%2522%2520%252B%2520sp.latex%28Fg.express%28N%29%29%2520%252B%2520%2522%2524%2522%29%29%250AFr%2520%253D%2520m*CM.acc%28N%29%2520-%2520Fg%250A%250A%2523%2520Eulers%2520second%2520law%250AHc%2520%253D%2520I_c.dot%28omega%29%250AHcdot%2520%253D%2520Hc.diff%28t%252C%2520N%29%250Ar_p%2520%253D%2520-r_P_CM%250AM%2520%253D%2520r_p.cross%28Fr%29%250A%250AfancyWayToWriteZero%2520%2520%253D%2520%28Hcdot%2520-%2520M%29.express%28e_b%29.simplify%28%29" style="width: 1024px; height: 451px; border:0; transform: scale(1); overflow:hidden;" sandbox="allow-scripts allow-same-origin">
                 </iframe>
