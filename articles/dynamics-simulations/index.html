@@ -9,7 +9,7 @@
 
 
     <!-- PAGE TITLE -->
-    <title>How to Use Symbolic Python to Solve and Visualize Dynamical Systems</title>
+    <title>How to Use Symbolic Python to Solve and Simulate Dynamical Systems</title>
 
 
     <!-- FAVICON -->
@@ -163,7 +163,7 @@
 
             <!-- /SECTION ( TITLE ) -->
             <div class="title">
-                <h2 class="colors_sweet_purple">How to Use Symbolic Python to Solve and Visualize Dynamical Systems</h2>
+                <h2 class="colors_sweet_purple">How to Use Symbolic Python to Solve and Simulate Dynamical Systems</h2>
                 <p class="colors_dreamy_turquoise">-Neil Sawhney</p>
                 <div class="seperator-line m-t-2"></div>
             </div>
@@ -171,7 +171,7 @@
 
             <p class="m-t-6 color-white"> If you've worked with some advanced dynamics problems, you'll know that it's often next to impossible to derive the equations of motion by hand.</p>
 
-            <p class="m-t-2 color-white">While most courses will teach you how to solve these kinds of systems using matrices and numerical methods, I'll show you how I use the Sympy.physics.mechanics module in python to solve for the equations of motion symbolically. These can then be visualized by numerical integration. </p>
+            <p class="m-t-2 color-white">While most courses will teach you how to solve these kinds of systems using matrices and numerical methods, I'll show you how I use the Sympy.physics.mechanics module in python to solve for the equations of motion symbolically. These can then be simulated by numerical integration. </p>
 
             <p class="m-t-6 color-white">Below is a simulation I made of a basketball spinning on a finger, which we will use as an example. Feel free to orbit around and change the initial conditions.</p>
 
@@ -226,13 +226,10 @@
             <div class="pills m-b-5 m-t-3">
 
                 <div class="pill">
-                    <p>VSCode installed + familiarity of the basics</p>
-                </div>
-                <div class="pill">
-                    <p>Jupyter Notebook installed + familiarity of the basics</p>
-                </div>
-                <div class="pill">
                     <p>A basic understanding of dynamics</p>
+                </div>
+                <div class="pill-">
+                    <p>A basic understanding of python</p>
                 </div>
 
             </div>
@@ -242,7 +239,7 @@
 
                 <br>
 
-                The javascript code for the visualization shown above can be found in the source code (using the developer console of your browser) <a class="externLink" href="./basketball-on-finger/" target="_blank">here</a>.
+                The javascript code for the simulation shown above can be found in the source code (using the developer console of your browser) <a class="externLink" href="./basketball-on-finger/" target="_blank">here</a>.
             </p>
 
             <!-- /PREREQUISITES -->
@@ -259,7 +256,7 @@
                 On line 4, we define three dynamic symbols, $\theta$, $\psi$ and $\phi$, this tells sympy that these variables are functions of time.
             </p>
             <p class="m-t-2 color-white">
-                The jupyter cell above sets up the reference frames that define a 313 euler angle sequence. The animation below helps to visualize the sequence.
+                The code cell above sets up the reference frames that define a 313 euler angle sequence. The animation below helps to visualize the sequence.
             </p>
             <div class="light-container m-t-2">
                 <img class="m-t-2" src="./assets/images/313.gif" alt="313 euler angle sequence">
@@ -295,7 +292,7 @@
                 </div>
             </div>
             <p class="m-t-2 color-white">
-                In this example, the kinematics are defined by enforcing the rolling constraint. The velocity of the center of mass of the ball about the point of contact between the ball and the finger is defined to equal to $\omega_{B/N} \times r_{cm}$, where $r_{cm}$ is the vector pointing from the point of contact between the finger and the ball to the center of mass of the ball.
+                In this example, the kinematics are defined by enforcing the rolling constraint. The velocity of the center of mass of the ball about the point of contact between the ball and the finger is defined to be equal to $\omega_{B/N} \times r_{cm}$, where $r_{cm}$ is the vector pointing from the point of contact between the finger and the ball to the center of mass of the ball.
             </p>
             <p class="m-t-2">
                 On lines 4 and 5, We define the position of our points P and CM, we tell sympy that the center of mass, (CM) is located r units away from point of contact (P) in the z direction wrt to the ball's frame of reference. The location of the point P doesn't actually matter since everything else is defined wrt to it.
@@ -311,14 +308,14 @@
                     <p class="color-white">The point of contact is also not moving in the body fixed frame, because the ball is always rotating about its bottom most point. </p>
                 </li>
                 <li>
-                    <p class="color-white">The center of mass is not moving in the body fixed frame, almost by definition.</p>
+                    <p class="color-white">The center of mass is not moving in the body fixed frame... almost by definition.</p>
                 </li>
             </ul>
             <p class="m-t-2">
                 Line 10 finally enforces the rolling constraint by stating that the velocity of point CM in the intertial frame is equal to $\omega_{B/N} \times r_{cm}$
             </p>
             <p class="m-t-2 color-white">
-                Once this is done, we can easily obtain the velocity and acceleration of the center of mass wrt to any frame we want and expressed in any frame we want. For example, directly below the code cell above shows the velocity and acceleration of the center of mass with respect to the inertial frame as expressed in the body fixed frame, which can be obtained with the following 2 lines of code. <code>CM.vel(N).express(e_b)</code> and <code>CM.acc(N).express(e_b)</code>.
+                Once this is done, we can easily obtain the velocity and acceleration of the center of mass wrt to any frame we want and expressed in any frame we want. For example, shown directly below the above code cell is the velocity and acceleration of the center of mass with respect to the inertial frame as expressed in the body fixed frame. This expression can easily be obtained with the following 2 lines of code. <code>CM.vel(N).express(e_b)</code> and <code>CM.acc(N).express(e_b)</code>.
             </p>
 
 
