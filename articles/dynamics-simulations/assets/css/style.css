@@ -2,6 +2,11 @@
     color:white;
 }
 
+ol{
+    font-size: 3rem;
+    margin-top: 1rem;
+}
+
 .light-container{
     background-color: #292a2b;
     color: white;
