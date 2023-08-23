@@ -202,7 +202,7 @@
                 </ul>
 
 
-                <h3 class="m-t-6" >Cons of using this method</h3>
+                <h3 class="m-t-2" >Cons of using this method</h3>
                 <ul>
                     <li class="m-t-2">
                         <p>
@@ -327,17 +327,12 @@
                 </iframe>
             </div>
             <p class="m-t-2 color-white">
-<<<<<<< HEAD
                 Now that the kinematics are set up, to solve the equations of motion, we need to apply Euler's first and second laws.
-=======
-                Now that we have the kinematics set up, all that is left to solve for the governing equations of motion is to apply eulers first and second laws.
->>>>>>> acab373bdc6dd288b4b8b2bfb122eba049056ca5
             </p>
             <p class="m-t-2">
                 Lines 3 through 5 simply define the inertia of the ball. The inertia of a sphere about its center of mass is $I_{sphere} = \frac{2}{5} m r^2$. Due to the symmetry of the sphere, the inertia about all three axes (in the body fixed frame e_b) is the same.
             </p>
             <p class="m-t-2 color-white">
-<<<<<<< HEAD
                 Euler's first law is $\sum F = \frac{d}{dt}p = ma$. The force acting on the ball due to gravity is easy to define in sympy. It is found by multiplying the mass of the ball with the gravitational acceleration vector which acts in the negative z direction of the inertial frame.
             </p>
             <p class="m-t-2">
@@ -348,18 +343,6 @@
             </p>
             <p class="m-t-2">
                 Lines 13 through 18 are pretty straight forward and define $\dot{H_c}$ and $M$ using the equations above. On line 14, $\dot{H_c}$ is found by telling sympy to differentiate with respect to time taken in the inertial frame.
-=======
-                Euler's first law is $\sum F = \frac{d}{dt}p = ma$. The force acting on the ball due to gravity is easy to define in sympy, it's simply the mass of the ball times the acceleration due to gravity acting in the negative z direction of the inertial frame.
-            </p>
-            <p class="m-t-2">
-                Once we have the force due to gravity vector defined, it is easy to define the reaction force on the ball due to the finger with the equation $\sum F = Fr + Fg$. Since $F = ma$, $F_r = ma - F_g$. The acceleration of the center of mass wrt to the inertial frame can be written using sympy with <code>CM.acc(N)</code>. Therefore the reaction force on the ball due to the finger can be written as <code>Fr = m*CM.acc(N) - Fg</code> as written on line 10 of the code block.
-            </p>
-            <p class="m-t-2 color-white">
-                Euler's second law is $M = \frac{d}{dt}H_c = I \alpha$. Therefore $H_c = I \omega$. Since $M = r_p \times F$, we can solve for the equations of motion by setting $\dot{H_c} = M$ and letting sympy figure out the rest.
-            </p>
-            <p class="m-t-2">
-                Lines 13 through 18 are pretty straight forward and do exactly that. On line 14, $\dot{H_c}$ is found by telling sympy to differentiate with respect to time taken in the inertial frame.
->>>>>>> acab373bdc6dd288b4b8b2bfb122eba049056ca5
             </p>
 
             <h3 class="step">Step 4: Let sympy solve the problem.
@@ -379,15 +362,9 @@
                 </div>
             </div>
             <p class="m-t-2 color-white">
-<<<<<<< HEAD
                 Well this part is easy, we hand off the dirty work to sympy and let it figure it out.
 
                 Sympy solves the problem and the result is easily found using <code>sol[psi.diff(t,2)]</code>, <code>sol[theta.diff(t,2)]</code>, and <code>sol[phi.diff(t,2)]</code> as shown in equations \ref{psi}, \ref{theta}, and \ref{phi}.
-=======
-                Well this part is easy, we hand off the dirty work to sympy, and let it figure it out.
-
-                Sympy solves the problem, and the result is easily printed using <code>sol[psi.diff(t,2)]</code>, <code>sol[theta.diff(t,2)]</code>, and <code>sol[phi.diff(t,2)]</code> as shown underneath the code cell above.
->>>>>>> acab373bdc6dd288b4b8b2bfb122eba049056ca5
             </p>
             <p class="m-t-2">
                 Sympy solve doesn't understand the vector notation of the physics.mechanics module (at the time of writing this), so on lines 1-3, I use the dot product to split the vector equation into 3 regular equations.
@@ -395,16 +372,11 @@
 
             <h3 class="step">Step 5: Numerically integrate and simulate.</h3>
             <p class="m-t-2 color-white">
-<<<<<<< HEAD
                 I wont go as deep into the low level details here because honestly the hard part is done. There are a million well documented ways to numerically integrate. Simulation involves creating an object in any visualization software and using its built in rotate tools in tandem with the numerically integrated solution.
-=======
-                I wont go as deep into the low level details here because honestly the hard part is done. There are a million well documented ways to numerically integrate, and simulation just involves creating an object in any visualization software and using its built in rotate tools in tandem with the numerically integrated solution.
->>>>>>> acab373bdc6dd288b4b8b2bfb122eba049056ca5
             </p>
             <p class="m-t-2">
                 In the jupyter notebook code I provided, I used the odeint function in the scipy python module for numerical integration, and manim to render and display a simulation with preset initial conditions.
 
-<<<<<<< HEAD
                 However, a major flaw in my implementation is that the simulation accuracy relies heavily on the frame rate of the renderer, which makes for long render times and creates some chaotic behavior at low fps.</p>
             <p class="m-t-2 color-white">
                 For the interactive javascript simulation I previewed at the beginning of this article, I used the dopri funtion in the numeric library for the numerical integration. For the visualization I used the three.js library.
@@ -415,18 +387,6 @@
             <ol>
                 <li>
                     <p class="color-white">Put your numerically integrated solution in an array.</p>
-=======
-                However, a major flaw in my implementation is that the simulation accuracy reilies heavily on the frame rate of the renderer, which makes for some chaotic behavior at low fps and long render times.</p>
-            <p class="m-t-2 color-white">
-                For the interactive javascript simulation I previewed at the beginning of this article, I used the dopri funtion in the numeric library for the numerical integration, and the three.js library for the visualization.
-            </p>
-            <p class="color-white">
-                Whatever you use, the process is the same.
-            </p>
-            <ul>
-                <li>
-                    <p class="color-white">Put your numerical integration solution in an array.</p>
->>>>>>> acab373bdc6dd288b4b8b2bfb122eba049056ca5
                 </li>
                 <li>
                     <p class="color-white">
@@ -440,33 +400,19 @@
                 </li>
                 <li>
                     <p class="color-white">
-<<<<<<< HEAD
                         Rotate about the bottom point of the basketball first by phi about the z axis, then by theta about the x axis, then by psi about the z axis again. 
                         <br>
                         <small>(This procedure is shown in the following code snippet using three.js. However, the camera is rotated, so to keep things vertical I'm technically doing a 2-3-2 euler angle sequence instead of a 3-1-3.)</small>
                     </p>
                 </li>
             </ol>
-=======
-                        Rotate about the bottom point of the basketball first by phi about the z axis, then by theta about the x axis, then by psi about the z axis again.
-                    </p>
-                    <p>
-                        This procedure is shown in the following code snippet using three.js. However, the camera is rotated, so to keep things vertical I'm technically doing a 2-3-2 euler angle sequence instead of a 3-1-3.
-                    </p>
-                </li>
-            </ul>
->>>>>>> acab373bdc6dd288b4b8b2bfb122eba049056ca5
 
             <div class="code">
                 <iframe src="https://carbon.now.sh/embed?bg=rgba%280%2C0%2C0%2C0%29&t=panda-syntax&wt=boxy&l=javascript&width=508&ds=false&dsyoff=65px&dsblur=81px&wc=false&wa=true&pv=0px&ph=0px&ln=true&fl=1&fm=Hack&fs=14px&lh=137%25&si=false&es=2x&wm=false&code=let%2520quaternion%2520%253D%2520new%2520THREE.Quaternion%28%29%253B%250A%2520%2520%2520%2520quaternion.setFromEuler%28new%2520THREE.Euler%280%252C%2520phi%252C%25200%252C%2520%27XYZ%27%29%29%253B%250A%2520%2520%2520%2520quaternion.multiply%28new%2520THREE.Quaternion%28%29.setFromEuler%28new%2520THREE.Euler%280%252C%25200%252C%2520theta%252C%2520%27XYZ%27%29%29%29%253B%250A%2520%2520%2520%2520quaternion.multiply%28new%2520THREE.Quaternion%28%29.setFromEuler%28new%2520THREE.Euler%280%252C%2520psi%252C%25200%252C%2520%27XYZ%27%29%29%29%253B%250A%2520%2520%2520%2520basketballOffset.setRotationFromQuaternion%28quaternion%29%253B" style="width: 879px; height: 125px; border:0; transform: scale(1); overflow:hidden;" sandbox="allow-scripts allow-same-origin">
                 </iframe>
             </div>
 
-<<<<<<< HEAD
             <p class="m-t-6 color-white">Well, that's basically it! I hope you enjoyed!</p>
-=======
-            <p class="m-t-2 color-white">well, that's basically it! I hope you enjoyed!</p>
->>>>>>> acab373bdc6dd288b4b8b2bfb122eba049056ca5
 
             <div style="height: 10rem;"> <br></div>
         </div>
