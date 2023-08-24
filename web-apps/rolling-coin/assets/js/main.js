@@ -36,7 +36,7 @@ scene.add( ambientLight );
 
 
 // Camera
-camera.position.set(0.3,0.5,0.3);
+camera.position.set(4,5,4);
 camera.lookAt(0,-0.2,0);
 
 // Axes
@@ -44,56 +44,38 @@ const axesHelper = new THREE.AxesHelper( 5 );
 scene.add( axesHelper );
 
 // Load models
-const basketballOffset = new THREE.Object3D();
 let basketball;
 const loader = new GLTFLoader();
 const cacheBuster = new Date().getTime(); // Get the current timestamp
 
 loader.load( './assets/3d-models/basketball.glb?v=${cacheBuster}', function ( gltf ) {
     basketball = gltf.scene;
-    basketball.scale.set(0.119/1.6143269538879395, 0.119/1.6143269538879395, 0.119/1.6143269538879395);
-    basketball.position.set(0, 0.119, 0);
-
-    basketballOffset.add( basketball);
+    basketball.scale.set(2/1.6143269538879395, 2/1.6143269538879395, 2/1.6143269538879395);
+    basketball.position.set(0, 2, 0);
+    scene.add(basketball)
 }
 );
-scene.add(basketballOffset)
-
-loader.load( './assets/3d-models/hand.glb?v=${cacheBuster}', function ( gltf ) {
-    // apply a metal material
-    let handMaterial = new THREE.MeshStandardMaterial( {
-        color: 0x888888,
-        roughness: 0.5,
-    } );
-    let hand = gltf.scene;
-    hand.scale.set(1,1,1);
-    hand.rotation.set(0, 0, -Math.PI/2);
-    hand.position.set(-1.468,-.868, -.1);
-    hand.traverse( function ( child ) {
-        if ( child.isMesh ) {
-            child.material = handMaterial;
-        }
-    } );   
-    scene.add( hand );
-}
-);
-
 
 // Constants
 const g = 9.80665; // acceleration due to gravity
-const m = 0.635; // mass of the ball
-const l = 0.119; // length to center of mass
+const r = 1; //radius of the coin
 
 let y0 = [];
 const Parameters = {
+    X: { value: 0, min: 0, max: 10, id: 'x_0', units: 'm' },
+    Y: { value: 0, min: 0, max: 10, id: 'y_0', units: 'm' },
+    Z: { value: 0, min: 0, max: 10, id: 'z_0', units: 'm' },
     Phi: { value: 0, min: 0, max: 360, id: '\\( \\phi_0 \\)', units: '\\( ^{\\circ} \\)' },
-    Theta: { value: 10, min: 1e-1, max: 180, id: '\\( \\theta_0 \\)', units: '\\( ^{\\circ} \\)'},
+    Theta: { value: 10, min: 1e-1, max: 360, id: '\\( \\theta_0 \\)', units: '\\( ^{\\circ} \\)'},
     Psi: { value: 0, min: 0, max: 360, id: '\\( \\psi_0 \\)', units: '\\( ^{\\circ} \\)'},
-    PhiDot: { value: 1e-3, min: 1e-3, max: 1000, id: '\\( \\dot{\\phi}_0 \\)', units: ' \\( \\frac{deg}{s} \\)'},
-    ThetaDot: { value: 1e-3, min: 1e-3, max: 300, id: '\\( \\dot{\\theta}_0 \\)', units: ' \\( \\frac{deg}{s} \\)'},
-    PsiDot: { value: 5000, min: 1e-3, max: 10000, id: '\\( \\dot{\\psi}_0 \\)', units: ' \\( \\frac{deg}{s} \\)'},
+    XDot: { value: 0, min: 0, max: 100, id: '\\( \\dot{x}_0 \\)', units: ' \\( \\frac{m}{s} \\)' },
+    YDot: { value: 0, min: 0, max: 100, id: '\\( \\dot{y}_0 \\)', units: ' \\( \\frac{m}{s} \\)' },
+    ZDot: { value: 0, min: 0, max: 100, id: '\\( \\dot{z}_0 \\)', units: ' \\( \\frac{m}{s} \\)' },
+    PhiDot: { value: 150, min: 0, max: 1000, id: '\\( \\dot{\\phi}_0 \\)', units: ' \\( \\frac{deg}{s} \\)'},
+    ThetaDot: { value: 0, min: 0, max: 1000, id: '\\( \\dot{\\theta}_0 \\)', units: ' \\( \\frac{deg}{s} \\)'},
+    PsiDot: { value: 0, min: 0, max: 1000, id: '\\( \\dot{\\psi}_0 \\)', units: ' \\( \\frac{deg}{s} \\)'},
     Damping: { value: 0.1, min: 0, max: 2, id: 'Damping', units: ''},
-    Time: { value: 20, min: 1, max: 60, id: 'Run Time', units: ' \\( s \\)'}
+    Time: { value:5, min: 1, max: 60, id: 'Run Time', units: ' \\( s \\)'}
 };
 
 function setupSlider(parameter) {
@@ -140,39 +122,53 @@ function setupSlider(parameter) {
     });
 }
 
+setupSlider(Parameters.X);
+setupSlider(Parameters.Y);
+setupSlider(Parameters.Z);
 setupSlider(Parameters.Phi);
 setupSlider(Parameters.Theta);
 setupSlider(Parameters.Psi);
+setupSlider(Parameters.XDot);
+setupSlider(Parameters.YDot);
+setupSlider(Parameters.ZDot);
 setupSlider(Parameters.PhiDot);
 setupSlider(Parameters.ThetaDot);
 setupSlider(Parameters.PsiDot);
 setupSlider(Parameters.Damping);
 setupSlider(Parameters.Time);
 
-const equations = function(t, y) {
-    let phi = y[Parameters.Phi.index], theta = y[Parameters.Theta.index], psi = y[Parameters.Psi.index], phiDot = y[Parameters.PhiDot.index], thetaDot = y[Parameters.ThetaDot.index], psiDot = y[Parameters.PsiDot.index];
+const equations = function(t, stuff) {
+    let phi = stuff[Parameters.Phi.index], theta = stuff[Parameters.Theta.index], psi = stuff[Parameters.Psi.index], phiDot = stuff[Parameters.PhiDot.index], thetaDot = stuff[Parameters.ThetaDot.index], psiDot = stuff[Parameters.PsiDot.index];
+    let x = stuff[Parameters.X.index], y = stuff[Parameters.Y.index], z = stuff[Parameters.Z.index], xDot = stuff[Parameters.XDot.index], yDot = stuff[Parameters.YDot.index], zDot = stuff[Parameters.ZDot.index];
 
-    // Calculate second derivatives based on your equations
-    let psiDotDot = -(5*Math.sin(theta)*phiDot + (2*psiDot)/Math.tan(theta) - (12*phiDot)/(Math.sin(theta)))*thetaDot/7;
-    let thetaDotDot = (5*g*Math.sin(theta))/(7*l) - (5*Math.sin(psi - 3*theta)*Math.sin(psi)*Math.pow(phiDot,2))/(56*Math.sin(theta)) + (5*Math.sin(psi + theta)*Math.sin(psi)*Math.pow(phiDot,2))/(56*Math.sin(theta)) - (5*Math.sin(psi)*Math.cos(psi + theta)*Math.cos(theta)*Math.pow(phiDot,2))/14 + (5*Math.sin(theta)*Math.pow(Math.cos(psi), 2)*Math.cos(theta)*Math.pow(phiDot,2))/7 - (2*Math.sin(theta)*phiDot*psiDot)/7
-    let phiDotDot = -(2*(6*Math.cos(theta)*phiDot - psiDot)*thetaDot)/(7*Math.sin(theta))
+    let psiDotDot = -(2*phiDot*thetaDot)/Math.cos(theta)
+    let thetaDotDot = (8*g*Math.sin(theta) + r*(5*Math.sin(2*theta)*psiDot + 12*Math.cos(theta)*phiDot)*psiDot)/(10*r)
+    let phiDotDot = (-(5*(1-Math.cos(4*theta)) * psiDot)/4 + 5*Math.sin(theta)**4*Math.cos(theta)**2*psiDot + 6*Math.sin(theta)*phiDot - 5*Math.cos(theta)**6*psiDot)*thetaDot/(3*Math.cos(theta))
 
-    thetaDotDot -= thetaDotDot > 1e-6 ? Parameters.Damping.value * thetaDot : 1e-6;
-    phiDotDot -= phiDotDot > 1e-6 ? Parameters.Damping.value * phiDot : 1e-6;;
-    psiDotDot -= psiDotDot > 1e-6 ? Parameters.Damping.value * psiDot : 1e-6;
+    // thetaDotDot -= thetaDotDot > 1e-6 ? Parameters.Damping.value * thetaDot : 1e-6;
+    // phiDotDot -= phiDotDot > 1e-6 ? Parameters.Damping.value * phiDot : 1e-6;;
+    // psiDotDot -= psiDotDot > 1e-6 ? Parameters.Damping.value * psiDot : 1e-6;
 
-    return [phiDot, thetaDot, psiDot, phiDotDot, thetaDotDot, psiDotDot];
+    let xDotDot = r*(Math.sin(theta)*psiDotDot + 2*Math.cos(theta)*psiDot*thetaDot + phiDotDot)
+    let yDotDot = g*Math.sin(theta) + r*((Math.sin(theta)*psiDot + phiDot)*Math.cos(theta)*psiDot - thetaDotDot)
+    let zDotDot = g*Math.cos(theta) - r*(Math.sin(theta)*psiDot + phiDot)*Math.sin(theta)*psiDot + thetaDot**2
+
+    xDotDot -= xDotDot > 1e-6 ? Parameters.Damping.value * xDot : 1e-6;
+    yDotDot -= yDotDot > 1e-6 ? Parameters.Damping.value * yDot : 1e-6;
+    zDotDot -= zDotDot > 1e-6 ? Parameters.Damping.value * zDot : 1e-6;
+
+    return [xDot, yDot, zDot, phiDot, thetaDot, psiDot, xDotDot, yDotDot, zDotDot, phiDotDot, thetaDotDot, psiDotDot];
 };
 
 // Time span
 let t0 = 0, tf = Parameters.Time.value;
 
 // Call the ode solver
-let result = numeric.dopri(t0, Parameters.Time.value, y0, equations, 1e-6, 5e4);
+let result = numeric.dopri(t0, tf, y0, equations, 1e-6, 5e4);
 
 console.log(result)
 
-let pointToTrace = new THREE.Vector3(0, 0.119*2, 0);
+let pointToTrace = new THREE.Vector3(0, -2, 0);
 var points = [];
 var lines = [];
 var recentLines = [];
@@ -183,7 +179,7 @@ let time = clock.getElapsedTime();
 function animate() {
 	animationId = requestAnimationFrame( animate );
 
-    if (time >= Parameters.Time.value) {
+    if (time >= tf) {
         clock = new Clock();
 
         // remove all lines
@@ -191,19 +187,23 @@ function animate() {
             scene.remove(lines[i]);
         }
     }
+    let x = result.at(time)[0];
+    let y = result.at(time)[1];
+    let z = result.at(time)[2];
+    let phi = result.at(time)[3];
+    let theta = result.at(time)[4];
+    let psi = result.at(time)[5];
 
-    let phi = result.at(time)[0];
-    let theta = result.at(time)[1];
-    let psi = result.at(time)[2];
 
-    // sphere and outline rotate together
+    // basketball.position.set(x, y, z);
+    
     let quaternion = new THREE.Quaternion();
-    quaternion.setFromEuler(new THREE.Euler(0, phi, 0, 'XYZ'));
+    quaternion.setFromEuler(new THREE.Euler(phi, 0, 0, 'XYZ'));
     quaternion.multiply(new THREE.Quaternion().setFromEuler(new THREE.Euler(0, 0, theta, 'XYZ')));
     quaternion.multiply(new THREE.Quaternion().setFromEuler(new THREE.Euler(0, psi, 0, 'XYZ')));
-    basketballOffset.setRotationFromQuaternion(quaternion);
+    basketball.setRotationFromQuaternion(quaternion);
 
-    var worldPointToTrace = basketballOffset.localToWorld(pointToTrace.clone());
+    var worldPointToTrace = basketball.localToWorld(pointToTrace.clone());
     points.push(worldPointToTrace);
 
     var lineGeometry = new THREE.BufferGeometry().setFromPoints( points.slice(-2) );
