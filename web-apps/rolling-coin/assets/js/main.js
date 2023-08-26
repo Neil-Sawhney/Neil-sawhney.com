@@ -43,19 +43,6 @@ camera.lookAt(0,-2,0);
 const axesHelper = new THREE.AxesHelper( 5 );
 scene.add( axesHelper );
 
-// Load models
-let basketball;
-const loader = new GLTFLoader();
-const cacheBuster = new Date().getTime(); // Get the current timestamp
-
-loader.load( './assets/3d-models/basketball.glb?v=${cacheBuster}', function ( gltf ) {
-    basketball = gltf.scene;
-    basketball.scale.set(0.2, 2/1.6143269538879395, 2/1.6143269538879395);
-    basketball.position.set(0, 2, 0);
-    scene.add(basketball)
-}
-);
-
 // Constants
 const g = 9.80665; // acceleration due to gravity
 const r = 1; //radius of the coin
@@ -136,6 +123,24 @@ setupSlider(Parameters.ThetaDot);
 setupSlider(Parameters.PsiDot);
 setupSlider(Parameters.Damping);
 setupSlider(Parameters.Time);
+
+// Load models
+let basketball;
+const loader = new GLTFLoader();
+const cacheBuster = new Date().getTime(); // Get the current timestamp
+
+loader.load( './assets/3d-models/basketball.glb?v=${cacheBuster}', function ( gltf ) {
+    basketball = gltf.scene;
+    basketball.scale.set(0.2, r/1.6143269538879395, r/1.6143269538879395);
+    basketball.position.set(0, r, 0);
+    scene.add(basketball)
+}
+);
+
+//create an invisible circle called frame2 for point to trace
+let frame2 = new THREE.Mesh(new THREE.CircleGeometry(r, 32), new THREE.MeshBasicMaterial({color: 0xFFFFFF}));
+frame2.position.set(0,r,0);
+scene.add(frame2);
 
 const equations = function(t, stuff) {
     let phi = stuff[Parameters.Phi.index], theta = stuff[Parameters.Theta.index], psi = stuff[Parameters.Psi.index], phiDot = stuff[Parameters.PhiDot.index], thetaDot = stuff[Parameters.ThetaDot.index], psiDot = stuff[Parameters.PsiDot.index];
