@@ -17,8 +17,8 @@ window.addEventListener('resize', function() {
 }, false);
 
 // // Controls
-// const controls = new OrbitControls( camera, renderer.domElement );
-// controls.update();
+const controls = new OrbitControls( camera, renderer.domElement );
+controls.update();
 
 // Light
 const topLight = new THREE.DirectionalLight( 0xffffff, 1);
@@ -40,17 +40,18 @@ let grid = new THREE.GridHelper(size, size);
 
 scene.add(grid);
 
-// Camera
-camera.position.set(4,4,4);
-camera.lookAt(0,-2,0);
-
 // Axes
 const axesHelper = new THREE.AxesHelper( 5 );
 scene.add( axesHelper );
 
 // Constants
 const g = 9.80665; // acceleration due to gravity
-const r = 1; //radius of the coin
+const r = .5; //radius of the coin
+
+// Camera
+camera.position.set(r*6,r*6,r*6);
+camera.lookAt(0,-r*2,0);
+
 
 let y0 = [];
 const Parameters = {
@@ -136,7 +137,7 @@ const cacheBuster = new Date().getTime(); // Get the current timestamp
 
 loader.load( './assets/3d-models/basketball.glb?v=${cacheBuster}', function ( gltf ) {
     basketball = gltf.scene;
-    basketball.scale.set(0.2, r/1.6143269538879395, r/1.6143269538879395);
+    basketball.scale.set(0.2*r, r/1.6143269538879395, r/1.6143269538879395);
     basketball.position.set(0, r, 0);
     scene.add(basketball)
 }
@@ -206,7 +207,9 @@ function animate() {
     let psi = result.at(time)[5];
 
     // Camera
-    camera.position.set(y+4,z+4,x+4);
+    controls.target.set(y+r,z - r,x+r);
+    // // Let OrbitControls know the camera has moved
+    controls.update();
 
     basketball.position.set(y, z + r, x);
     frame2.position.set(y, z + r, x);
