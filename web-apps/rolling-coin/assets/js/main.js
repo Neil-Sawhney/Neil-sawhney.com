@@ -34,6 +34,11 @@ scene.add( oppositeLight );
 const ambientLight = new THREE.AmbientLight( 0x404040 ); // soft white light
 scene.add( ambientLight );
 
+// Create a GridHelper with size and divisions
+let size = 1000;
+let grid = new THREE.GridHelper(size, size);
+
+scene.add(grid);
 
 // Camera
 camera.position.set(4,4,4);
