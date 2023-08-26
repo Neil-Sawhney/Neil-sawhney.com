@@ -47,10 +47,6 @@ scene.add( axesHelper );
 
 // Constants
 const g = 9.80665; // acceleration due to gravity
-const r = 2; //radius of the coin
-
-// Camera
-camera.position.set(r*4,r*4,r*4);
 
 
 let y0 = [];
@@ -67,6 +63,7 @@ const Parameters = {
     PhiDot: { value: 150, min: 0, max: 1000, id: '\\( \\dot{\\phi}_0 \\)', units: ' \\( \\frac{deg}{s} \\)'},
     ThetaDot: { value: 0, min: 0, max: 1000, id: '\\( \\dot{\\theta}_0 \\)', units: ' \\( \\frac{deg}{s} \\)'},
     PsiDot: { value: 0, min: 0, max: 1000, id: '\\( \\dot{\\psi}_0 \\)', units: ' \\( \\frac{deg}{s} \\)'},
+    r: { value: 2, min: 0.001, max: 10, id: 'Radius', units: ' \\( m \\)'},
     Damping: { value: 0.1, min: 0, max: 1, id: 'Damping', units: ''},
     Time: { value:20, min: 1, max: 60, id: 'Run Time', units: ' \\( s \\)'}
 };
@@ -127,8 +124,12 @@ setupSlider(Parameters.ZDot);
 setupSlider(Parameters.PhiDot);
 setupSlider(Parameters.ThetaDot);
 setupSlider(Parameters.PsiDot);
+setupSlider(Parameters.r);
 setupSlider(Parameters.Damping);
 setupSlider(Parameters.Time);
+
+// Camera
+camera.position.set(Parameters.r.value*4,Parameters.r.value*4,Parameters.r.value*4);
 
 // Load models
 let coin;
@@ -137,15 +138,15 @@ const cacheBuster = new Date().getTime(); // Get the current timestamp
 
 loader.load( './assets/3d-models/coin.glb?v=${cacheBuster}', function ( gltf ) {
     coin = gltf.scene;
-    coin.scale.set(2*r,2*r, 2*r);
-    coin.position.set(0, r, 0);
+    coin.scale.set(2*Parameters.r.value,2*Parameters.r.value, 2*Parameters.r.value);
+    coin.position.set(0, Parameters.r.value, 0);
     scene.add(coin)
 }
 );
 
 //create an invisible object frame2 for point to trace
 let frame2 = new THREE.Object3D();
-frame2.position.set(0,r,0);
+frame2.position.set(0,Parameters.r.value,0);
 scene.add(frame2);
 
 const equations = function(t, stuff) {
@@ -153,14 +154,14 @@ const equations = function(t, stuff) {
     let x = stuff[Parameters.X.index], y = stuff[Parameters.Y.index], z = stuff[Parameters.Z.index], xDot = stuff[Parameters.XDot.index], yDot = stuff[Parameters.YDot.index], zDot = stuff[Parameters.ZDot.index];
 
     let psiDotDot = -(2*phiDot*thetaDot)/Math.cos(theta)
-    let thetaDotDot = (8*g*Math.sin(theta) + r*(5*Math.sin(2*theta)*psiDot + 12*Math.cos(theta)*phiDot)*psiDot)/(10*r)
+    let thetaDotDot = (8*g*Math.sin(theta) + Parameters.r.value*(5*Math.sin(2*theta)*psiDot + 12*Math.cos(theta)*phiDot)*psiDot)/(10*Parameters.r.value)
     let phiDotDot = (-(5*(1-Math.cos(4*theta)) * psiDot)/4 + 5*Math.sin(theta)**4*Math.cos(theta)**2*psiDot + 6*Math.sin(theta)*phiDot - 5*Math.cos(theta)**6*psiDot)*thetaDot/(3*Math.cos(theta))
 
-    let xDotDot =  r * (-((Math.sin(theta) * psiDot + phiDot) * Math.sin(theta) * psiDot + Math.pow(thetaDot, 2)) * Math.sin(psi) * Math.sin(theta) - ((Math.sin(theta) * psiDot + phiDot) * Math.cos(theta) * psiDot - thetaDotDot) * Math.sin(psi) * Math.cos(theta) + (Math.sin(theta) * psiDotDot + 2 * Math.cos(theta) * psiDot * thetaDot + phiDotDot) * Math.cos(psi));
+    let xDotDot =  Parameters.r.value * (-((Math.sin(theta) * psiDot + phiDot) * Math.sin(theta) * psiDot + Math.pow(thetaDot, 2)) * Math.sin(psi) * Math.sin(theta) - ((Math.sin(theta) * psiDot + phiDot) * Math.cos(theta) * psiDot - thetaDotDot) * Math.sin(psi) * Math.cos(theta) + (Math.sin(theta) * psiDotDot + 2 * Math.cos(theta) * psiDot * thetaDot + phiDotDot) * Math.cos(psi));
 
-    let yDotDot = r * ((((Math.sin(theta) * psiDot + phiDot) * Math.sin(theta) * psiDot + Math.pow(thetaDot, 2)) * Math.sin(theta) * Math.cos(psi)) + (((Math.sin(theta) * psiDot + phiDot) * Math.cos(theta) * psiDot - thetaDotDot) * Math.cos(psi) * Math.cos(theta)) + ((Math.sin(theta) * psiDotDot + 2 * Math.cos(theta) * psiDot * thetaDot + phiDotDot) * Math.sin(psi)));
+    let yDotDot = Parameters.r.value * ((((Math.sin(theta) * psiDot + phiDot) * Math.sin(theta) * psiDot + Math.pow(thetaDot, 2)) * Math.sin(theta) * Math.cos(psi)) + (((Math.sin(theta) * psiDot + phiDot) * Math.cos(theta) * psiDot - thetaDotDot) * Math.cos(psi) * Math.cos(theta)) + ((Math.sin(theta) * psiDotDot + 2 * Math.cos(theta) * psiDot * thetaDot + phiDotDot) * Math.sin(psi)));
 
-    let zDotDot = -r * (Math.sin(theta) * thetaDotDot + Math.cos(theta) * Math.pow(thetaDot, 2));
+    let zDotDot = -Parameters.r.value * (Math.sin(theta) * thetaDotDot + Math.cos(theta) * Math.pow(thetaDot, 2));
 
     // Damping
     thetaDotDot -= thetaDotDot > 1e-6 ? 0.8*Parameters.Damping.value * thetaDot : 1e-6;
@@ -179,7 +180,7 @@ let result = numeric.dopri(t0, tf, y0, equations, 1e-6, 5e4);
 
 console.log(result)
 
-let pointToTrace = new THREE.Vector3(0, -r, 0);
+let pointToTrace = new THREE.Vector3(0, -Parameters.r.value, 0);
 var points = [];
 var lines = [];
 var recentLines = [];
@@ -192,7 +193,7 @@ function animate() {
 
     if (time >= tf) {
         clock = new Clock();
-        camera.position.set(r*4,r*4,r*4);
+        camera.position.set(Parameters.r.value*4,Parameters.r.value*4,Parameters.r.value*4);
         // remove all lines
         for (let i = 0; i < lines.length; i++) {
             scene.remove(lines[i]);
@@ -207,12 +208,12 @@ function animate() {
     let psi = result.at(time)[5];
 
     // Camera
-    controls.target.set(y+r,z - r,x+r);
+    controls.target.set(y+Parameters.r.value,z - Parameters.r.value,x+Parameters.r.value);
     // // Let OrbitControls know the camera has moved
     controls.update();
 
-    coin.position.set(y, z + r, x);
-    frame2.position.set(y, z + r, x);
+    coin.position.set(y, z + Parameters.r.value, x);
+    frame2.position.set(y, z + Parameters.r.value, x);
     
     let quaternion = new THREE.Quaternion();
     quaternion.setFromEuler(new THREE.Euler(0, psi, 0, 'XYZ'));
@@ -258,6 +259,11 @@ let restart = function() {
     cancelAnimationFrame(animationId);
     // Call the ode solver
     result = numeric.dopri(t0, Parameters.Time.value, y0, equations, 1e-6, 5e4);
+
+    coin.scale.set(2*Parameters.r.value,2*Parameters.r.value, 2*Parameters.r.value);
+    coin.position.set(0, Parameters.r.value, 0);
+    frame2.position.set(0,Parameters.r.value,0);
+    pointToTrace = new THREE.Vector3(0, -Parameters.r.value, 0);
 
     time = Parameters.Time.max;
     animate();
