@@ -51,9 +51,9 @@ const g = 9.80665; // acceleration due to gravity
 
 let y0 = [];
 const Parameters = {
-    X: { value: 0, min: 0, max: 10, id: 'x_0', units: 'm' },
-    Y: { value: 0, min: 0, max: 10, id: 'y_0', units: 'm' },
-    Z: { value: 0, min: 0, max: 10, id: 'z_0', units: 'm' },
+    X: { value: 0, min: 0, max: 10, id: '\\(x_0\\)', units: 'm' },
+    Y: { value: 0, min: 0, max: 10, id: '\\(y_0\\)', units: 'm' },
+    Z: { value: 0, min: 0, max: 10, id: '\\(z_0\\)', units: 'm' },
     Phi: { value: 1e-1, min: 1e-1, max: 360, id: '\\( \\phi_0 \\)', units: '\\( ^{\\circ} \\)' },
     Theta: { value: 10, min: -89, max: 89, id: '\\( \\theta_0 \\)', units: '\\( ^{\\circ} \\)'},
     Psi: { value: 1e-1, min: 1e-1, max: 360, id: '\\( \\psi_0 \\)', units: '\\( ^{\\circ} \\)'},
