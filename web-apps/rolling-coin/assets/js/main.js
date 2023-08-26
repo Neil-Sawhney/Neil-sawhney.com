@@ -36,7 +36,8 @@ scene.add( ambientLight );
 
 // Create a GridHelper with size and divisions
 let size = 1000;
-let grid = new THREE.GridHelper(size, size);
+let divisions = 100;
+let grid = new THREE.GridHelper(size, divisions);
 
 scene.add(grid);
 
@@ -46,11 +47,10 @@ scene.add( axesHelper );
 
 // Constants
 const g = 9.80665; // acceleration due to gravity
-const r = .5; //radius of the coin
+const r = 2; //radius of the coin
 
 // Camera
-camera.position.set(r*6,r*6,r*6);
-camera.lookAt(0,-r*2,0);
+camera.position.set(r*4,r*4,r*4);
 
 
 let y0 = [];
@@ -131,15 +131,15 @@ setupSlider(Parameters.Damping);
 setupSlider(Parameters.Time);
 
 // Load models
-let basketball;
+let coin;
 const loader = new GLTFLoader();
 const cacheBuster = new Date().getTime(); // Get the current timestamp
 
-loader.load( './assets/3d-models/basketball.glb?v=${cacheBuster}', function ( gltf ) {
-    basketball = gltf.scene;
-    basketball.scale.set(0.2*r, r/1.6143269538879395, r/1.6143269538879395);
-    basketball.position.set(0, r, 0);
-    scene.add(basketball)
+loader.load( './assets/3d-models/coin.glb?v=${cacheBuster}', function ( gltf ) {
+    coin = gltf.scene;
+    coin.scale.set(2*r,2*r, 2*r);
+    coin.position.set(0, r, 0);
+    scene.add(coin)
 }
 );
 
@@ -192,7 +192,7 @@ function animate() {
 
     if (time >= tf) {
         clock = new Clock();
-
+        camera.position.set(r*4,r*4,r*4);
         // remove all lines
         for (let i = 0; i < lines.length; i++) {
             scene.remove(lines[i]);
@@ -211,7 +211,7 @@ function animate() {
     // // Let OrbitControls know the camera has moved
     controls.update();
 
-    basketball.position.set(y, z + r, x);
+    coin.position.set(y, z + r, x);
     frame2.position.set(y, z + r, x);
     
     let quaternion = new THREE.Quaternion();
@@ -219,7 +219,7 @@ function animate() {
     quaternion.multiply(new THREE.Quaternion().setFromEuler(new THREE.Euler(0, 0, theta, 'XYZ')));
     frame2.setRotationFromQuaternion(quaternion);
     quaternion.multiply(new THREE.Quaternion().setFromEuler(new THREE.Euler(phi, 0, 0, 'XYZ')));
-    basketball.setRotationFromQuaternion(quaternion);
+    coin.setRotationFromQuaternion(quaternion);
 
     var worldPointToTrace = frame2.localToWorld(pointToTrace.clone());
     points.push(worldPointToTrace);
