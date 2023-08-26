@@ -63,7 +63,7 @@ const Parameters = {
     PhiDot: { value: 150, min: 0, max: 1000, id: '\\( \\dot{\\phi}_0 \\)', units: ' \\( \\frac{deg}{s} \\)'},
     ThetaDot: { value: 0, min: 0, max: 1000, id: '\\( \\dot{\\theta}_0 \\)', units: ' \\( \\frac{deg}{s} \\)'},
     PsiDot: { value: 0, min: 0, max: 1000, id: '\\( \\dot{\\psi}_0 \\)', units: ' \\( \\frac{deg}{s} \\)'},
-    r: { value: 2, min: 0.001, max: 10, id: 'Radius', units: ' \\( m \\)'},
+    r: { value: 2, min: 0.1, max: 10, id: 'Radius', units: ' \\( m \\)'},
     Damping: { value: 0.1, min: 0, max: 1, id: 'Damping', units: ''},
     Time: { value:20, min: 1, max: 60, id: 'Run Time', units: ' \\( s \\)'}
 };
