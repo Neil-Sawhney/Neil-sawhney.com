@@ -137,8 +137,8 @@ loader.load( './assets/3d-models/basketball.glb?v=${cacheBuster}', function ( gl
 }
 );
 
-//create an invisible circle called frame2 for point to trace
-let frame2 = new THREE.Mesh(new THREE.CircleGeometry(r, 32), new THREE.MeshBasicMaterial({color: 0xFFFFFF}));
+//create an invisible object frame2 for point to trace
+let frame2 = new THREE.Object3D();
 frame2.position.set(0,r,0);
 scene.add(frame2);
 
@@ -173,7 +173,7 @@ let result = numeric.dopri(t0, tf, y0, equations, 1e-6, 5e4);
 
 console.log(result)
 
-let pointToTrace = new THREE.Vector3(0, -1.7, 0);
+let pointToTrace = new THREE.Vector3(0, -r, 0);
 var points = [];
 var lines = [];
 var recentLines = [];
@@ -203,16 +203,18 @@ function animate() {
     // Camera
     camera.position.set(y+4,z+4,x+4);
 
-    basketball.position.set(y, z, x);
+    basketball.position.set(y, z + r, x);
+    frame2.position.set(y, z + r, x);
     
     let quaternion = new THREE.Quaternion();
     quaternion.setFromEuler(new THREE.Euler(0, psi, 0, 'XYZ'));
     quaternion.multiply(new THREE.Quaternion().setFromEuler(new THREE.Euler(0, 0, theta, 'XYZ')));
+    frame2.setRotationFromQuaternion(quaternion);
     quaternion.multiply(new THREE.Quaternion().setFromEuler(new THREE.Euler(phi, 0, 0, 'XYZ')));
     basketball.setRotationFromQuaternion(quaternion);
 
-    var worldPointToTrace = basketball.localToWorld(pointToTrace.clone());
-    // points.push(worldPointToTrace);
+    var worldPointToTrace = frame2.localToWorld(pointToTrace.clone());
+    points.push(worldPointToTrace);
 
     var lineGeometry = new THREE.BufferGeometry().setFromPoints( points.slice(-2) );
     var lineMaterial = new THREE.LineBasicMaterial({ color: 0xFFFFFF });
@@ -249,6 +251,6 @@ let restart = function() {
     // Call the ode solver
     result = numeric.dopri(t0, Parameters.Time.value, y0, equations, 1e-6, 5e4);
 
-    time = Parameters.Time.value;
+    time = Parameters.Time.max;
     animate();
 }
