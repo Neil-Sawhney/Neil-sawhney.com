@@ -51,7 +51,7 @@ const g = 9.80665; // acceleration due to gravity
 
 const Parameters = {
     Phi0: { display_value: 1e-1, min: 0, max: 360, id: '\\( \\phi_0 \\)', units: '\\( ^{\\circ} \\)', angle: true },
-    Theta0: { display_value: 0, min: -89, max: 89, id: '\\( \\theta_0 \\)', units: '\\( ^{\\circ} \\)', angle: true },
+    Theta0: { display_value: 5, min: -89, max: 89, id: '\\( \\theta_0 \\)', units: '\\( ^{\\circ} \\)', angle: true },
     Psi0: { display_value: 1e-1, min: -180, max: 180, id: '\\( \\psi_0 \\)', units: '\\( ^{\\circ} \\)', angle: true },
     PhiDot0: { display_value: 250, min: 0, max: 1000, id: '\\( \\dot{\\phi}_0 \\)', units: ' \\( \\frac{deg}{s} \\)', angle: true },
     ThetaDot0: { /*display_value: 0, */ min: 0, max: 1000, id: '\\( \\dot{\\theta}_0 \\)', units: ' \\( \\frac{deg}{s} \\)', angle: true },
