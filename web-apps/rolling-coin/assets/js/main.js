@@ -50,16 +50,16 @@ const g = 9.80665; // acceleration due to gravity
 
 
 const Parameters = {
-    Phi0: { display_value: 1e-1, min: 1e-1, max: 360, id: '\\( \\phi_0 \\)', units: '\\( ^{\\circ} \\)', angle: true },
-    Theta0: { display_value: 10, min: -89, max: 89, id: '\\( \\theta_0 \\)', units: '\\( ^{\\circ} \\)', angle: true },
-    Psi0: { display_value: 1e-1, min: 1e-1, max: 360, id: '\\( \\psi_0 \\)', units: '\\( ^{\\circ} \\)', angle: true },
-    PhiDot0: { display_value: 150, min: 0, max: 1000, id: '\\( \\dot{\\phi}_0 \\)', units: ' \\( \\frac{deg}{s} \\)', angle: true },
+    Phi0: { display_value: 1e-1, min: 0, max: 360, id: '\\( \\phi_0 \\)', units: '\\( ^{\\circ} \\)', angle: true },
+    Theta0: { display_value: 0, min: -89, max: 89, id: '\\( \\theta_0 \\)', units: '\\( ^{\\circ} \\)', angle: true },
+    Psi0: { display_value: 1e-1, min: -180, max: 180, id: '\\( \\psi_0 \\)', units: '\\( ^{\\circ} \\)', angle: true },
+    PhiDot0: { display_value: 250, min: 0, max: 1000, id: '\\( \\dot{\\phi}_0 \\)', units: ' \\( \\frac{deg}{s} \\)', angle: true },
     ThetaDot0: { /*display_value: 0, */ min: 0, max: 1000, id: '\\( \\dot{\\theta}_0 \\)', units: ' \\( \\frac{deg}{s} \\)', angle: true },
-    PsiDot0: { display_value: 0, min: 0, max: 1000, id: '\\( \\dot{\\psi}_0 \\)', units: ' \\( \\frac{deg}{s} \\)', angle: true },
+    PsiDot0: { display_value: 50, min: 0, max: 1000, id: '\\( \\dot{\\psi}_0 \\)', units: ' \\( \\frac{deg}{s} \\)', angle: true },
     X0: { value: 0 },
     Y0: { value: 0 },
     Z0: { value: 0 },
-    r: { display_value: 2, min: 0.1, max: 10, id: 'Radius', units: ' \\( m \\)' },
+    r: { display_value: 3, min: 0.1, max: 10, id: 'Radius', units: ' \\( m \\)' },
     XDot0: {
         dependentParameterCalculation: function () {
             let psi = Parameters.Psi0.value, theta = Parameters.Theta0.value, phi = Parameters.Phi0.value, psiDot = Parameters.PsiDot0.value, thetaDot = Parameters.ThetaDot0.value, phiDot = Parameters.PhiDot0.value;
@@ -82,7 +82,7 @@ const Parameters = {
             return Parameters.r.value * Math.sin(theta) * thetaDot;
         }
     },
-    Damping: { /*display_value: 0.1, */  min: 0, max: 0.8, id: 'Damping', units: ''},
+    Damping: { /*display_value: 0.1, */  min: 0, max: 1, id: 'Damping', units: ''},
     Time: { display_value: 20, min: 1, max: 60, id: 'Run Time', units: ' \\( s \\)' }
 };
 
@@ -202,7 +202,6 @@ const equations = function (t, stuff) {
     let yDotDot = Parameters.r.value * ((((Math.sin(theta) * psiDot + phiDot) * Math.sin(theta) * psiDot + Math.pow(thetaDot, 2)) * Math.sin(theta) * Math.cos(psi)) + (((Math.sin(theta) * psiDot + phiDot) * Math.cos(theta) * psiDot - thetaDotDot) * Math.cos(psi) * Math.cos(theta)) + ((Math.sin(theta) * psiDotDot + 2 * Math.cos(theta) * psiDot * thetaDot + phiDotDot) * Math.sin(psi)));
 
     let zDotDot = -Parameters.r.value * (Math.sin(theta) * thetaDotDot + Math.cos(theta) * Math.pow(thetaDot, 2));
-
 
     ret[Parameters.Phi0.index] = phiDot;
     ret[Parameters.Theta0.index] = thetaDot;
