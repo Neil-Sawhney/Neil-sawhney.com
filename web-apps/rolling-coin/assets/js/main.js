@@ -59,41 +59,22 @@ const Parameters = {
     X0: { value: 0 },
     Y0: { value: 0 },
     Z0: { value: 0 },
-    XDot0: {dependentParameterCalculation: function () {
-        let psi = Parameters.Psi0.value, theta = Parameters.Theta0.value, phi = Parameters.Phi0.value, psiDot = Parameters.PsiDot0.value, thetaDot = Parameters.ThetaDot0.value, phiDot = Parameters.PhiDot0.value;
-        Parameters.XDot0.value = Parameters.r.value * (Math.sin(psi) * Math.cos(theta) * thetaDot
-            + Math.sin(theta) * Math.cos(psi) * psiDot
-            + Math.cos(psi) * phiDot);
-    }},
-    YDot0: {dependentParameterCalculation: function () {
-        let psi = Parameters.Psi0.value, theta = Parameters.Theta0.value, phi = Parameters.Phi0.value, psiDot = Parameters.PsiDot0.value, thetaDot = Parameters.ThetaDot0.value, phiDot = Parameters.PhiDot0.value;
-        Parameters.YDot0.value = Parameters.r.value * (Math.sin(psi) * Math.sin(theta) * psiDot
-            + Math.sin(psi) * phiDot
-            - Math.cos(psi) * Math.cos(theta) * thetaDot);
-    }},
-    ZDot0: {dependentParameterCalculation: function () {
-        let psi = Parameters.Psi0.value, theta = Parameters.Theta0.value, phi = Parameters.Phi0.value, psiDot = Parameters.PsiDot0.value, thetaDot = Parameters.ThetaDot0.value, phiDot = Parameters.PhiDot0.value;
-        Parameters.ZDot0.value = Parameters.r.value * Math.sin(theta) * thetaDot;
-    }},
     r: { display_value: 2, min: 0.1, max: 10, id: 'Radius', units: ' \\( m \\)'},
-    X0: { value: 0 },
-    Y0: { value: 0 },
-    Z0: { value: 0 },
     XDot0: {dependentParameterCalculation: function () {
         let psi = Parameters.Psi0.value, theta = Parameters.Theta0.value, phi = Parameters.Phi0.value, psiDot = Parameters.PsiDot0.value, thetaDot = Parameters.ThetaDot0.value, phiDot = Parameters.PhiDot0.value;
-        Parameters.XDot0.value = Parameters.r.value * (Math.sin(psi) * Math.cos(theta) * thetaDot
+        return Parameters.r.value * (Math.sin(psi) * Math.cos(theta) * thetaDot
             + Math.sin(theta) * Math.cos(psi) * psiDot
             + Math.cos(psi) * phiDot);
     }},
     YDot0: {dependentParameterCalculation: function () {
         let psi = Parameters.Psi0.value, theta = Parameters.Theta0.value, phi = Parameters.Phi0.value, psiDot = Parameters.PsiDot0.value, thetaDot = Parameters.ThetaDot0.value, phiDot = Parameters.PhiDot0.value;
-        Parameters.YDot0.value = Parameters.r.value * (Math.sin(psi) * Math.sin(theta) * psiDot
+        return Parameters.r.value * (Math.sin(psi) * Math.sin(theta) * psiDot
             + Math.sin(psi) * phiDot
             - Math.cos(psi) * Math.cos(theta) * thetaDot);
     }},
     ZDot0: {dependentParameterCalculation: function () {
         let psi = Parameters.Psi0.value, theta = Parameters.Theta0.value, phi = Parameters.Phi0.value, psiDot = Parameters.PsiDot0.value, thetaDot = Parameters.ThetaDot0.value, phiDot = Parameters.PhiDot0.value;
-        Parameters.ZDot0.value = Parameters.r.value * Math.sin(theta) * thetaDot;
+        return Parameters.r.value * Math.sin(theta) * thetaDot;
     }},
     Damping: { display_value: 0.1, min: 0, max: 1, id: 'Damping', units: ''},
     Time: { display_value: 20, min: 1, max: 60, id: 'Run Time', units: ' \\( s \\)'}
@@ -103,7 +84,7 @@ const Parameters = {
 function updateDependentParameters() {
     for (let parameter in Parameters) {
         if (Parameters[parameter].dependentParameterCalculation != null) {
-            Parameters[parameter].dependentParameterCalculation();
+            ics[Parameters[parameter].index] = Parameters[parameter].dependentParameterCalculation();
         }
     }
 }
@@ -151,6 +132,7 @@ function setupParameter(parameter) {
                 output.innerHTML = variable;
                 parameter.display_value = variable;
                 parameter.value = variable * Math.PI / 180;
+                ics[parameter.index] = parameter.value;
                 updateDependentParameters();
                 restart();
             });
@@ -162,6 +144,7 @@ function setupParameter(parameter) {
                 output.innerHTML = variable;
                 parameter.display_value = variable;
                 parameter.value = variable;
+                ics[parameter.index] = parameter.value;
                 updateDependentParameters();
                 restart();
             });
@@ -169,16 +152,11 @@ function setupParameter(parameter) {
     }
 }
 
-// call setupParameter for each parameter in Parameters
 for (let parameter in Parameters) {
     setupParameter(Parameters[parameter]);
-}
-
-updateDependentParameters();
-
-for (let parameter in Parameters) {
     Parameters[parameter].index = ics.push(Parameters[parameter].value) - 1;
 }
+updateDependentParameters();
 
 // Camera
 camera.position.set(Parameters.r.value * 4, Parameters.r.value * 4, Parameters.r.value * 4);
@@ -203,8 +181,9 @@ scene.add(frame2);
 
 const equations = function (t, stuff) {
     let ret = [];
+    console.log(stuff)
     let phi = stuff[Parameters.Phi0.index], theta = stuff[Parameters.Theta0.index], psi = stuff[Parameters.Psi0.index], phiDot = stuff[Parameters.PhiDot0.index], thetaDot = stuff[Parameters.ThetaDot0.index], psiDot = stuff[Parameters.PsiDot0.index];
-    let x = stuff[Parameters.X0.index], y = stuff[Parameters.Y0.index], z = stuff[Parameters.Z0.index], xDot = stuff[Parameters.XDot0.index], yDot = stuff[Parameters.YDot0.index], zDot = stuff[Parameters.ZDot0.index];
+    let xDot = stuff[Parameters.XDot0.index], yDot = stuff[Parameters.YDot0.index], zDot = stuff[Parameters.ZDot0.index];
 
     let psiDotDot = -(2 * phiDot * thetaDot) / Math.cos(theta)
     let thetaDotDot = (8 * g * Math.sin(theta) + Parameters.r.value * (5 * Math.sin(2 * theta) * psiDot + 12 * Math.cos(theta) * phiDot) * psiDot) / (10 * Parameters.r.value)
@@ -233,15 +212,18 @@ const equations = function (t, stuff) {
     ret[Parameters.XDot0.index] = xDotDot;
     ret[Parameters.YDot0.index] = yDotDot;
     ret[Parameters.ZDot0.index] = zDotDot;
+    ret[Parameters.Damping.index] = Parameters.Damping.value;
+    ret[Parameters.r.index] = Parameters.r.value;
+
 
     return ret;
 };
 
 // Time span
-let t0 = 0, tf = Parameters.Time.value;
+let t0 = 0
 
 // Call the ode solver
-let result = numeric.dopri(t0, tf, ics, equations, 1e-6, 5e4);
+let result = numeric.dopri(t0, Parameters.Time.value, ics, equations, 1e-6, 5e4);
 
 console.log(result)
 
@@ -256,7 +238,7 @@ let time = clock.getElapsedTime();
 function animate() {
     animationId = requestAnimationFrame(animate);
 
-    if (time >= tf) {
+    if (time >= Parameters.Time.value) {
         clock = new Clock();
         camera.position.set(Parameters.r.value * 4, Parameters.r.value * 4, Parameters.r.value * 4);
         // remove all lines
