@@ -14,6 +14,7 @@ window.addEventListener('resize', function () {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
+    restart();
 }, false);
 
 // // Controls
@@ -46,13 +47,53 @@ const axesHelper = new THREE.AxesHelper(5);
 scene.add(axesHelper);
 
 const Parameters = {
-    Phi: { display_value: 1e-1, min: 0, max: 360, id: '\\( \\phi_0 \\)', units: '\\( ^{\\circ} \\)', angle: true },
-    Theta: { display_value: 5, min: -89, max: 89, id: '\\( \\theta_0 \\)', units: '\\( ^{\\circ} \\)', angle: true },
-    Psi: { display_value: 1e-1, min: -180, max: 180, id: '\\( \\psi_0 \\)', units: '\\( ^{\\circ} \\)', angle: true },
+    X: { display_value: 0, min: 0, max: 10, id: '\\( x \\)', units: '\\( m \\)' },
+    Y: { display_value: 0, min: 0, max: 10, id: '\\( y \\)', units: '\\( m \\)' },
+    Z: { display_value: 0, min: 0, max: 10, id: '\\( z \\)', units: '\\( m \\)' },
+    Phi: { display_value: 0, min: 0, max: 360, id: '\\( \\phi_0 \\)', units: '\\( ^{\\circ} \\)', angle: true },
+    Theta: { display_value: 0, min: -90, max: 90, id: '\\( \\theta_0 \\)', units: '\\( ^{\\circ} \\)', angle: true },
+    Psi: { display_value: 0, min: -180, max: 180, id: '\\( \\psi_0 \\)', units: '\\( ^{\\circ} \\)', angle: true },
+    Seqeunce: { display_value: "313", id: 'Sequence', options: ['313', '321', '123', '231', '132', '312']}
 };
 
 
 function setupParameter(parameter) {
+    // if it has options then create a select
+    if (parameter.options) {
+        let parameterWrapper = document.getElementsByTagName("parameterWrapper")[0];
+
+        // create a wrapper for the select within parameterWrapper
+        let selectWrapper = document.createElement("selectWrapper");
+        parameterWrapper.appendChild(selectWrapper);
+
+        // create a label for the select
+        let label = document.createElement("label");
+        label.innerText = parameter.id;
+        label.htmlFor = parameter.id;
+        selectWrapper.appendChild(label);
+
+        // create the select
+        let select = document.createElement("select");
+        selectWrapper.appendChild(select);
+
+        // create the options
+        for (let option in parameter.options) {
+            let optionElement = document.createElement("option");
+            optionElement.value = parameter.options[option];
+            optionElement.text = parameter.options[option];
+            select.appendChild(optionElement);
+        }
+
+        parameter.value = parameter.display_value;
+        // add an event listener to the select
+        select.addEventListener("change", function () {
+            parameter.display_value = this.value;
+            ics[parameter.index] = parameter.value;
+            restart();
+        });
+        return
+    }
+    
     if (parameter.display_value != null) {
         let parameterWrapper = document.getElementsByTagName("parameterWrapper")[0];
 
@@ -95,7 +136,6 @@ function setupParameter(parameter) {
                 parameter.display_value = variable;
                 parameter.value = variable * Math.PI / 180;
                 ics[parameter.index] = parameter.value;
-                updateDependentParameters();
                 restart();
             });
         }
@@ -107,7 +147,6 @@ function setupParameter(parameter) {
                 parameter.display_value = variable;
                 parameter.value = variable;
                 ics[parameter.index] = parameter.value;
-                updateDependentParameters();
                 restart();
             });
         }
@@ -121,8 +160,10 @@ for (let parameter in Parameters) {
     setupParameter(Parameters[parameter]);
 }
 
+
 // Camera
-camera.position.set(Parameters.r.value * 4, Parameters.r.value * 4, Parameters.r.value * 4);
+camera.position.set(3, 1, 3);
+camera.lookAt(0, -1, 0);
 
 // Load models
 let plane;
@@ -131,91 +172,47 @@ const cacheBuster = new Date().getTime(); // Get the current timestamp
 
 loader.load('./assets/3d-models/coin.glb?v=${cacheBuster}', function (gltf) {
     plane = gltf.scene;
-    plane.scale.set(2 * Parameters.r.value, 2 * Parameters.r.value, 2 * Parameters.r.value);
-    plane.position.set(0, Parameters.r.value, 0);
+    plane.scale.set(2, 2, 2);
+    plane.position.set(0, 0, 0);
     scene.add(plane)
 }
 );
 
-let clock = new Clock();
-let time = clock.getElapsedTime();
+let animationId;
 function animate() {
     animationId = requestAnimationFrame(animate);
 
-    if (time >= Parameters.Time.value) {
-        clock = new Clock();
-        camera.position.set(Parameters.r.value * 4, Parameters.r.value * 4, Parameters.r.value * 4);
-        // remove all lines
-        for (let i = 0; i < lines.length; i++) {
-            scene.remove(lines[i]);
-        }
-    }
+    let x = Parameters.X.value;
+    let y = Parameters.Y.value;
+    let z = Parameters.Z.value;
+    let phi = Parameters.Phi.value;
+    let theta = Parameters.Theta.value;
+    let psi = Parameters.Psi.value;
 
-
-    let x = result.at(time)[Parameters.X0.index];
-    let y = result.at(time)[Parameters.Y0.index];
-    let z = result.at(time)[Parameters.Z0.index];
-    let phi = result.at(time)[Parameters.Phi0.index];
-    let theta = result.at(time)[Parameters.Theta0.index];
-    let psi = result.at(time)[Parameters.Psi0.index];
     // Camera
-    controls.target.set(y + Parameters.r.value, z - Parameters.r.value, x + Parameters.r.value);
-    // // Let OrbitControls know the camera has moved
-    controls.update();
 
-    plane.position.set(y, z + Parameters.r.value, x);
-    frame2.position.set(y, z + Parameters.r.value, x);
+    plane.position.set(y, z, x);
 
+    // let quaternion = new THREE.Quaternion();
+    // quaternion.setFromEuler(new THREE.Euler(0, psi, 0, 'XYZ'));
+    // quaternion.multiply(new THREE.Quaternion().setFromEuler(new THREE.Euler(0, 0, theta, 'XYZ')));
+    // quaternion.multiply(new THREE.Quaternion().setFromEuler(new THREE.Euler(phi, 0, 0, 'XYZ')));
+    // 
+
+    // rotate them in the order given by Parameters.Sequence.value
     let quaternion = new THREE.Quaternion();
-    quaternion.setFromEuler(new THREE.Euler(0, psi, 0, 'XYZ'));
-    quaternion.multiply(new THREE.Quaternion().setFromEuler(new THREE.Euler(0, 0, theta, 'XYZ')));
-    frame2.setRotationFromQuaternion(quaternion);
-    quaternion.multiply(new THREE.Quaternion().setFromEuler(new THREE.Euler(phi, 0, 0, 'XYZ')));
+    let sequence = Parameters.Seqeunce.value;
+    //TODO: do the sequence thing
     plane.setRotationFromQuaternion(quaternion);
-
-    var worldPointToTrace = frame2.localToWorld(pointToTrace.clone());
-    points.push(worldPointToTrace);
-
-    var lineGeometry = new THREE.BufferGeometry().setFromPoints(points.slice(-2));
-    var lineMaterial = new THREE.LineBasicMaterial({ color: 0xFFFFFF });
-    var line = new THREE.Line(lineGeometry, lineMaterial);
-
-    // FIXME: if statement is temporary untill line thing is fixed
-    if (time < 0.1) {
-        // remove all lines
-        for (let i = 0; i < lines.length; i++) {
-            scene.remove(lines[i]);
-        }
-    }
-
-    scene.add(line);
-    lines.push(line);
-
-    if (recentLines.push(line) > 10) {
-        var oldestLine = recentLines.shift();
-        oldestLine.material.color.setHex(0x009999);
-
-    }
-
-    time = clock.getElapsedTime();
 
     renderer.render(scene, camera);
 };
 
+function restart() {
+    cancelAnimationFrame(animationId);
+    animate();
+}
+
 window.onload = function () {
     animate();
 };
-
-let restart = function () {
-    cancelAnimationFrame(animationId);
-    // Call the ode solver
-    result = numeric.dopri(t0, Parameters.Time.value, ics, equations, 1e-6, 5e4);
-
-    plane.scale.set(2 * Parameters.r.value, 2 * Parameters.r.value, 2 * Parameters.r.value);
-    plane.position.set(0, Parameters.r.value, 0);
-    frame2.position.set(0, Parameters.r.value, 0);
-    pointToTrace = new THREE.Vector3(0, -Parameters.r.value, 0);
-
-    time = Parameters.Time.max;
-    animate();
-}
