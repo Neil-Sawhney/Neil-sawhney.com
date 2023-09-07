@@ -50,10 +50,10 @@ const Parameters = {
     X: { display_value: 0, min: 0, max: 10, id: '\\( x \\)', units: '\\( m \\)' },
     Y: { display_value: 0, min: 0, max: 10, id: '\\( y \\)', units: '\\( m \\)' },
     Z: { display_value: 0, min: 0, max: 10, id: '\\( z \\)', units: '\\( m \\)' },
-    Phi: { display_value: 0, min: 0, max: 360, id: '\\( \\phi_0 \\)', units: '\\( ^{\\circ} \\)', angle: true },
-    Theta: { display_value: 0, min: -90, max: 90, id: '\\( \\theta_0 \\)', units: '\\( ^{\\circ} \\)', angle: true },
     Psi: { display_value: 0, min: -180, max: 180, id: '\\( \\psi_0 \\)', units: '\\( ^{\\circ} \\)', angle: true },
-    Seqeunce: { display_value: "313", id: 'Sequence', options: ['313', '321', '123', '231', '132', '312']}
+    Theta: { display_value: 0, min: -90, max: 90, id: '\\( \\theta_0 \\)', units: '\\( ^{\\circ} \\)', angle: true },
+    Phi: { display_value: 0, min: 0, max: 360, id: '\\( \\phi_0 \\)', units: '\\( ^{\\circ} \\)', angle: true },
+    Seqeunce: { display_value: "313", id: 'Sequence', options: ['313', '312', '321', '231', '123', '132']}
 };
 
 
@@ -88,7 +88,7 @@ function setupParameter(parameter) {
         // add an event listener to the select
         select.addEventListener("change", function () {
             parameter.display_value = this.value;
-            ics[parameter.index] = parameter.value;
+            parameter.value = this.value;
             restart();
         });
         return
@@ -135,7 +135,6 @@ function setupParameter(parameter) {
                 output.innerHTML = variable;
                 parameter.display_value = variable;
                 parameter.value = variable * Math.PI / 180;
-                ics[parameter.index] = parameter.value;
                 restart();
             });
         }
@@ -185,24 +184,35 @@ function animate() {
     let x = Parameters.X.value;
     let y = Parameters.Y.value;
     let z = Parameters.Z.value;
-    let phi = Parameters.Phi.value;
-    let theta = Parameters.Theta.value;
     let psi = Parameters.Psi.value;
+    let theta = Parameters.Theta.value;
+    let phi = Parameters.Phi.value;
 
     // Camera
 
+    // blue is actually y, red is z, green is x
+    // x -> y, y -> z, z -> x
+    // 1 -> 2, 2 -> 3, 3 -> 1
     plane.position.set(y, z, x);
 
-    // let quaternion = new THREE.Quaternion();
-    // quaternion.setFromEuler(new THREE.Euler(0, psi, 0, 'XYZ'));
-    // quaternion.multiply(new THREE.Quaternion().setFromEuler(new THREE.Euler(0, 0, theta, 'XYZ')));
-    // quaternion.multiply(new THREE.Quaternion().setFromEuler(new THREE.Euler(phi, 0, 0, 'XYZ')));
-    // 
-
     // rotate them in the order given by Parameters.Sequence.value
-    let quaternion = new THREE.Quaternion();
     let sequence = Parameters.Seqeunce.value;
-    //TODO: do the sequence thing
+    let quaternion = new THREE.Quaternion();
+    let rotation1 = [0, 0, 0];
+    let rotation2 = [0, 0, 0];
+    let rotation3 = [0, 0, 0];
+    // 123 is actually 231
+    // 1 maps to index 2
+    // 2 maps to index 0
+    // 3 maps to index 1
+    rotation1[(Number(sequence[0]) + 1) % 3] = psi;
+    rotation2[(Number(sequence[1]) + 1) % 3] = theta;
+    rotation3[(Number(sequence[2]) + 1) % 3] = phi;
+    quaternion.setFromEuler(new THREE.Euler(...rotation1, 'XYZ'));
+    quaternion.multiply(new THREE.Quaternion().setFromEuler(new THREE.Euler(...rotation2, 'XYZ')));
+    quaternion.multiply(new THREE.Quaternion().setFromEuler(new THREE.Euler(...rotation3, 'XYZ')));
+
+
     plane.setRotationFromQuaternion(quaternion);
 
     renderer.render(scene, camera);
