@@ -164,13 +164,16 @@ camera.position.set(3, 1, 3);
 camera.lookAt(0, -1, 0);
 
 // Load models
-let plane;
+let planeModel;
 const loader = new GLTFLoader();
 const cacheBuster = new Date().getTime(); // Get the current timestamp
+let plane = new THREE.Object3D();
 
 loader.load('./assets/3d-models/plane.glb?v=${cacheBuster}', function (gltf) {
-    plane = gltf.scene;
-    plane.scale.set(.2, .2, .2);
+    planeModel = gltf.scene;
+    planeModel.scale.set(.2, .2, .2);
+    planeModel.position.set(0, .35, 0);
+    plane.add(planeModel)
     scene.add(plane)
 }
 );
@@ -191,7 +194,7 @@ function animate() {
     // blue is actually y, red is z, green is x
     // x -> y, y -> z, z -> x
     // 1 -> 2, 2 -> 3, 3 -> 1
-    plane.position.set(y, z+.35, x);
+    plane.position.set(y, z, x);
 
     // rotate them in the order given by Parameters.Sequence.value
     let sequence = Parameters.Seqeunce.value;
