@@ -51,9 +51,9 @@ const Parameters = {
     Y: { display_value: 0, min: 0, max: 10, id: '\\( y \\)', units: '\\( m \\)' },
     Z: { display_value: 0, min: 0, max: 10, id: '\\( z \\)', units: '\\( m \\)' },
     Psi: { display_value: 0, min: -180, max: 180, id: '\\( \\psi_0 \\)', units: '\\( ^{\\circ} \\)', angle: true },
-    Theta: { display_value: 0, min: -90, max: 90, id: '\\( \\theta_0 \\)', units: '\\( ^{\\circ} \\)', angle: true },
-    Phi: { display_value: 0, min: 0, max: 360, id: '\\( \\phi_0 \\)', units: '\\( ^{\\circ} \\)', angle: true },
-    Seqeunce: { display_value: "313", id: 'Sequence', options: ['313', '312', '321', '231', '123', '132']}
+    Theta: { display_value: 0, min: -180, max: 180, id: '\\( \\theta_0 \\)', units: '\\( ^{\\circ} \\)', angle: true },
+    Phi: { display_value: 0, min: -180, max: 180, id: '\\( \\phi_0 \\)', units: '\\( ^{\\circ} \\)', angle: true },
+    Seqeunce: { display_value: "321", id: 'Sequence', options: ['321', '312', '313', '231', '123', '132']}
 };
 
 
@@ -145,7 +145,6 @@ function setupParameter(parameter) {
                 output.innerHTML = variable;
                 parameter.display_value = variable;
                 parameter.value = variable;
-                ics[parameter.index] = parameter.value;
                 restart();
             });
         }
@@ -169,10 +168,9 @@ let plane;
 const loader = new GLTFLoader();
 const cacheBuster = new Date().getTime(); // Get the current timestamp
 
-loader.load('./assets/3d-models/coin.glb?v=${cacheBuster}', function (gltf) {
+loader.load('./assets/3d-models/plane.glb?v=${cacheBuster}', function (gltf) {
     plane = gltf.scene;
-    plane.scale.set(2, 2, 2);
-    plane.position.set(0, 0, 0);
+    plane.scale.set(.2, .2, .2);
     scene.add(plane)
 }
 );
@@ -193,7 +191,7 @@ function animate() {
     // blue is actually y, red is z, green is x
     // x -> y, y -> z, z -> x
     // 1 -> 2, 2 -> 3, 3 -> 1
-    plane.position.set(y, z, x);
+    plane.position.set(y, z+.35, x);
 
     // rotate them in the order given by Parameters.Sequence.value
     let sequence = Parameters.Seqeunce.value;

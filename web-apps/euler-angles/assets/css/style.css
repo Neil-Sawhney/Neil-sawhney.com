@@ -15,6 +15,14 @@ sliderWrapper {
     margin: 1vw;
 }
 
+selectWrapper {
+    margin: 1vw;
+}
+
+select {
+    margin-left: 1vw;
+}
+
 main {
     width: 100vw;
 }
