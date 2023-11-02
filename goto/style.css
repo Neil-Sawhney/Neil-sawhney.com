@@ -1,0 +1,76 @@
+.light-container{
+    background-color: #292a2b;
+    color: white;
+    padding: 2rem;
+    border-radius: 5px;
+    width: 95%;
+    font-size: 2rem;
+}
+
+.scrollLink{
+    color: #814c81;
+    text-decoration: none;
+    margin: 0 1rem;
+}
+
+.externLink{
+    color: #6caabd;
+    text-decoration: none;
+    margin: 0 1rem;
+}
+
+img{
+    max-width: 100%;
+    height: auto;
+    margin-top: 3rem;
+}
+
+w-1
+{
+    width: 10%;
+}
+
+.w-2
+{
+    width: 20%;
+}
+
+.w-3
+{
+    width: 30%;
+}
+
+.w-4
+{
+    width: 40%;
+}
+
+.w-5
+{
+    width: 50%;
+}
+
+.w-6
+{
+    width: 60%;
+}
+
+.w-7
+{
+    width: 70%;
+}
+
+.w-8
+{
+    width: 80%;
+}
+
+.w-9
+{
+    width: 90%;
+}
+
+.w-10
+{
+    width: 100%;
+}
