@@ -18,8 +18,8 @@ window.addEventListener('resize', function () {
 }, false);
 
 // // Controls
-const controls = new OrbitControls(camera, renderer.domElement);
-controls.update();
+// const controls = new OrbitControls(camera, renderer.domElement);
+// controls.update();
 
 // Light
 const topLight = new THREE.DirectionalLight(0xffffff, 1);
@@ -53,8 +53,33 @@ const Parameters = {
     Psi: { display_value: 0, min: -180, max: 180, id: '\\( \\psi_0 \\)', units: '\\( ^{\\circ} \\)', angle: true },
     Theta: { display_value: 0, min: -180, max: 180, id: '\\( \\theta_0 \\)', units: '\\( ^{\\circ} \\)', angle: true },
     Phi: { display_value: 0, min: -180, max: 180, id: '\\( \\phi_0 \\)', units: '\\( ^{\\circ} \\)', angle: true },
-    Seqeunce: { display_value: "321", id: 'Sequence', options: ['321', '312', '313', '231', '123', '132']}
+    Seqeunce: { display_value: "321", id: 'Sequence', options: ['321', '312', '313', '231', '123', '132']},
+    Reset: { id: 'Reset' }
 };
+
+
+function setParameter(parameter, value) {
+    let wrapper = document.getElementById(parameter.id);
+    parameter.value = value;
+
+    // if it has options then it is a select
+    if (parameter.options) {
+        parameter.display_value = value;
+
+        let select = wrapper.getElementsByTagName("select")[0];
+        select.value = value;
+    }
+
+    // otherwise if it has a display value then it is a slider
+    else if (parameter.display_value != null) {
+        parameter.display_value = value;
+
+        let slider = wrapper.getElementsByTagName("input")[0];
+        slider.value = value;
+        let output = wrapper.getElementsByTagName("output")[0];
+        output.innerHTML = value;
+    }
+}
 
 
 function setupParameter(parameter) {
@@ -64,6 +89,7 @@ function setupParameter(parameter) {
 
         // create a wrapper for the select within parameterWrapper
         let selectWrapper = document.createElement("selectWrapper");
+        selectWrapper.id = parameter.id;
         parameterWrapper.appendChild(selectWrapper);
 
         // create a label for the select
@@ -85,6 +111,7 @@ function setupParameter(parameter) {
         }
 
         parameter.value = parameter.display_value;
+
         // add an event listener to the select
         select.addEventListener("change", function () {
             parameter.display_value = this.value;
@@ -94,12 +121,14 @@ function setupParameter(parameter) {
         return
     }
     
+    // otherwise if it has a display value create a slider
     if (parameter.display_value != null) {
         let parameterWrapper = document.getElementsByTagName("parameterWrapper")[0];
 
         // create a wrapper for the slider within parameterWrapper
         let sliderWrapper = document.createElement("sliderWrapper");
         parameterWrapper.appendChild(sliderWrapper);
+        sliderWrapper.id = parameter.id;
 
         // create a label for the slider
         let label = document.createElement("label");
@@ -149,10 +178,36 @@ function setupParameter(parameter) {
             });
         }
     }
+    
+    // if it doesn't have a display value then it's a button
+    if (parameter.display_value == null) {
+        let parameterWrapper = document.getElementsByTagName("parameterWrapper")[0];
+
+        // create a wrapper for the button within parameterWrapper
+        let buttonWrapper = document.createElement("buttonWrapper");
+        parameterWrapper.appendChild(buttonWrapper);
+        buttonWrapper.id = parameter.id;
+
+        // create the button
+        let button = document.createElement("button");
+        button.innerText = parameter.id;
+        buttonWrapper.appendChild(button);
+
+        button.addEventListener("click", function () {
+            setParameter(Parameters.X, 0);
+            setParameter(Parameters.Y, 0);
+            setParameter(Parameters.Z, 0);
+            setParameter(Parameters.Psi, 0);
+            setParameter(Parameters.Theta, 0);
+            setParameter(Parameters.Phi, 0);
+        });
+    }
+
     else {
         parameter.value = 0;
     }
 }
+
 
 for (let parameter in Parameters) {
     setupParameter(Parameters[parameter]);

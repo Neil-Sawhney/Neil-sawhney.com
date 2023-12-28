@@ -1,38 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <!-- META -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1,
+    <head>
+        <!-- META -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1,
             maximum-scale=1, user-scalable=no">
 
 
-    <!-- PAGE TITLE -->
-    <title>How to Use Symbolic Python to Solve and Simulate Dynamical Systems</title>
+        <!-- PAGE TITLE -->
+        <title>How to Use Symbolic Python to Solve and Simulate Dynamical Systems</title>
 
 
-    <!-- FAVICON -->
-    <link rel="icon" type="image/png" href="../../assets/images/favicon.jpg">
+        <!-- FAVICON -->
+        <link rel="icon" type="image/png" href="../../assets/images/favicon.jpg">
 
 
-    <!-- GOOGLE FONTS -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap" rel="stylesheet">
+        <!-- GOOGLE FONTS -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap" rel="stylesheet">
 
 
-    <!-- STYLESHEETS -->
-    <link rel="stylesheet" type="text/css" href="../../assets/css/plugins.css">
-    <link rel="stylesheet" type="text/css" href="../../assets/css/style.css">
-    <link rel="stylesheet" type="text/css" href="../../assets/css/elements.css">
-    <link rel="stylesheet" type="text/css" href="../../assets/css/colors.css">
-    <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
+        <!-- STYLESHEETS -->
+        <link rel="stylesheet" type="text/css" href="../../assets/css/plugins.css">
+        <link rel="stylesheet" type="text/css" href="../../assets/css/style.css">
+        <link rel="stylesheet" type="text/css" href="../../assets/css/elements.css">
+        <link rel="stylesheet" type="text/css" href="../../assets/css/colors.css">
+        <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
 
-    <!-- Load mathjax -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS_CHTML-full,Safe"> </script>
-    <!-- MathJax configuration -->
-    <script type="text/x-mathjax-config">
+        <!-- Load mathjax -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS_CHTML-full,Safe"> </script>
+        <!-- MathJax configuration -->
+        <script type="text/x-mathjax-config">
     init_mathjax = function() {
         if (window.MathJax) {
         // MathJax loaded
@@ -62,366 +62,363 @@
     }
     init_mathjax();
     </script>
-</head>
+    </head>
 
-<body>
+    <body>
 
 
-    <!-- LOADING SCREEN -->
-    <div class="loading-screen">
+        <!-- LOADING SCREEN -->
+        <div class="loading-screen">
 
-        <!-- INNER-->
-        <div class="inner">
-            <div class="text-box">
-                <h3>Neil Sawhney</h3>
+            <!-- INNER-->
+            <div class="inner">
+                <div class="text-box">
+                    <h3>Neil Sawhney</h3>
+                </div>
+                <div class="line-frame">
+                    <div class="line"></div>
+                </div>
             </div>
-            <div class="line-frame">
+            <!-- /INNER-->
+
+        </div>
+        <!-- /LOADING SCREEN -->
+
+
+        <!-- MENU BUTTON -->
+        <div class="m-menu-button">
+
+            <!-- BURGER -->
+            <div class="burger">
+                <div class="line"></div>
                 <div class="line"></div>
             </div>
+            <!-- /BURGER --> = 0
         </div>
-        <!-- /INNER-->
-
-    </div>
-    <!-- /LOADING SCREEN -->
+        <!-- /MENU BUTTON -->
 
 
-    <!-- MENU BUTTON -->
-    <div class="m-menu-button">
-
-        <!-- BURGER -->
-        <div class="burger">
-            <div class="line"></div>
-            <div class="line"></div>
-        </div>
-        <!-- /BURGER --> = 0
-    </div>
-    <!-- /MENU BUTTON -->
+        <!-- MENU -->
+        <div class="m-menu">
 
 
-    <!-- MENU -->
-    <div class="m-menu">
+            <!-- MENU INNER -->
+            <div class="m-menu-inner noselect">
 
 
-        <!-- MENU INNER -->
-        <div class="m-menu-inner noselect">
-
-
-            <!-- MENU ITEMS -->
-            <div class="head m-b-2">
-                <p class="small">Menu</p>
-            </div>
-            <ul class="main-items">
-
-                <li><a href="../../index.html#intro"><span class="ti-location-pin"></span>
-                        <p class="small">Home</p>
-                    </a></li>
-                <li><a href="../../index.html#about"><span class="ti-user"></span>
-                        <p class="small">About</p>
-                    </a></li>
-                <li><a href="../../index.html#articles"><span class="ti-user"></span>
-                        <p class="small">Articles</p>
-                    </a></li>
-                <li><a href="../../index.html#portfolio"><span class="ti-view-grid"></span>
-                        <p class="small">Portfolio</p>
-                    </a></li>
-                <li><a href="../../index.html#resume"><span class="ti-align-left"></span>
-                        <p class="small">Resume</p>
-                    </a></li>
-                <li><a href="../../index.html#contact"><span class="ti-comments"></span>
-                        <p class="small">Contact</p>
-                    </a></li>
-
-            </ul>
-            <!-- /MENU ITEMS -->
-
-
-            <!-- SOCIAL ITEMS -->
-            <div class="head m-b-2 m-t-7">
-                <p class="small">Social</p>
-            </div>
-            <div class="social-items">
-
-                <div class="item"><a href="https://www.linkedin.com/in/neil-sawhney-b16547224/" target="_blank"><span class="ti-linkedin"></span></a></div>
-                <div class="item"><a href="https://github.com/Neil-Sawhney" target="_blank"><span class="ti-github"></span></a></div>
-            </div>
-            <!-- /SOCIAL ITEMS -->
-
-
-        </div>
-        <!-- /MENU INNER -->
-
-
-    </div>
-    <!-- /MENU -->
-
-    <!-- MAIN -->
-    <div id="main">
-
-        <!-- INNER CONTENT -->
-        <div class="content m-l-3 m-t-5 m-r-3">
-
-
-            <!-- /SECTION ( TITLE ) -->
-            <div class="title">
-                <h2 class="colors_sweet_purple">How to Use Symbolic Python to Solve and Simulate Dynamical Systems</h2>
-                <p class="colors_dreamy_turquoise">Written by Neil Sawhney</p>
-                <div class="seperator-line m-t-2"></div>
-            </div>
-            <!-- /SECTION ( TITLE ) -->
-
-            <p class="m-t-6 color-white"> If you've worked with some advanced dynamics problems, you'll know that it's often next to impossible to derive the equations of motion by hand.</p>
-
-            <p class="m-t-2 color-white">While most courses will teach you how to solve these kinds of systems using matrices and numerical methods, I'll show you how I use the Sympy.physics.mechanics module in python to solve for the equations of motion symbolically. These can then be simulated by numerical integration. </p>
-
-            <p class="m-t-6 color-white">Below is a simulation I made of a basketball spinning on a finger, which we will use as an example. Feel free to orbit around and change the initial conditions.</p>
-
-            <iframe class="m-t-2 simulation" src="../../web-apps/basketball-on-finger/index.html" width="70%" height="700rem"></iframe>
-
-            <div class="pros_cons_container m-t-3">
-
-                <h3>Pros of using this method</h3>
-                <ul>
-                    <li class="m-t-2">
-                        <p>
-                            When you're dealing with vectors, typically you have to be very concious about what frame of reference the vector is expressed in. When using multiple vectors in an equation, you must first make sure to apply the approriate rotation matrices to each vector to ensure that they are expressed in the same frame.
-
-                            However, when using the sympy.physics.mechanics module, vectors are defined in any frame of reference you want. The module will take care of the rotation matrices in the background, allowing you to multiply vectors without worrying about which frame they are expressed in.
-
-                            When you want to print out the result of your equation, you can use the express() funtion, which will print it out in the frame of reference you specify.</p>
-                    </li>
-                    <li class="m-t-2">
-                        <p>
-                            Because the sympy.physics.mechanics module uses symbolic python (sympy) you obtain exact solutions instead of numerical approximations.
-                        </p>
-                    </li>
-                    <li class="m-t-2">
-                        <p>
-                            The sympy.physics.mechanics module includes many useful functions for solving dynamics problems that bypass some of the more tedious steps. For example, the angular velocity of a frame e_b with respect to frame N whose position has been defined with respect to any number of other fully defined frames using e_b.ang_vel_in(N). The direction cosine matrix of frame e_b with respect to N can be easily found by e_b.dcm(N).
-                        </p>
-                    </li>
-                </ul>
-
-
-                <h3 class="m-t-2" >Cons of using this method</h3>
-                <ul>
-                    <li class="m-t-2">
-                        <p>
-                            The sympy.physics.mechanics module has minimal documentation and it can be difficult to find examples of how to use it.
-                        </p>
-                    </li>
-                    <li class="m-t-2">
-                        <p>
-                            If you're taking a class on advanced dynamics, you should probably learn how to solve these problems by hand first, as it will help you understand the concepts better and catch mistakes if you notice that an equation doesn't make sense.
-                        </p>
-                    </li>
-                </ul>
-
-            </div>
-
-
-            <h3 class="m-t-6"> Some prerequisites/supplies to follow this guide:</h3>
-
-
-            <!-- PREREQUISITES -->
-            <div class="pills m-b-5 m-t-3">
-
-                <div class="pill">
-                    <p>A basic understanding of dynamics</p>
+                <!-- MENU ITEMS -->
+                <div class="head m-b-2">
+                    <p class="small">Menu</p>
                 </div>
-                <div class="pill">
-                    <p>A basic understanding of python</p>
+                <ul class="main-items">
+
+                    <li><a href="../../index.html#intro"><span class="ti-location-pin"></span>
+                            <p class="small">Home</p>
+                        </a></li>
+                    <li><a href="../../index.html#about"><span class="ti-user"></span>
+                            <p class="small">About</p>
+                        </a></li>
+                    <li><a href="../../index.html#articles"><span class="ti-user"></span>
+                            <p class="small">Articles</p>
+                        </a></li>
+                    <li><a href="../../index.html#portfolio"><span class="ti-view-grid"></span>
+                            <p class="small">Portfolio</p>
+                        </a></li>
+                    <li><a href="../../index.html#resume"><span class="ti-align-left"></span>
+                            <p class="small">Resume</p>
+                        </a></li>
+                    <li><a href="../../index.html#contact"><span class="ti-comments"></span>
+                            <p class="small">Contact</p>
+                        </a></li>
+
+                </ul>
+                <!-- /MENU ITEMS -->
+
+
+                <!-- SOCIAL ITEMS -->
+                <div class="head m-b-2 m-t-7">
+                    <p class="small">Social</p>
+                </div>
+                <div class="social-items">
+
+                    <div class="item"><a href="https://www.linkedin.com/in/neil-sawhney-b16547224/" target="_blank"><span class="ti-linkedin"></span></a></div>
+                    <div class="item"><a href="https://github.com/Neil-Sawhney" target="_blank"><span class="ti-github"></span></a></div>
+                </div>
+                <!-- /SOCIAL ITEMS -->
+
+
+            </div>
+            <!-- /MENU INNER -->
+
+
+        </div>
+        <!-- /MENU -->
+
+        <!-- MAIN -->
+        <div id="main">
+
+            <!-- INNER CONTENT -->
+            <div class="content m-l-3 m-t-5 m-r-3">
+
+
+                <!-- /SECTION ( TITLE ) -->
+                <div class="title">
+                    <h2 class="colors_sweet_purple">How to Use Symbolic Python to Solve and Simulate Dynamical Systems</h2>
+                    <p class="colors_dreamy_turquoise">Written by Neil Sawhney</p>
+                    <div class="seperator-line m-t-2"></div>
+                </div>
+                <!-- /SECTION ( TITLE ) -->
+
+                <p class="m-t-6 color-white"> If you've worked with some advanced dynamics problems, you'll know that it's often next to impossible to derive the equations of motion by hand.</p>
+
+                <p class="m-t-2 color-white">While most courses will teach you how to solve these kinds of systems using matrices and numerical methods, I'll show you how I use the Sympy.physics.mechanics module in python to solve for the equations of motion symbolically. These can then be simulated by numerical integration. </p>
+
+                <p class="m-t-6 color-white">Below is a simulation I made of a basketball spinning on a finger, which we will use as an example. Feel free to orbit around and change the initial conditions.</p>
+
+                <iframe class="m-t-2 simulation" src="../../web-apps/basketball-on-finger/index.html" width="70%" height="700rem"></iframe>
+
+                <div class="pros_cons_container m-t-3">
+
+                    <h3>Pros of using this method</h3>
+                    <ul>
+                        <li class="m-t-2">
+                            <p>
+                                When you're dealing with vectors, typically you have to be very concious about what frame of reference the vector is expressed in. When using multiple vectors in an equation, you must first make sure to apply the approriate rotation matrices to each vector to ensure that they are expressed in the same frame.
+
+                                However, when using the sympy.physics.mechanics module, vectors are defined in any frame of reference you want. The module will take care of the rotation matrices in the background, allowing you to multiply vectors without worrying about which frame they are expressed in.
+
+                                When you want to print out the result of your equation, you can use the express() funtion, which will print it out in the frame of reference you specify.</p>
+                        </li>
+                        <li class="m-t-2">
+                            <p>
+                                Because the sympy.physics.mechanics module uses symbolic python (sympy) you obtain exact solutions instead of numerical approximations.
+                            </p>
+                        </li>
+                        <li class="m-t-2">
+                            <p>
+                                The sympy.physics.mechanics module includes many useful functions for solving dynamics problems that bypass some of the more tedious steps. For example, the angular velocity of a frame e_b with respect to frame N whose position has been defined with respect to any number of other fully defined frames using e_b.ang_vel_in(N). The direction cosine matrix of frame e_b with respect to N can be easily found by e_b.dcm(N).
+                            </p>
+                        </li>
+                    </ul>
+
+
+                    <h3 class="m-t-2">Cons of using this method</h3>
+                    <ul>
+                        <li class="m-t-2">
+                            <p>
+                                The sympy.physics.mechanics module has minimal documentation and it can be difficult to find examples of how to use it.
+                            </p>
+                        </li>
+                        <li class="m-t-2">
+                            <p>
+                                If you're taking a class on advanced dynamics, you should probably learn how to solve these problems by hand first, as it will help you understand the concepts better and catch mistakes if you notice that an equation doesn't make sense.
+                            </p>
+                        </li>
+                    </ul>
+
                 </div>
 
-            </div>
 
-            <p class="m-t-3 color-white">
-                The Jupyter Notebook code for this project can be found<a class="externLink" href="https://github.com/Neil-Sawhney/SpaceDynamics_SpinningBasketball" target="_blank">here</a>.
+                <h3 class="m-t-6"> Some prerequisites/supplies to follow this guide:</h3>
 
-                <br>
 
-                The javascript code for the simulation shown above can be found in the source code (using the developer console of your browser) <a class="externLink" href="../web-apps/basketball-on-finger/" target="_blank">here</a>.
-            </p>
+                <!-- PREREQUISITES -->
+                <div class="pills m-b-5 m-t-3">
 
-            <!-- /PREREQUISITES -->
-            <h3 class="step">Step 1: Setup reference frames using a 3-1-3 Euler angle sequence. </h3>
+                    <div class="pill">
+                        <p>A basic understanding of dynamics</p>
+                    </div>
+                    <div class="pill">
+                        <p>A basic understanding of python</p>
+                    </div>
 
-            <div class="code">
-                <iframe src="https://carbon.now.sh/embed?bg=rgba%280%2C0%2C0%2C0%29&t=panda-syntax&wt=boxy&l=python&width=508&ds=false&dsyoff=65px&dsblur=81px&wc=false&wa=true&pv=0px&ph=0px&ln=true&fl=1&fm=Hack&fs=14px&lh=137%25&si=false&es=2x&wm=false&code=from%2520IPython.display%2520import%2520Markdown%250Aimport%2520sympy%2520as%2520sp%250Afrom%2520sympy.physics.mechanics%2520import%2520*%250Atheta%252C%2520phi%252C%2520psi%2520%253D%2520dynamicsymbols%28%27theta%2520phi%2520psi%27%29%250A%250AN%2520%253D%2520ReferenceFrame%28%27N%27%29%250AA%2520%253D%2520N.orientnew%28%27A%27%252C%2520%27Axis%27%252C%2520%255Bphi%252C%2520N.z%255D%29%250AB%2520%253D%2520A.orientnew%28%27B%27%252C%2520%27Axis%27%252C%2520%255Btheta%252C%2520A.x%255D%29%250Ae_b%2520%253D%2520B.orientnew%28%27e_b%27%252C%2520%27Axis%27%252C%2520%255Bpsi%252C%2520B.z%255D%29%250A%250Aomega%2520%253D%2520e_b.ang_vel_in%28N%29%2520%2520" style="width: 465px; height: 240px; border:0; transform: scale(1); overflow:hidden;" sandbox="allow-scripts allow-same-origin">
-                </iframe>
+                </div>
 
-                <div class="jp-output">
-                    \begin{equation}\label{omegabn}\omega_{B/N}^{(b)} = (\sin{\left(\psi{\left(t \right)} \right)} \sin{\left(\theta{\left(t \right)} \right)} \frac{d}{d t} \phi{\left(t \right)} + \cos{\left(\psi{\left(t \right)} \right)} \frac{d}{d t} \theta{\left(t \right)})\mathbf{\hat{e_b}_x} + (- \sin{\left(\psi{\left(t \right)} \right)} \frac{d}{d t} \theta{\left(t \right)} + \sin{\left(\theta{\left(t \right)} \right)} \cos{\left(\psi{\left(t \right)} \right)} \frac{d}{d t} \phi{\left(t \right)})\mathbf{\hat{e_b}_y} + (\cos{\left(\theta{\left(t \right)} \right)} \frac{d}{d t} \phi{\left(t \right)} + \frac{d}{d t} \psi{\left(t \right)})\mathbf{\hat{e_b}_z}\end{equation}</div>
-            </div>
-            <p class="m-t-2">
-                On line 4, we define three dynamic symbols, $\theta$, $\psi$ and $\phi$, this tells sympy that these variables are functions of time.
-            </p>
-            <p class="m-t-2 color-white">
-                The code cell above sets up the reference frames that define a 313 euler angle sequence. The animation below helps to visualize the sequence.
-            </p>
-            <div class="light-container m-t-2">
-                <img class="m-t-2" src="./assets/images/313.gif" alt="313 euler angle sequence">
+                <p class="m-t-3 color-white">
+                    The Jupyter Notebook code for this project can be found<a class="externLink" href="https://github.com/Neil-Sawhney/SpaceDynamics_SpinningBasketball" target="_blank">here</a>.
+
+                    <br>
+
+                    The javascript code for the simulation shown above can be found in the source code (using the developer console of your browser) <a class="externLink" href="../web-apps/basketball-on-finger/" target="_blank">here</a>.
+                </p>
+
+                <!-- /PREREQUISITES -->
+                <h3 class="step">Step 1: Setup reference frames using a 3-1-3 Euler angle sequence. </h3>
+
+                <div class="code">
+                    <iframe src="https://carbon.now.sh/embed?bg=rgba%280%2C0%2C0%2C0%29&t=panda-syntax&wt=boxy&l=python&width=508&ds=false&dsyoff=65px&dsblur=81px&wc=false&wa=true&pv=0px&ph=0px&ln=true&fl=1&fm=Hack&fs=14px&lh=137%25&si=false&es=2x&wm=false&code=from%2520IPython.display%2520import%2520Markdown%250Aimport%2520sympy%2520as%2520sp%250Afrom%2520sympy.physics.mechanics%2520import%2520*%250Atheta%252C%2520phi%252C%2520psi%2520%253D%2520dynamicsymbols%28%27theta%2520phi%2520psi%27%29%250A%250AN%2520%253D%2520ReferenceFrame%28%27N%27%29%250AA%2520%253D%2520N.orientnew%28%27A%27%252C%2520%27Axis%27%252C%2520%255Bphi%252C%2520N.z%255D%29%250AB%2520%253D%2520A.orientnew%28%27B%27%252C%2520%27Axis%27%252C%2520%255Btheta%252C%2520A.x%255D%29%250Ae_b%2520%253D%2520B.orientnew%28%27e_b%27%252C%2520%27Axis%27%252C%2520%255Bpsi%252C%2520B.z%255D%29%250A%250Aomega%2520%253D%2520e_b.ang_vel_in%28N%29%2520%2520" style="width: 465px; height: 240px; border:0; transform: scale(1); overflow:hidden;" sandbox="allow-scripts allow-same-origin">
+                    </iframe>
+
+                    <div class="jp-output">
+                        \begin{equation}\label{omegabn}\omega_{B/N}^{(b)} = (\sin{\left(\psi{\left(t \right)} \right)} \sin{\left(\theta{\left(t \right)} \right)} \frac{d}{d t} \phi{\left(t \right)} + \cos{\left(\psi{\left(t \right)} \right)} \frac{d}{d t} \theta{\left(t \right)})\mathbf{\hat{e_b}_x} + (- \sin{\left(\psi{\left(t \right)} \right)} \frac{d}{d t} \theta{\left(t \right)} + \sin{\left(\theta{\left(t \right)} \right)} \cos{\left(\psi{\left(t \right)} \right)} \frac{d}{d t} \phi{\left(t \right)})\mathbf{\hat{e_b}_y} + (\cos{\left(\theta{\left(t \right)} \right)} \frac{d}{d t} \phi{\left(t \right)} + \frac{d}{d t} \psi{\left(t \right)})\mathbf{\hat{e_b}_z}\end{equation}</div>
+                </div>
                 <p class="m-t-2">
-                    The animation above names the rotations in the order of $\psi$, $\theta$, $\phi$, but in my code I named them in the order of $\phi$, $\theta$, $\psi$. Close enough, you get the idea.
+                    On line 4, we define three dynamic symbols, $\theta$, $\psi$ and $\phi$, this tells sympy that these variables are functions of time.
                 </p>
                 <p class="m-t-2 color-white">
-                    Frame A represents a rotation of the inertial frame about the 3 axis (N.z) by an angle $\phi$ <small style="color: dimgray">($\psi$ in the animation)</small>,
-                    <br>
-                    Frame B represents a rotation of the A frame about the A frame's 1 axis (A.x) by an angle $\theta$ <small style="color: dimgray">($\theta$ in the animation)</small>,
-                    <br>
-                    Frame e_b (the body fixed frame) represents a rotation of the B frame about the B frame's 3 axis (B.z) by an angle $\psi$ <small style="color: dimgray">($\phi$ in the animation)</small>.
+                    The code cell above sets up the reference frames that define a 313 euler angle sequence. The interactive window below helps to visualize the sequence.
                 </p>
-            </div>
-            <p class="m-t-2 color-white">
-                Now that we're set up, notice that sympy allows us to immediately find the angular velocity of any of our defined frames with respect to any other in terms of the three euler angles we defined in a singular line of code. To get the angular velocity of frame e_b with respect to frame N ( $\omega_{B/N}$ ), we simply use
-                <code>omega = e_b.ang_vel_in(N)</code>
-            </p>
-            <p class="m-t-2">
-                If we want to print $\omega_{B/N}$ we can choose to express it in any frame of reference we want. For example, in equation \ref{omegabn}, $\omega_{B/N}$ is expressed in the b frame (hence the (b) that looks like an exponent) using <code>omega.express(e_b)</code>. If we want to express it in the inertial frame N instead, we can similarly use <code>omega.express(N)</code>.
-            </p>
-
-            <h3 class="step">Step 2: Define the kinematics. </h3>
-            <div class="code">
-                <iframe src="https://carbon.now.sh/embed?bg=rgba%280%2C0%2C0%2C0%29&t=panda-syntax&wt=boxy&l=python&width=508&ds=false&dsyoff=65px&dsblur=81px&wc=false&wa=true&pv=0px&ph=0px&ln=true&fl=1&fm=Hack&fs=14px&lh=137%25&si=false&es=2x&wm=false&code=t%2520%253D%2520sp.symbols%28%27t%27%29%250Ar%2520%253D%2520sp.symbols%28%27r%27%29%250A%250AP%2520%253D%2520Point%28%27P%27%29%2520%2523%2520The%2520point%2520of%2520contact%2520with%2520the%2520finger%250ACM%2520%253D%2520P.locatenew%28%27CM%27%252C%2520r*e_b.z%29%250Ar_P_CM%2520%253D%2520CM.pos_from%28P%29%250AP.set_vel%28N%252C%25200%29%250AP.set_vel%28e_b%252C%25200%29%250ACM.set_vel%28e_b%252C%25200%29%250ACM.set_vel%28N%252C%2520omega.cross%28r_P_CM%29%29" style="width: 499px; height: 221px; border:0; transform: scale(1); overflow:hidden;" sandbox="allow-scripts allow-same-origin">
-                </iframe>
-                <div class="jp-output">
-                    \begin{equation}\label{velocity}\vec{v}_{CM} = r \left(- \sin{\left(\psi{\left(t \right)} \right)} \frac{d}{d t} \theta{\left(t \right)} + \sin{\left(\theta{\left(t \right)} \right)} \cos{\left(\psi{\left(t \right)} \right)} \frac{d}{d t} \phi{\left(t \right)}\right)\mathbf{\hat{e_b}_x} - r \left(\sin{\left(\psi{\left(t \right)} \right)} \sin{\left(\theta{\left(t \right)} \right)} \frac{d}{d t} \phi{\left(t \right)} + \cos{\left(\psi{\left(t \right)} \right)} \frac{d}{d t} \theta{\left(t \right)}\right)\mathbf{\hat{e_b}_y}\end{equation}
-
-                    <br>
-
-                    \begin{equation}\label{acceleration}\vec{a}_{CM} = r \left(\frac{\left(\cos{\left(\psi{\left(t \right)} - 2 \theta{\left(t \right)} \right)} - \cos{\left(\psi{\left(t \right)} + 2 \theta{\left(t \right)} \right)}\right) \left(\frac{d}{d t} \phi{\left(t \right)}\right)^{2}}{4} - \sin{\left(\psi{\left(t \right)} \right)} \frac{d^{2}}{d t^{2}} \theta{\left(t \right)} + \sin{\left(\theta{\left(t \right)} \right)} \cos{\left(\psi{\left(t \right)} \right)} \frac{d^{2}}{d t^{2}} \phi{\left(t \right)} + 2 \cos{\left(\psi{\left(t \right)} \right)} \cos{\left(\theta{\left(t \right)} \right)} \frac{d}{d t} \phi{\left(t \right)} \frac{d}{d t} \theta{\left(t \right)}\right)\mathbf{\hat{e_b}_x} + r \left(\frac{\left(- \sin{\left(\psi{\left(t \right)} - 2 \theta{\left(t \right)} \right)} + \sin{\left(\psi{\left(t \right)} + 2 \theta{\left(t \right)} \right)}\right) \left(\frac{d}{d t} \phi{\left(t \right)}\right)^{2}}{4} - \sin{\left(\psi{\left(t \right)} \right)} \sin{\left(\theta{\left(t \right)} \right)} \frac{d^{2}}{d t^{2}} \phi{\left(t \right)} - 2 \sin{\left(\psi{\left(t \right)} \right)} \cos{\left(\theta{\left(t \right)} \right)} \frac{d}{d t} \phi{\left(t \right)} \frac{d}{d t} \theta{\left(t \right)} - \cos{\left(\psi{\left(t \right)} \right)} \frac{d^{2}}{d t^{2}} \theta{\left(t \right)}\right)\mathbf{\hat{e_b}_y} - r \left(\sin^{2}{\left(\theta{\left(t \right)} \right)} \left(\frac{d}{d t} \phi{\left(t \right)}\right)^{2} + \left(\frac{d}{d t} \theta{\left(t \right)}\right)^{2}\right)\mathbf{\hat{e_b}_z}\end{equation}
-                </div>
-            </div>
-            <p class="m-t-2 color-white">
-                In this example, the kinematics are defined by enforcing the rolling constraint. The velocity of the center of mass of the ball about the point of contact between the ball and the finger is defined to be equal to $\omega_{B/N} \times r_{cm}$. The vector pointing from the point of contact between the finger and the ball to the center of mass of the ball is $r_{cm}$
-            </p>
-            <p class="m-t-2">
-                On lines 4 and 5, We define the position of our points P and CM, we tell sympy that the center of mass, (CM) is located r units away from point of contact (P) in the z direction with respect to the ball's frame of reference. The location of the point P doesn't actually matter since everything else is defined with respect to it.
-            </p>
-            <p class="m-t-2">Line 6 simply defines our $r_{cm}$ vector by stating that it points to point CM from point P.</p>
-            <p class="m-t-2">
-                Lines 7 through 9 is the simplest way to define points P and CM with respect to the previously defined frames of reference.
-            <ul>
-                <li>
-                    <p class="color-white">The point of contact is not moving in the inertial frame because the finger is perfectly still. </p>
-                </li>
-                <li>
-                    <p class="color-white">The point of contact is also not moving in the body fixed frame, because the ball is always rotating about its bottom most point. </p>
-                </li>
-                <li>
-                    <p class="color-white">The center of mass is not moving in the body fixed frame... almost by definition.</p>
-                </li>
-            </ul>
-            <p class="m-t-2">
-                Line 10 finally enforces the rolling constraint by stating that the velocity of point CM in the intertial frame is equal to $\omega_{B/N} \times r_{cm}$
-            </p>
-            <p class="m-t-2 color-white">
-                Once this is done, we can easily obtain the velocity and acceleration of the center of mass with respect to any frame we want and expressed in any frame we want. For example, the velocity and acceleration of the center of mass with respect to the inertial frame as expressed in the body fixed frame is shown in equations \ref{velocity} and \ref{acceleration}. These expression can easily be obtained with the following 2 lines of code. <code>CM.vel(N).express(e_b)</code> and <code>CM.acc(N).express(e_b)</code>.
-            </p>
-
- <h3 class="step">Step 3: Define the kinetics. </h3>
-            <div class="code">
-                <iframe
-                src="https://carbon.now.sh/embed?bg=rgba%280%2C0%2C0%2C0%29&t=panda-syntax&wt=boxy&l=javascript&width=508&ds=false&dsyoff=65px&dsblur=81px&wc=false&wa=true&pv=0px&ph=0px&ln=true&fl=1&fm=Hack&fs=14px&lh=137%25&si=false&es=2x&wm=false&code=m%252C%2520g%252C%2520t%2520%2520%253D%2520sp.symbols%28%27m%2520g%2520t%27%29%250A%250AIxx%2520%253D%25202%2520*%2520m%2520*%2520r**2%2520%252F%25205%250AIyy%2520%253D%25202%2520*%2520m%2520*%2520r**2%2520%252F%25205%250AIzz%2520%253D%25202%2520*%2520m%2520*%2520r**2%2520%252F%25205%250AI_c%2520%253D%2520inertia%28e_b%252C%2520Ixx%252C%2520Iyy%252C%2520Izz%29%250A%250A%2523%2520Eulers%2520first%2520law%250AFg%2520%253D%2520-m%2520*%2520g%2520*%2520N.z%250AFr%2520%253D%2520m*CM.acc%28N%29%2520-%2520Fg%250A%250A%2523%2520Eulers%2520second%2520law%250AHc%2520%253D%2520I_c.dot%28omega%29%250AHcdot%2520%253D%2520Hc.diff%28t%252C%2520N%29%250Ar_p%2520%253D%2520-r_P_CM%250AM%2520%253D%2520r_p.cross%28Fr%29%250A%250AfancyWayToWriteZero%2520%2520%253D%2520%28Hcdot%2520-%2520M%29"
-                style="width: 339px; height: 374px; border:0; transform: scale(1); overflow:hidden;"
-                sandbox="allow-scripts allow-same-origin">
-                </iframe>
-            </div>
-            <p class="m-t-2 color-white">
-                Now that the kinematics are set up, to solve the equations of motion, we need to apply Euler's first and second laws.
-            </p>
-            <p class="m-t-2">
-                Lines 3 through 5 simply define the inertia of the ball. The inertia of a sphere about its center of mass is $I_{sphere} = \frac{2}{5} m r^2$. Due to the symmetry of the sphere, the inertia about all three axes (in the body fixed frame e_b) is the same.
-            </p>
-            <p class="m-t-2 color-white">
-                Euler's first law is $\sum F = \frac{d}{dt}p = ma$. The force acting on the ball due to gravity is easy to define in sympy. It is found by multiplying the mass of the ball with the gravitational acceleration vector which acts in the negative z direction of the inertial frame.
-            </p>
-            <p class="m-t-2">
-                Once we have the force due to gravity vector defined, it is easy to define the reaction force acting on the ball from the finger. We use the equation $\sum F = Fr + Fg$, since $F = ma$, $F_r = ma - F_g$. The acceleration of the center of mass with respect to the inertial frame can be written using sympy with <code>CM.acc(N)</code>. Therefore, the reaction force acting on the ball from the finger can be written as <code>Fr = m*CM.acc(N) - Fg</code> as written on line 10 of the code block.
-            </p>
-            <p class="m-t-2 color-white">
-                Euler's second law is $M = \frac{d}{dt}H_c = I \alpha$, therefore $H_c = I \omega$. Since $M = r_p \times F$, we can solve for the equations of motion by setting $\dot{H_c} = M$ and letting sympy figure out the rest.
-            </p>
-            <p class="m-t-2">
-                Lines 13 through 18 are pretty straight forward and define $\dot{H_c}$ and $M$ using the equations above. On line 14, $\dot{H_c}$ is found by telling sympy to differentiate with respect to time taken in the inertial frame.
-            </p>
-
-            <h3 class="step">Step 4: Let sympy solve the problem.
-            <div class="code">
-                <iframe src="https://carbon.now.sh/embed?bg=rgba%280%2C0%2C0%2C0%29&t=panda-syntax&wt=boxy&l=python&width=508&ds=false&dsyoff=65px&dsblur=81px&wc=false&wa=true&pv=0px&ph=0px&ln=true&fl=1&fm=Hack&fs=14px&lh=137%25&si=false&es=2x&wm=false&code=eq1%2520%253D%2520dot%28fancyWayToWriteZero%252C%2520e_b.x%29%250Aeq2%2520%253D%2520dot%28fancyWayToWriteZero%252C%2520e_b.y%29%250Aeq3%2520%253D%2520dot%28fancyWayToWriteZero%252C%2520e_b.z%29%250A%250Asol%2520%253D%2520sp.solve%28%255Beq1%252C%2520eq2%252C%2520eq3%255D%252C%2520%255Bpsi.diff%28t%252C2%29%252C%2520theta.diff%28t%252C2%29%252C%2520phi.diff%28t%252C2%29%255D%252C%2520dict%253DTrue%29" style="width: 819px; height: 125px; border:0; transform: scale(1); overflow:hidden;" sandbox="allow-scripts allow-same-origin">
-                </iframe>
-                <div class="jp-output">
-                    \begin{equation}\label{psi}\ddot{\psi} = - \frac{\left(5 \sin{\left(\theta{\left(t \right)} \right)} \frac{d}{d t} \phi{\left(t \right)} + \frac{2 \frac{d}{d t} \psi{\left(t \right)}}{\tan{\left(\theta{\left(t \right)} \right)}} - \frac{12 \frac{d}{d t} \phi{\left(t \right)}}{\sin{\left(\theta{\left(t \right)} \right)}}\right) \frac{d}{d t} \theta{\left(t \right)}}{7}\end{equation}
-
-                    <br>
-
-                    \begin{equation}\label{theta}\ddot{\theta} = \frac{5 g \sin{\left(\theta{\left(t \right)} \right)}}{7 r} - \frac{5 \sin{\left(\psi{\left(t \right)} - 3 \theta{\left(t \right)} \right)} \sin{\left(\psi{\left(t \right)} \right)} \left(\frac{d}{d t} \phi{\left(t \right)}\right)^{2}}{56 \sin{\left(\theta{\left(t \right)} \right)}} + \frac{5 \sin{\left(\psi{\left(t \right)} + \theta{\left(t \right)} \right)} \sin{\left(\psi{\left(t \right)} \right)} \left(\frac{d}{d t} \phi{\left(t \right)}\right)^{2}}{56 \sin{\left(\theta{\left(t \right)} \right)}} - \frac{5 \sin{\left(\psi{\left(t \right)} \right)} \cos{\left(\psi{\left(t \right)} + \theta{\left(t \right)} \right)} \cos{\left(\theta{\left(t \right)} \right)} \left(\frac{d}{d t} \phi{\left(t \right)}\right)^{2}}{14} + \frac{5 \sin{\left(\theta{\left(t \right)} \right)} \cos^{2}{\left(\psi{\left(t \right)} \right)} \cos{\left(\theta{\left(t \right)} \right)} \left(\frac{d}{d t} \phi{\left(t \right)}\right)^{2}}{7} - \frac{2 \sin{\left(\theta{\left(t \right)} \right)} \frac{d}{d t} \phi{\left(t \right)} \frac{d}{d t} \psi{\left(t \right)}}{7}\end{equation}
-
-                    <br>
-
-                    \begin{equation}\label{phi}\ddot{\phi} = - \frac{2 \cdot \left(6 \cos{\left(\theta{\left(t \right)} \right)} \frac{d}{d t} \phi{\left(t \right)} - \frac{d}{d t} \psi{\left(t \right)}\right) \frac{d}{d t} \theta{\left(t \right)}}{7 \sin{\left(\theta{\left(t \right)} \right)}}\end{equation}
-                </div>
-            </div>
-            <p class="m-t-2 color-white">
-                Well this part is easy, we hand off the dirty work to sympy and let it figure it out.
-
-                Sympy solves the problem and the result is easily found using <code>sol[psi.diff(t,2)]</code>, <code>sol[theta.diff(t,2)]</code>, and <code>sol[phi.diff(t,2)]</code> as shown in equations \ref{psi}, \ref{theta}, and \ref{phi}.
-            </p>
-            <p class="m-t-2">
-                Sympy solve doesn't understand the vector notation of the physics.mechanics module (at the time of writing this), so on lines 1-3, I use the dot product to split the vector equation into 3 regular equations.
-            </p>
-
-            <h3 class="step">Step 5: Numerically integrate and simulate.</h3>
-            <p class="m-t-2 color-white">
-                I wont go as deep into the low level details here because honestly the hard part is done. There are a million well documented ways to numerically integrate. Simulation involves creating an object in any visualization software and using its built in rotate tools in tandem with the numerically integrated solution.
-            </p>
-            <p class="m-t-2">
-                In the jupyter notebook code I provided, I used the odeint function in the scipy python module for numerical integration, and manim to render and display a simulation with preset initial conditions.
-
-                However, a major flaw in my implementation is that the simulation accuracy relies heavily on the frame rate of the renderer, which makes for long render times and creates some chaotic behavior at low fps.</p>
-            <p class="m-t-2 color-white">
-                For the interactive javascript simulation I previewed at the beginning of this article, I used the dopri funtion in the numeric library for the numerical integration. For the visualization I used the three.js library.
-            </p>
-            <p class="m-t-2 color-white">
-                However you choose to do it, the process is the same:
-            </p>
-            <ol>
-                <li>
-                    <p class="color-white">Put your numerically integrated solution in an array.</p>
-                </li>
-                <li>
-                    <p class="color-white">
-                        Create the basketball.
+                <div class="light-container m-t-2">
+                    <iframe class="m-t-2 simulation" src="../../web-apps/euler-angles/index.html" width="70%" height="700rem"></iframe>
+                    <p class="m-t-2">
+                        Change the sequence to 313 using the dropdown to match this tutorial, but feel free to explore how other sequences affect the outcome.
                     </p>
-                </li>
-                <li>
-                    <p class="color-white">
-                        Get the interpolated psi, theta, and phi values for the current time in the simulation.
-                    </p>
-                </li>
-                <li>
-                    <p class="color-white">
-                        Rotate about the bottom point of the basketball first by phi about the z axis, then by theta about the x axis, then by psi about the z axis again. 
+                    <p class="m-t-2 color-white">
+                        Frame A represents a rotation of the inertial frame about the 3 axis (N.z) by an angle $\phi$,
                         <br>
-                        <small>(This procedure is shown in the following code snippet using three.js. However, the camera is rotated, so to keep things vertical I'm technically doing a 2-3-2 euler angle sequence instead of a 3-1-3.)</small>
+                        Frame B represents a rotation of the A frame about the A frame's 1 axis (A.x) by an angle $\theta$,
+                        <br>
+                        Frame e_b (the body fixed frame) represents a rotation of the B frame about the B frame's 3 axis (B.z) by an angle $\psi$.
                     </p>
-                </li>
-            </ol>
+                </div>
+                <p class="m-t-2 color-white">
+                    Now that we're set up, notice that sympy allows us to immediately find the angular velocity of any of our defined frames with respect to any other in terms of the three euler angles we defined in a singular line of code. To get the angular velocity of frame e_b with respect to frame N ( $\omega_{B/N}$ ), we simply use
+                    <code>omega = e_b.ang_vel_in(N)</code>
+                </p>
+                <p class="m-t-2">
+                    If we want to print $\omega_{B/N}$ we can choose to express it in any frame of reference we want. For example, in equation \ref{omegabn}, $\omega_{B/N}$ is expressed in the b frame (hence the (b) that looks like an exponent) using <code>omega.express(e_b)</code>. If we want to express it in the inertial frame N instead, we can similarly use <code>omega.express(N)</code>.
+                </p>
 
-            <div class="code">
-                <iframe src="https://carbon.now.sh/embed?bg=rgba%280%2C0%2C0%2C0%29&t=panda-syntax&wt=boxy&l=javascript&width=508&ds=false&dsyoff=65px&dsblur=81px&wc=false&wa=true&pv=0px&ph=0px&ln=true&fl=1&fm=Hack&fs=14px&lh=137%25&si=false&es=2x&wm=false&code=let%2520quaternion%2520%253D%2520new%2520THREE.Quaternion%28%29%253B%250A%2520%2520%2520%2520quaternion.setFromEuler%28new%2520THREE.Euler%280%252C%2520phi%252C%25200%252C%2520%27XYZ%27%29%29%253B%250A%2520%2520%2520%2520quaternion.multiply%28new%2520THREE.Quaternion%28%29.setFromEuler%28new%2520THREE.Euler%280%252C%25200%252C%2520theta%252C%2520%27XYZ%27%29%29%29%253B%250A%2520%2520%2520%2520quaternion.multiply%28new%2520THREE.Quaternion%28%29.setFromEuler%28new%2520THREE.Euler%280%252C%2520psi%252C%25200%252C%2520%27XYZ%27%29%29%29%253B%250A%2520%2520%2520%2520basketballOffset.setRotationFromQuaternion%28quaternion%29%253B" style="width: 879px; height: 125px; border:0; transform: scale(1); overflow:hidden;" sandbox="allow-scripts allow-same-origin">
-                </iframe>
+                <h3 class="step">Step 2: Define the kinematics. </h3>
+                <div class="code">
+                    <iframe src="https://carbon.now.sh/embed?bg=rgba%280%2C0%2C0%2C0%29&t=panda-syntax&wt=boxy&l=python&width=508&ds=false&dsyoff=65px&dsblur=81px&wc=false&wa=true&pv=0px&ph=0px&ln=true&fl=1&fm=Hack&fs=14px&lh=137%25&si=false&es=2x&wm=false&code=t%2520%253D%2520sp.symbols%28%27t%27%29%250Ar%2520%253D%2520sp.symbols%28%27r%27%29%250A%250AP%2520%253D%2520Point%28%27P%27%29%2520%2523%2520The%2520point%2520of%2520contact%2520with%2520the%2520finger%250ACM%2520%253D%2520P.locatenew%28%27CM%27%252C%2520r*e_b.z%29%250Ar_P_CM%2520%253D%2520CM.pos_from%28P%29%250AP.set_vel%28N%252C%25200%29%250AP.set_vel%28e_b%252C%25200%29%250ACM.set_vel%28e_b%252C%25200%29%250ACM.set_vel%28N%252C%2520omega.cross%28r_P_CM%29%29" style="width: 499px; height: 221px; border:0; transform: scale(1); overflow:hidden;" sandbox="allow-scripts allow-same-origin">
+                    </iframe>
+                    <div class="jp-output">
+                        \begin{equation}\label{velocity}\vec{v}_{CM} = r \left(- \sin{\left(\psi{\left(t \right)} \right)} \frac{d}{d t} \theta{\left(t \right)} + \sin{\left(\theta{\left(t \right)} \right)} \cos{\left(\psi{\left(t \right)} \right)} \frac{d}{d t} \phi{\left(t \right)}\right)\mathbf{\hat{e_b}_x} - r \left(\sin{\left(\psi{\left(t \right)} \right)} \sin{\left(\theta{\left(t \right)} \right)} \frac{d}{d t} \phi{\left(t \right)} + \cos{\left(\psi{\left(t \right)} \right)} \frac{d}{d t} \theta{\left(t \right)}\right)\mathbf{\hat{e_b}_y}\end{equation}
+
+                        <br>
+
+                        \begin{equation}\label{acceleration}\vec{a}_{CM} = r \left(\frac{\left(\cos{\left(\psi{\left(t \right)} - 2 \theta{\left(t \right)} \right)} - \cos{\left(\psi{\left(t \right)} + 2 \theta{\left(t \right)} \right)}\right) \left(\frac{d}{d t} \phi{\left(t \right)}\right)^{2}}{4} - \sin{\left(\psi{\left(t \right)} \right)} \frac{d^{2}}{d t^{2}} \theta{\left(t \right)} + \sin{\left(\theta{\left(t \right)} \right)} \cos{\left(\psi{\left(t \right)} \right)} \frac{d^{2}}{d t^{2}} \phi{\left(t \right)} + 2 \cos{\left(\psi{\left(t \right)} \right)} \cos{\left(\theta{\left(t \right)} \right)} \frac{d}{d t} \phi{\left(t \right)} \frac{d}{d t} \theta{\left(t \right)}\right)\mathbf{\hat{e_b}_x} + r \left(\frac{\left(- \sin{\left(\psi{\left(t \right)} - 2 \theta{\left(t \right)} \right)} + \sin{\left(\psi{\left(t \right)} + 2 \theta{\left(t \right)} \right)}\right) \left(\frac{d}{d t} \phi{\left(t \right)}\right)^{2}}{4} - \sin{\left(\psi{\left(t \right)} \right)} \sin{\left(\theta{\left(t \right)} \right)} \frac{d^{2}}{d t^{2}} \phi{\left(t \right)} - 2 \sin{\left(\psi{\left(t \right)} \right)} \cos{\left(\theta{\left(t \right)} \right)} \frac{d}{d t} \phi{\left(t \right)} \frac{d}{d t} \theta{\left(t \right)} - \cos{\left(\psi{\left(t \right)} \right)} \frac{d^{2}}{d t^{2}} \theta{\left(t \right)}\right)\mathbf{\hat{e_b}_y} - r \left(\sin^{2}{\left(\theta{\left(t \right)} \right)} \left(\frac{d}{d t} \phi{\left(t \right)}\right)^{2} + \left(\frac{d}{d t} \theta{\left(t \right)}\right)^{2}\right)\mathbf{\hat{e_b}_z}\end{equation}
+                    </div>
+                </div>
+                <p class="m-t-2 color-white">
+                    In this example, the kinematics are defined by enforcing the rolling constraint. The velocity of the center of mass of the ball about the point of contact between the ball and the finger is defined to be equal to $\omega_{B/N} \times r_{cm}$. The vector pointing from the point of contact between the finger and the ball to the center of mass of the ball is $r_{cm}$
+                </p>
+                <p class="m-t-2">
+                    On lines 4 and 5, We define the position of our points P and CM, we tell sympy that the center of mass, (CM) is located r units away from point of contact (P) in the z direction with respect to the ball's frame of reference. The location of the point P doesn't actually matter since everything else is defined with respect to it.
+                </p>
+                <p class="m-t-2">Line 6 simply defines our $r_{cm}$ vector by stating that it points to point CM from point P.</p>
+                <p class="m-t-2">
+                    Lines 7 through 9 is the simplest way to define points P and CM with respect to the previously defined frames of reference.
+                <ul>
+                    <li>
+                        <p class="color-white">The point of contact is not moving in the inertial frame because the finger is perfectly still. </p>
+                    </li>
+                    <li>
+                        <p class="color-white">The point of contact is also not moving in the body fixed frame, because the ball is always rotating about its bottom most point. </p>
+                    </li>
+                    <li>
+                        <p class="color-white">The center of mass is not moving in the body fixed frame... almost by definition.</p>
+                    </li>
+                </ul>
+                <p class="m-t-2">
+                    Line 10 finally enforces the rolling constraint by stating that the velocity of point CM in the intertial frame is equal to $\omega_{B/N} \times r_{cm}$
+                </p>
+                <p class="m-t-2 color-white">
+                    Once this is done, we can easily obtain the velocity and acceleration of the center of mass with respect to any frame we want and expressed in any frame we want. For example, the velocity and acceleration of the center of mass with respect to the inertial frame as expressed in the body fixed frame is shown in equations \ref{velocity} and \ref{acceleration}. These expression can easily be obtained with the following 2 lines of code. <code>CM.vel(N).express(e_b)</code> and <code>CM.acc(N).express(e_b)</code>.
+                </p>
+
+                <h3 class="step">Step 3: Define the kinetics. </h3>
+                <div class="code">
+                    <iframe src="https://carbon.now.sh/embed?bg=rgba%280%2C0%2C0%2C0%29&t=panda-syntax&wt=boxy&l=javascript&width=508&ds=false&dsyoff=65px&dsblur=81px&wc=false&wa=true&pv=0px&ph=0px&ln=true&fl=1&fm=Hack&fs=14px&lh=137%25&si=false&es=2x&wm=false&code=m%252C%2520g%252C%2520t%2520%2520%253D%2520sp.symbols%28%27m%2520g%2520t%27%29%250A%250AIxx%2520%253D%25202%2520*%2520m%2520*%2520r**2%2520%252F%25205%250AIyy%2520%253D%25202%2520*%2520m%2520*%2520r**2%2520%252F%25205%250AIzz%2520%253D%25202%2520*%2520m%2520*%2520r**2%2520%252F%25205%250AI_c%2520%253D%2520inertia%28e_b%252C%2520Ixx%252C%2520Iyy%252C%2520Izz%29%250A%250A%2523%2520Eulers%2520first%2520law%250AFg%2520%253D%2520-m%2520*%2520g%2520*%2520N.z%250AFr%2520%253D%2520m*CM.acc%28N%29%2520-%2520Fg%250A%250A%2523%2520Eulers%2520second%2520law%250AHc%2520%253D%2520I_c.dot%28omega%29%250AHcdot%2520%253D%2520Hc.diff%28t%252C%2520N%29%250Ar_p%2520%253D%2520-r_P_CM%250AM%2520%253D%2520r_p.cross%28Fr%29%250A%250AfancyWayToWriteZero%2520%2520%253D%2520%28Hcdot%2520-%2520M%29" style="width: 339px; height: 374px; border:0; transform: scale(1); overflow:hidden;" sandbox="allow-scripts allow-same-origin">
+                    </iframe>
+                </div>
+                <p class="m-t-2 color-white">
+                    Now that the kinematics are set up, to solve the equations of motion, we need to apply Euler's first and second laws.
+                </p>
+                <p class="m-t-2">
+                    Lines 3 through 5 simply define the inertia of the ball. The inertia of a sphere about its center of mass is $I_{sphere} = \frac{2}{5} m r^2$. Due to the symmetry of the sphere, the inertia about all three axes (in the body fixed frame e_b) is the same.
+                </p>
+                <p class="m-t-2 color-white">
+                    Euler's first law is $\sum F = \frac{d}{dt}p = ma$. The force acting on the ball due to gravity is easy to define in sympy. It is found by multiplying the mass of the ball with the gravitational acceleration vector which acts in the negative z direction of the inertial frame.
+                </p>
+                <p class="m-t-2">
+                    Once we have the force due to gravity vector defined, it is easy to define the reaction force acting on the ball from the finger. We use the equation $\sum F = Fr + Fg$, since $F = ma$, $F_r = ma - F_g$. The acceleration of the center of mass with respect to the inertial frame can be written using sympy with <code>CM.acc(N)</code>. Therefore, the reaction force acting on the ball from the finger can be written as <code>Fr = m*CM.acc(N) - Fg</code> as written on line 10 of the code block.
+                </p>
+                <p class="m-t-2 color-white">
+                    Euler's second law is $M = \frac{d}{dt}H_c = I \alpha$, therefore $H_c = I \omega$. Since $M = r_p \times F$, we can solve for the equations of motion by setting $\dot{H_c} = M$ and letting sympy figure out the rest.
+                </p>
+                <p class="m-t-2">
+                    Lines 13 through 18 are pretty straight forward and define $\dot{H_c}$ and $M$ using the equations above. On line 14, $\dot{H_c}$ is found by telling sympy to differentiate with respect to time taken in the inertial frame.
+                </p>
+
+                <h3 class="step">Step 4: Let sympy solve the problem.
+                    <div class="code">
+                        <iframe src="https://carbon.now.sh/embed?bg=rgba%280%2C0%2C0%2C0%29&t=panda-syntax&wt=boxy&l=python&width=508&ds=false&dsyoff=65px&dsblur=81px&wc=false&wa=true&pv=0px&ph=0px&ln=true&fl=1&fm=Hack&fs=14px&lh=137%25&si=false&es=2x&wm=false&code=eq1%2520%253D%2520dot%28fancyWayToWriteZero%252C%2520e_b.x%29%250Aeq2%2520%253D%2520dot%28fancyWayToWriteZero%252C%2520e_b.y%29%250Aeq3%2520%253D%2520dot%28fancyWayToWriteZero%252C%2520e_b.z%29%250A%250Asol%2520%253D%2520sp.solve%28%255Beq1%252C%2520eq2%252C%2520eq3%255D%252C%2520%255Bpsi.diff%28t%252C2%29%252C%2520theta.diff%28t%252C2%29%252C%2520phi.diff%28t%252C2%29%255D%252C%2520dict%253DTrue%29" style="width: 819px; height: 125px; border:0; transform: scale(1); overflow:hidden;" sandbox="allow-scripts allow-same-origin">
+                        </iframe>
+                        <div class="jp-output">
+                            \begin{equation}\label{psi}\ddot{\psi} = - \frac{\left(5 \sin{\left(\theta{\left(t \right)} \right)} \frac{d}{d t} \phi{\left(t \right)} + \frac{2 \frac{d}{d t} \psi{\left(t \right)}}{\tan{\left(\theta{\left(t \right)} \right)}} - \frac{12 \frac{d}{d t} \phi{\left(t \right)}}{\sin{\left(\theta{\left(t \right)} \right)}}\right) \frac{d}{d t} \theta{\left(t \right)}}{7}\end{equation}
+
+                            <br>
+
+                            \begin{equation}\label{theta}\ddot{\theta} = \frac{5 g \sin{\left(\theta{\left(t \right)} \right)}}{7 r} - \frac{5 \sin{\left(\psi{\left(t \right)} - 3 \theta{\left(t \right)} \right)} \sin{\left(\psi{\left(t \right)} \right)} \left(\frac{d}{d t} \phi{\left(t \right)}\right)^{2}}{56 \sin{\left(\theta{\left(t \right)} \right)}} + \frac{5 \sin{\left(\psi{\left(t \right)} + \theta{\left(t \right)} \right)} \sin{\left(\psi{\left(t \right)} \right)} \left(\frac{d}{d t} \phi{\left(t \right)}\right)^{2}}{56 \sin{\left(\theta{\left(t \right)} \right)}} - \frac{5 \sin{\left(\psi{\left(t \right)} \right)} \cos{\left(\psi{\left(t \right)} + \theta{\left(t \right)} \right)} \cos{\left(\theta{\left(t \right)} \right)} \left(\frac{d}{d t} \phi{\left(t \right)}\right)^{2}}{14} + \frac{5 \sin{\left(\theta{\left(t \right)} \right)} \cos^{2}{\left(\psi{\left(t \right)} \right)} \cos{\left(\theta{\left(t \right)} \right)} \left(\frac{d}{d t} \phi{\left(t \right)}\right)^{2}}{7} - \frac{2 \sin{\left(\theta{\left(t \right)} \right)} \frac{d}{d t} \phi{\left(t \right)} \frac{d}{d t} \psi{\left(t \right)}}{7}\end{equation}
+
+                            <br>
+
+                            \begin{equation}\label{phi}\ddot{\phi} = - \frac{2 \cdot \left(6 \cos{\left(\theta{\left(t \right)} \right)} \frac{d}{d t} \phi{\left(t \right)} - \frac{d}{d t} \psi{\left(t \right)}\right) \frac{d}{d t} \theta{\left(t \right)}}{7 \sin{\left(\theta{\left(t \right)} \right)}}\end{equation}
+                        </div>
+                    </div>
+                    <p class="m-t-2 color-white">
+                        Well this part is easy, we hand off the dirty work to sympy and let it figure it out.
+
+                        Sympy solves the problem and the result is easily found using <code>sol[psi.diff(t,2)]</code>, <code>sol[theta.diff(t,2)]</code>, and <code>sol[phi.diff(t,2)]</code> as shown in equations \ref{psi}, \ref{theta}, and \ref{phi}.
+                    </p>
+                    <p class="m-t-2">
+                        Sympy solve doesn't understand the vector notation of the physics.mechanics module (at the time of writing this), so on lines 1-3, I use the dot product to split the vector equation into 3 regular equations.
+                    </p>
+
+                    <h3 class="step">Step 5: Numerically integrate and simulate.</h3>
+                    <p class="m-t-2 color-white">
+                        I wont go as deep into the low level details here because honestly the hard part is done. There are a million well documented ways to numerically integrate. Simulation involves creating an object in any visualization software and using its built in rotate tools in tandem with the numerically integrated solution.
+                    </p>
+                    <p class="m-t-2">
+                        In the jupyter notebook code I provided, I used the odeint function in the scipy python module for numerical integration, and manim to render and display a simulation with preset initial conditions.
+
+                        However, a major flaw in my implementation is that the simulation accuracy relies heavily on the frame rate of the renderer, which makes for long render times and creates some chaotic behavior at low fps.</p>
+                    <p class="m-t-2 color-white">
+                        For the interactive javascript simulation I previewed at the beginning of this article, I used the dopri funtion in the numeric library for the numerical integration. For the visualization I used the three.js library.
+                    </p>
+                    <p class="m-t-2 color-white">
+                        However you choose to do it, the process is the same:
+                    </p>
+                    <ol>
+                        <li>
+                            <p class="color-white">Put your numerically integrated solution in an array.</p>
+                        </li>
+                        <li>
+                            <p class="color-white">
+                                Create the basketball.
+                            </p>
+                        </li>
+                        <li>
+                            <p class="color-white">
+                                Get the interpolated psi, theta, and phi values for the current time in the simulation.
+                            </p>
+                        </li>
+                        <li>
+                            <p class="color-white">
+                                Rotate about the bottom point of the basketball first by phi about the z axis, then by theta about the x axis, then by psi about the z axis again.
+                                <br>
+                                <small>(This procedure is shown in the following code snippet using three.js. However, the camera is rotated, so to keep things vertical I'm technically doing a 2-3-2 euler angle sequence instead of a 3-1-3.)</small>
+                            </p>
+                        </li>
+                    </ol>
+
+                    <div class="code">
+                        <iframe src="https://carbon.now.sh/embed?bg=rgba%280%2C0%2C0%2C0%29&t=panda-syntax&wt=boxy&l=javascript&width=508&ds=false&dsyoff=65px&dsblur=81px&wc=false&wa=true&pv=0px&ph=0px&ln=true&fl=1&fm=Hack&fs=14px&lh=137%25&si=false&es=2x&wm=false&code=let%2520quaternion%2520%253D%2520new%2520THREE.Quaternion%28%29%253B%250A%2520%2520%2520%2520quaternion.setFromEuler%28new%2520THREE.Euler%280%252C%2520phi%252C%25200%252C%2520%27XYZ%27%29%29%253B%250A%2520%2520%2520%2520quaternion.multiply%28new%2520THREE.Quaternion%28%29.setFromEuler%28new%2520THREE.Euler%280%252C%25200%252C%2520theta%252C%2520%27XYZ%27%29%29%29%253B%250A%2520%2520%2520%2520quaternion.multiply%28new%2520THREE.Quaternion%28%29.setFromEuler%28new%2520THREE.Euler%280%252C%2520psi%252C%25200%252C%2520%27XYZ%27%29%29%29%253B%250A%2520%2520%2520%2520basketballOffset.setRotationFromQuaternion%28quaternion%29%253B" style="width: 879px; height: 125px; border:0; transform: scale(1); overflow:hidden;" sandbox="allow-scripts allow-same-origin">
+                        </iframe>
+                    </div>
+
+                    <p class="m-t-6 color-white">Well, that's basically it! I hope you enjoyed!</p>
+                    <div style="height: 10rem;"> </div>
             </div>
-
-            <p class="m-t-6 color-white">Well, that's basically it! I hope you enjoyed!</p>
-            <div style="height: 10rem;">  </div>
         </div>
-    </div>
-    <div style="height: 10rem;">  </div>
-</body>
+        <div style="height: 10rem;"> </div>
+    </body>
 
-<!-- JAVASCRIPT FILES -->
-<script src="./assets/js/plugins.js"></script>
-<script src="../../config.js"></script>
-<script src="./assets/js/script.js"></script>
+    <!-- JAVASCRIPT FILES -->
+    <script src="./assets/js/plugins.js"></script>
+    <script src="../../config.js"></script>
+    <script src="./assets/js/script.js"></script>
 
 </html>
