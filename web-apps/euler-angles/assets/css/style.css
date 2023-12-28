@@ -19,10 +19,24 @@ selectWrapper {
     margin: 1vw;
 }
 
+buttonWrapper {
+    margin: 1vw;
+}
+
 select {
     margin-left: 1vw;
 }
 
 main {
     width: 100vw;
+}
+
+button {
+    background-color: #314843;
+    border: none;
+    color: white;
+    padding: 1vw 2vw;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
 }
