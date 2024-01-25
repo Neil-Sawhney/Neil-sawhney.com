@@ -2226,6 +2226,23 @@ _:-ms-fullscreen, :root .section-container .section.y-center .container
     transition: .3s ease-in-out;
 }
 
+.gslide-title
+{
+    font-size: 4rem !important;
+    color: #ffffff !important;
+}
+
+.gslide-desc
+{
+    font-size: 3rem!important;
+    color: #929292 !important;
+}
+
+.gdesc-inner
+{
+    background: #0f0f0f !important;
+}
+
 @media (max-width: 810px) {
 
     .glightbox-container .info

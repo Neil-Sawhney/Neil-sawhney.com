@@ -48,7 +48,6 @@ function core_init() {
 	window.addEventListener("load", scroll_bar());
 	//options_panel();
 	image_setup();
-
 	cycle_introduction();
 
 } core_init();
@@ -864,16 +863,24 @@ function lightbox_setup() {
 
 
 		// Add slides to lightbox
-		$( $(this).find(".lightbox-images .item") ).each(function(){
-
-			var url = $(this).data("image");
-			var url = (url == undefined) ? $(this).data("video") : url;
-
-			lightbox.insertSlide({
+		$(".lightbox-images .item", this).each(function() {
+			var url = $(this).data("image") || $(this).data("video");
+			var slide = {
 				'href': url,
-				'zoomable': false,
-			});
+				'zoomable': false
+			};
 
+			var title = $(this).data("title");
+			if (title !== undefined) {
+				slide.title = title;
+			}
+
+			var description = $(this).data("description");
+			if (description !== undefined) {
+				slide.description = description;
+			}
+
+			lightbox.insertSlide(slide);
 		});
 
 		// Do on lightbox opening

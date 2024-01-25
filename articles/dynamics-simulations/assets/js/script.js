@@ -844,6 +844,7 @@ function lightbox_setup() {
 			lightbox.insertSlide({
 				'href': url,
 				'zoomable': false,
+				'description': "test",
 			});
 
 		});
