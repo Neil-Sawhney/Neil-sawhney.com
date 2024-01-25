@@ -864,9 +864,8 @@ function lightbox_setup() {
 
 		// Add slides to lightbox
 		$(".lightbox-images .item", this).each(function() {
-			var url = $(this).data("image") || $(this).data("video");
 			var slide = {
-				'href': url,
+				'href': $(this).data("url"),
 				'zoomable': false
 			};
 
