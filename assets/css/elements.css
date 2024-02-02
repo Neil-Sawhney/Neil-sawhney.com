@@ -509,10 +509,12 @@
     background: -webkit-gradient(linear, left bottom, left top, from(rgba(0,0,0,0.5)), color-stop(40%), to(rgba(0,0,0,0)));
     background: linear-gradient(to top, rgba(0,0,0,0.5), 40%, rgba(0,0,0,0));
     z-index: -1;
+    pointer-events: none;
 }
 
 .work-grid .item .cover
 {
+    overflow: hidden;
     background-size: cover;
     background-repeat: no-repeat;
     position: absolute;
@@ -522,6 +524,31 @@
     width: 100%;
     height: 100%;
     z-index: -2;
+}
+
+#lightgallery
+{
+    width: 100%;
+    overflow: hidden;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: absolute;
+    background-position: center;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+}
+
+#lightgallery img
+{
+    width: 100%;
+}
+
+.cover img
+{
+    width: 100%;
 }
 
 .work-grid .item .info
