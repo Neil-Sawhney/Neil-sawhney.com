@@ -2243,6 +2243,14 @@ _:-ms-fullscreen, :root .section-container .section.y-center .container
     background: #0f0f0f !important;
 }
 
+.lg-sub-html h4{
+    font-size: 2.5rem !important;
+}
+
+.lg-sub-html p{
+    font-size: 3rem !important;
+}
+
 @media (max-width: 810px) {
 
     .glightbox-container .info
