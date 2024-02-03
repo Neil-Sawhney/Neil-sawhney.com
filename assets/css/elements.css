@@ -541,7 +541,7 @@
     z-index: -2;
 }
 
-.lightgallery img
+.lightgallery img, .lightgallery video
 {
     width: 100%;
 }
