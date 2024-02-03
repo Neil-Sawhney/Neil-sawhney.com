@@ -814,11 +814,14 @@ function scroll_bar() {
 *******************************************************************/
 function lightbox_setup() {
 
-	lightGallery(document.getElementById('lightgallery'), {
-		plugins: [lgZoom, lgThumbnail, lgVideo],
-		licenseKey: '0000-0000-000-0000',
-		speed: 500,
-		closeOnTap: true,
+	document.querySelectorAll('.lightgallery').forEach(function(element) {
+		lightGallery(element, {
+			plugins: [lgZoom, lgThumbnail, lgVideo],
+			licenseKey: '5B29B840-E9504FA9-9CE0EB63-D63356CF',
+			speed: 500,
+			closeOnTap: true,
+			videojs: true,
+		});
 	});
 
 }
