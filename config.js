@@ -132,9 +132,7 @@ var config_introduction_content = [
 
 
 // PROFILE PICTURE URL
-//var config_profile_image_url = [/assets/images/meOnSailboat.png",
-var config_profile_image_url = "/assets/images/meWithCamera.jpg";
-//var config_profile_image_url = "/assets/images/croppedProfilePic.png";
+var config_profile_image_url = "/assets/images/profile_pic.jpg";
 
 
 

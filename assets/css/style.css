@@ -1287,7 +1287,7 @@ _:-ms-fullscreen, :root .right-content .inner-content
 .left-content .inner-content
 {
     position: relative;
-    width: 26vw;
+    width: 22.4vw;
     height: 32vw;
     -webkit-transform: rotateY(5deg);
             transform: rotateY(5deg);
@@ -1466,7 +1466,7 @@ _:-ms-fullscreen, :root .section-container .section.y-center .container
 .mobile .left-content .inner-content .name
 {
     left: 50%;
-    bottom: 50%;
+    bottom: 10%;
     -webkit-transform: translate(-50%,50%);
         -ms-transform: translate(-50%,50%);
             transform: translate(-50%,50%);
@@ -1474,7 +1474,7 @@ _:-ms-fullscreen, :root .section-container .section.y-center .container
 
 .mobile .left-content .inner-content .name p
 {
-    font-size: 4rem;
+    font-size: 5rem;
 }
 
 .mobile .left-content .inner-content .picture-box
