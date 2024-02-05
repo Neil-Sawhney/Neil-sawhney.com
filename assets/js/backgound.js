@@ -30,32 +30,32 @@
 /** 1. BACKGROUND INIT
 *******************************************************************/
 
-function init_backgrounds() {
+// function init_backgrounds() {
 
-	var error_msg = "Error! No background is set or something went wrong";
+// 	var error_msg = "Error! No background is set or something went wrong";
 
-	if(is_mobile_device == true && option_hero_background_mode_mobile != "match") {
-		option_hero_background_mode = option_hero_background_mode_mobile;
-	}
+// 	if(is_mobile_device == true && option_hero_background_mode_mobile != "match") {
+// 		option_hero_background_mode = option_hero_background_mode_mobile;
+// 	}
 	
-	function url_var_handling() {
-		let searchParams = new URLSearchParams(window.location.search);
-		if(searchParams.has('bg')) option_hero_background_mode = searchParams.get('bg');
-	} url_var_handling();
+// 	function url_var_handling() {
+// 		let searchParams = new URLSearchParams(window.location.search);
+// 		if(searchParams.has('bg')) option_hero_background_mode = searchParams.get('bg');
+// 	} url_var_handling();
 
-	switch(option_hero_background_mode) {
+// 	switch(option_hero_background_mode) {
 
-		case "color":colorBackground(); break;
-		case "square": squareBackground(); break;
-		case "twisted": twistedBackground(); break;
-		case "asteroids":  asteroidsBackground(); break;
-		case "circle": circleBackground(); break;
-		case "lines": linesBackground(); break;
-		default: alert(error_msg); console.log(error_msg); break;	
+// 		case "color":colorBackground(); break;
+// 		case "square": squareBackground(); break;
+// 		case "twisted": twistedBackground(); break;
+// 		case "asteroids":  asteroidsBackground(); break;
+// 		case "circle": circleBackground(); break;
+// 		case "lines": linesBackground(); break;
+// 		default: alert(error_msg); console.log(error_msg); break;	
 	
-	}
+// 	}
 
-} init_backgrounds();
+// } init_backgrounds();
 
 
 

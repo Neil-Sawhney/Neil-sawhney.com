@@ -1122,17 +1122,6 @@ function image_setup() {
 
 	$(".left-content .picture-box .picture").css("background-image", "url(" + config_profile_image_url + ")");
 
-	var map_url = 'assets/images/effect_maps/' + config_profile_image_effect + '.jpg'
-	if (config_profile_image_effect == "custom") map_url = config_profile_image_effect_url;
-
-	img_three({
-		parent: document.querySelector('.picture-box'),
-		intensity: config_profile_image_effect_intensity,
-		image: config_profile_image_url,
-		video: true,
-		displacementImage: map_url,
-	});
-
 }
 
 
