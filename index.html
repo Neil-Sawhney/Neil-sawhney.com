@@ -637,14 +637,6 @@
         <script src="/config.js"></script>
         <script src="/assets/js/scripts.js"></script>
         <script src="/assets/js/backgound.js"></script>
-        <!-- Force clear cache -->
-        <script>
-            if (window.location.href.indexOf('clearCache') > -1) {
-                localStorage.clear();
-                sessionStorage.clear();
-                window.location.href = window.location.href.replace('clearCache', '');
-            }
-        </script>
 
     </body>
 
