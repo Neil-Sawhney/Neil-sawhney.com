@@ -84,11 +84,11 @@
                     <li><a class="scroll-to" href="#intro"><span class="ti-location-pin"></span>
                             <p class="small">Home</p>
                         </a></li>
-                    <li><a class="scroll-to" href="#articles"><span class="ti-user"></span>
-                            <p class="small">Articles</p>
-                        </a></li>
                     <li><a class="scroll-to" href="#portfolio"><span class="ti-view-grid"></span>
                             <p class="small">Portfolio</p>
+                        </a></li>
+                    <li><a class="scroll-to" href="#articles"><span class="ti-user"></span>
+                            <p class="small">Articles</p>
                         </a></li>
                     <li><a class="scroll-to" href="#resume"><span class="ti-align-left"></span>
                             <p class="small">Resume</p>
@@ -190,109 +190,6 @@
                         <!-- /SECTION ( INTRODUCTION ) -->
 
 
-                        <!-- SECTION ( ARTICLES ) -->
-                        <div class="section" style="padding-bottom:20rem" id="articles">
-
-
-                            <!-- CONTAINER -->
-                            <div class="container">
-
-
-                                <p class="tag m-b-3 scroll-animation">ARTICLES</p>
-                                <h3 class="m-b-4 m-l-1 scroll-animation">Some articles I've written</h3>
-                                <div class="seperator-line m-b-4 scroll-animation"></div>
-                                <p class="m-b-6 scroll-animation">A collection of things I found interesting or poorly documented</p>
-                                <!-- WORK GRID -->
-                                <div class="work-grid">
-
-                                    <!-- ITEM -->
-                                    <a href="/articles/microcontroller-programming/" target="_blank">
-
-
-
-                                        <div class="item noselect work-lightbox
-                                                scroll-animation">
-
-
-                                            <div class="icon-button"><span class="ti-arrow-right"></span></div>
-                                            <div class="info">
-                                                <p class="color-white">How to Program AVR Microcontrollers Using PlatformIO and VSCode</p>
-                                                <div class="seperator-line m-t-1"></div>
-                                            </div>
-                                            <div class="cover" style="background-image:
-                                                    url(/assets/images/articles/circuitry.webp); filter:brightness(30%);">
-                                            </div>
-
-
-                                        </div>
-
-
-                                    </a>
-                                    <!-- /ITEM -->
-
-                                    <!-- ITEM -->
-                                    <a href="/articles/dynamics-simulations/" target="_blank">
-
-
-
-                                        <div class="m-t-6 item noselect work-lightbox
-                                                scroll-animation">
-
-
-                                            <div class="icon-button"><span class="ti-arrow-right"></span></div>
-                                            <div class="info">
-                                                <p class="color-white">How to Use Symbolic Python to Solve and Visualize Dynamical Systems</p>
-                                                <div class="seperator-line m-t-1"></div>
-                                            </div>
-                                            <div class="cover" style="background-image:
-                                                    url(/assets/images/articles/basketballPath.webp); filter:brightness(50%);">
-                                            </div>
-
-
-                                        </div>
-
-
-                                    </a>
-                                    <!-- /ITEM -->
-
-                                    <!-- ITEM -->
-                                    <a href="/articles/hyperstudy-optimization/" target="_blank">
-
-
-
-                                        <div class="m-t-6 item noselect work-lightbox
-                                                scroll-animation">
-
-
-                                            <div class="icon-button"><span class="ti-arrow-right"></span></div>
-                                            <div class="info">
-                                                <p class="color-white">How to Optimize a Transient Loading Configuration in Hyperworks' Hyperstudy using Gradient Descent</p>
-                                                <div class="seperator-line m-t-1"></div>
-                                            </div>
-                                            <div class="cover" style="background-image:
-                                                    url(/assets/images/articles/hyperstudy_optimization.webp);">
-                                            </div>
-
-
-                                        </div>
-
-
-                                    </a>
-                                    <!-- /ITEM -->
-
-
-                                </div>
-                                <!-- /WORK GRID -->
-
-
-                            </div>
-                            <!-- /CONTAINER -->
-
-
-                        </div>
-                        <!-- SECTION ( ARTICLES ) -->
-
-
                         <!-- SECTION ( PORTFOLIO ) -->
                         <div class="section" style="padding-bottom:20rem" id="portfolio">
 
@@ -334,11 +231,17 @@
                                             <a href="/assets/images/work/3d-design/me_wearing_glasses.webp" data-sub-html="<h4>Glasses</h4><p>Here it is on my face, SLA printed in clear resin. I have some other pairs, my favorite is probably the polished brown one.</p>">
                                                 <img src="/assets/images/work/3d-design/thumbnails/me_wearing_glasses.webp">
                                             </a>
+                                            <a data-video='{"source": [{"src":"/assets/videos/cup_holder_vid.mp4", "type":"video/mp4"}], "attributes": {"preload": false, "playsinline": true, "controls": true}}' data-sub-html="<h4>Adjustable Car Cup Holder</h4><p>Car cup holders usually aren't big enough to hold bottles, this design fixes that with pegs that expand out to fit snug into any sized cup holder.</p>">
+                                                <img src="/assets/videos/cup_holder_vid-thumbnail.webp" alt="">
+                                            </a>
+                                            <a data-video='{"source": [{"src":"/assets/videos/vibration_sped_up.mp4", "type":"video/mp4"}], "attributes": {"preload": false, "playsinline": true, "controls": true}}' data-sub-html="<h4>Vibration Isolation Demonstration</h4><p>I made this as a educational tool during my class on vibrations. It demonstrates the principal of vibrational transmission attenuation once the driving frequency divided by the natural frequency surpasses the sqrt(2). As the motor speeds up, the vibrational transmission increases then drops suddenly (sound on helps convey that).</p>">
+                                                <img src="/assets/videos/vibration_sped_up-thumbnail.webp" alt="">
+                                            </a>
                                             <a data-video='{"source": [{"src":"/assets/videos/gear.mp4", "type":"video/mp4"}], "attributes": {"preload": false, "playsinline": true, "controls": true}}' data-sub-html="<h4>Gear Ring</h4><p>A kinematic ring printed in ultra fine detail resin.</p>">
-                                                <video autoplay loop playsinline muted>
-                                                    <source src="/assets/videos/gear.mp4" type="video/mp4">
-                                                </video>
                                                 <img src="/assets/videos/gear.jpeg" alt="">
+                                            </a>
+                                            <a data-video='{"source": [{"src":"/assets/videos/projector_slowed.mp4", "type":"video/mp4"}], "attributes": {"preload": false, "playsinline": true, "controls": true}}' data-sub-html="<h4>Film Strip Projector</h4><p>This is a geneva drive powered projector I designed to play a short movie taken on 35 mm film. The led turns off while the film is switching slides to mitigate motion blur. The light shines through the film and enteres a series of lenses not shown here.</p>">
+                                                <img src="/assets/videos/projector_slowed-thumbnail.webp" alt="">
                                             </a>
                                             <a href="/assets/images/work/3d-design/portalGun.webp" data-sub-html="<h4>Portal Gun</h4><p>Modelled after the game Portal 2 - Designed using surface modelling in Solidworks.</p>">
                                                 <img src="/assets/images/work/3d-design/thumbnails/portalGun.webp">
@@ -521,6 +424,110 @@
                             </div>
                         </div>
                         <!-- /SECTION ( PORTFOLIO ) -->
+
+
+                        <!-- SECTION ( ARTICLES ) -->
+                        <div class="section" style="padding-bottom:20rem" id="articles">
+
+
+                            <!-- CONTAINER -->
+                            <div class="container">
+
+
+                                <p class="tag m-b-3 scroll-animation">ARTICLES</p>
+                                <h3 class="m-b-4 m-l-1 scroll-animation">Some articles I've written</h3>
+                                <div class="seperator-line m-b-4 scroll-animation"></div>
+                                <p class="m-b-6 scroll-animation">A collection of things I found interesting or poorly documented</p>
+                                <!-- WORK GRID -->
+                                <div class="work-grid">
+
+                                    <!-- ITEM -->
+                                    <a href="/articles/microcontroller-programming/" target="_blank">
+
+
+
+                                        <div class="item noselect work-lightbox
+                                                scroll-animation">
+
+
+                                            <div class="icon-button"><span class="ti-arrow-right"></span></div>
+                                            <div class="info">
+                                                <p class="color-white">How to Program AVR Microcontrollers Using PlatformIO and VSCode</p>
+                                                <div class="seperator-line m-t-1"></div>
+                                            </div>
+                                            <div class="cover" style="background-image:
+                                                    url(/assets/images/articles/circuitry.webp); filter:brightness(30%);">
+                                            </div>
+
+
+                                        </div>
+
+
+                                    </a>
+                                    <!-- /ITEM -->
+
+                                    <!-- ITEM -->
+                                    <a href="/articles/dynamics-simulations/" target="_blank">
+
+
+
+                                        <div class="m-t-6 item noselect work-lightbox
+                                                scroll-animation">
+
+
+                                            <div class="icon-button"><span class="ti-arrow-right"></span></div>
+                                            <div class="info">
+                                                <p class="color-white">How to Use Symbolic Python to Solve and Visualize Dynamical Systems</p>
+                                                <div class="seperator-line m-t-1"></div>
+                                            </div>
+                                            <div class="cover" style="background-image:
+                                                    url(/assets/images/articles/basketballPath.webp); filter:brightness(50%);">
+                                            </div>
+
+
+                                        </div>
+
+
+                                    </a>
+                                    <!-- /ITEM -->
+
+                                    <!-- ITEM -->
+                                    <a href="/articles/hyperstudy-optimization/" target="_blank">
+
+
+
+                                        <div class="m-t-6 item noselect work-lightbox
+                                                scroll-animation">
+
+
+                                            <div class="icon-button"><span class="ti-arrow-right"></span></div>
+                                            <div class="info">
+                                                <p class="color-white">How to Optimize a Transient Loading Configuration in Hyperworks' Hyperstudy using Gradient Descent</p>
+                                                <div class="seperator-line m-t-1"></div>
+                                            </div>
+                                            <div class="cover" style="background-image:
+                                                    url(/assets/images/articles/hyperstudy_optimization.webp);">
+                                            </div>
+
+
+                                        </div>
+
+
+                                    </a>
+                                    <!-- /ITEM -->
+
+
+                                </div>
+                                <!-- /WORK GRID -->
+
+
+                            </div>
+                            <!-- /CONTAINER -->
+
+
+                        </div>
+                        <!-- SECTION ( ARTICLES ) -->
+
 
                         <!-- SECTION ( RESUME ) -->
                         <div class="section" style="padding-bottom:20rem" id="resume">
