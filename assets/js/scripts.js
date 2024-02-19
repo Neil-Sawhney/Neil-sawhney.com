@@ -823,7 +823,7 @@ function lightbox_setup() {
 			videojs: true,
 			videojsOptions: {
 				muted: false,
-				autoplay: true,
+				autoplay: false,
 				loop: true,
 			},
 		});
