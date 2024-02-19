@@ -38,7 +38,7 @@ function core_init() {
 	lightbox_setup();
 	menu_setup();
 	scroll_down();
-	cursor_setup();
+	// cursor_setup();
 	scroll_animations();
 	contact_form();
 	tabs_setup();
@@ -822,7 +822,9 @@ function lightbox_setup() {
 			closeOnTap: true,
 			videojs: true,
 			videojsOptions: {
-				muted: true,
+				muted: false,
+				autoplay: true,
+				loop: true,
 			},
 		});
 	});

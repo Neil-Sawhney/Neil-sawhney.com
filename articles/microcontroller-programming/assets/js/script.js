@@ -38,7 +38,7 @@ function core_init() {
 	lightbox_setup();
 	menu_setup();
 	scroll_down();
-	cursor_setup();
+	// cursor_setup();
 	scroll_animations();
 	contact_form();
 	tabs_setup();

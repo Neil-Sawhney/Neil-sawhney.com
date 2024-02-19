@@ -13,7 +13,6 @@
 	--  6. Menu
 	--  7. Contact Form
 	--  8. Scroll Bar / Progress Bar
-	--  9. Lightbox
 	--  10. Scroll Animations
 	--  11. Profile Picture
 	--  12. Misc
@@ -35,10 +34,9 @@ function core_init() {
 	smooth_scroll();
 	accordions_setup();
 	carousel_setup();
-	lightbox_setup();
 	menu_setup();
 	scroll_down();
-	cursor_setup();
+	// cursor_setup();
 	scroll_animations();
 	contact_form();
 	tabs_setup();
@@ -780,146 +778,6 @@ function scroll_bar() {
 	scroll_bars[config_scroll_bar]();
 
 }
-
-
-
-/** 9. Lightbox
-*******************************************************************/
-
-function lightbox_setup() {
-
-
-	function generate_lightbox_html(content){
-
-
-		return '<div id="glightbox-body" class="glightbox-container">'
-					+'<div class="gloader visible"></div>'
-					+'<div class="goverlay"></div>'
-					+'<div class="gcontainer">'
-						+'<div class="info"><div class="info-container">' + content + '</div></div><div class="info-overlay"></div>'
-						+'<div id="glightbox-slider" class="gslider"></div>'
-						+'<div class="info-button"><div class="icon-button"><span class="ti-info"></span></div></div>'
-						+'<button class="gnext gbtn" tabindex="0" aria-label="Next"><span class="ti-arrow-right"></span></button>'
-						+'<button class="gprev gbtn" tabindex="1" aria-label="Previous"><span class="ti-arrow-left"></span></button>'
-						+'<button class="gclose gbtn" tabindex="2" aria-label="Close"><span class="ti-close"></span></button>'
-					+'</div>'
-				+'</div>';
-
-	}
-
-
-	
-	$(".work-lightbox").each(function(){
-
-		// Set lightbox instance
-		var lightbox = GLightbox({
-			touchNavigation: true,
-			loop: true,
-			preload: true,
-			zoomable: false,
-			closeOnOutsideClick: false,
-			autoplayVideos: true,
-			plyr: {
-				config: {
-					hideControls: true,
-					muted: true,
-					loop: {
-						active: true,
-					},
-					controls: [
-					],
-					clickToPlay: true,
-				}
-			},
-			lightboxHTML: generate_lightbox_html( $(this).find(".info-content").html() ),
-		});
-
-
-		// Add slides to lightbox
-		$( $(this).find(".lightbox-images .item") ).each(function(){
-
-			var url = $(this).data("image");
-			var url = (url == undefined) ? $(this).data("video") : url;
-
-			lightbox.insertSlide({
-				'href': url,
-				'zoomable': false,
-				'description': "test",
-			});
-
-		});
-
-		// Do on lightbox opening
-		lightbox.on('open', function () {
-			
-			var block = false;
-			var info_open = false;
-			var info_tl = gsap.timeline();
-
-			function menu_controller() {
-
-				if (block == true) return;
-				block = true;
-			
-				if (info_open) {
-					$(".glightbox-container .info-button span").removeClass("ti-close").addClass("ti-info");
-					info_tl.clear();
-					info_tl.set(".gcontainer .gbtn",{display:"block"});
-					info_tl.to(".gcontainer .info .info-container",{duration: 0.2, opacity: 0, ease: "power1.in"});
-					info_tl.to(".gcontainer .info",{duration: 0.7, x: "-100%", ease: "power4.inOut"});
-					info_tl.to(".gcontainer .info-overlay",{duration: 0.4, opacity: 0, ease: "none"},"<");
-					info_tl.set(".gcontainer .info-overlay",{ left: "100%"});
-					info_tl.eventCallback("onComplete", function(){
-						block = false;
-						info_open = false;
-					});
-					
-				} else {
-					$(".glightbox-container .info-button span").removeClass("ti-info").addClass("ti-close");
-					info_tl.clear();
-					info_tl.set(".gcontainer .gbtn",{ display:"none"});
-					info_tl.set(".gcontainer .info-overlay",{ left:"0"});
-					info_tl.to(".gcontainer .info-overlay",{duration: 0.4, opacity: 1, ease: "none"});
-					info_tl.to(".gcontainer .info",{duration: 0.7, x:"0%", ease: "power4.out"}, "0");
-					info_tl.to(".gcontainer .info .info-container",{duration: 0.3, opacity: 1, ease: "power1.out"},"-=0.6");
-					info_tl.eventCallback("onComplete", function(){
-						block = false;
-						info_open = true;
-					});
-				}
-
-			}
-
-			$(".glightbox-container .info-overlay").on('click touchend', function () {
-				menu_controller();
-			});
-	
-			$(".glightbox-container .info-button").on('click touchend', function () {
-				menu_controller();
-			});
-
-			$(".gcontainer").on('click touchend', function(e){
-
-				if($(e.target).closest('.gcontainer .info').length > 0) return;
-				if($(e.target).closest('.gcontainer .info-button').length > 0) return;
-				if($(e.target).closest('.gcontainer .info-overlay').length > 0) return;
-				if($(e.target).closest('.gcontainer .gslide-media').length > 0) return;
-				if($(e.target).closest('.gcontainer .gbtn').length > 0) return;
-				lightbox.close();
-			});  
-
-	
-		});
-
-		// Open lightbox on item click
-		$(this).on("click",function(){
-			lightbox.open();
-		});
-
-	});
-
-}
-
 
 
 /** 10. Scroll Animations
