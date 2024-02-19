@@ -566,7 +566,7 @@
     right: 5rem;
     bottom: 3rem;
     z-index: 2;
-    opacity: 0;
+    opacity: 100;
     -webkit-transition: .25s;
     -o-transition: .25s;
     transition: .25s;
