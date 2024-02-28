@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
-	<title>Interactive Euler Angle Demonstration</title>
-	<style>
-		body {
-			margin: 0;
-		}
-	</style>
-	<script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
 
-	<script type="importmap">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+		<title>Interactive Euler Angle Demonstration</title>
+		<style>
+			body {
+				margin: 0;
+			}
+		</style>
+		<script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
+
+		<script type="importmap">
 	{
 		"imports": {
 		"three": "https://unpkg.com/three@0.154.0/build/three.module.js",
@@ -19,19 +20,28 @@
 		}
 	}
 	</script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-    <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
-</head>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+		<link rel="stylesheet" type="text/css" href="./assets/css/style.css">
+	</head>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-KP2R711DZL"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
 
-<body>
-	<parameterWrapper>
-	</parameterWrapper>
-	<main>
-		<div id="container3D"></canvas>
-	</main>
+		gtag('config', 'G-KP2R711DZL');
+	</script>
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.js"></script>
-	<script type="module" src="./assets/js/main.js"></script>
-</body>
+	<body>
+		<parameterWrapper>
+		</parameterWrapper>
+		<main>
+			<div id="container3D"></canvas>
+		</main>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.js"></script>
+		<script type="module" src="./assets/js/main.js"></script>
+	</body>
 
 </html>
