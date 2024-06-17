@@ -72,7 +72,7 @@ const parameters = {
 };
 
 let equations = function (t, y) {
-    let phi = parameters.Phi.value, theta = parameters.Theta.value, psi = parameters.Psi.value, phiDot = parameters.PhiDot.value, thetaDot = parameters.ThetaDot.value, psiDot = parameters.PsiDot.value;
+    let phi = y[0], theta = y[1], psi = y[2], phiDot = y[3], thetaDot = y[4], psiDot = y[5];
 
     // Calculate second derivatives based on your equations
     let psiDotDot = (
@@ -113,10 +113,6 @@ let equations = function (t, y) {
         - 0.0242374380750177 * Math.cos(theta) * phiDot * thetaDot
         + 1.97576256192498 * psiDot * thetaDot
     ) / Math.sin(theta);
-
-    thetaDotDot -= thetaDotDot > 1e-6 ? thetaDot : 1e-6;
-    phiDotDot -= phiDotDot > 1e-6 ? phiDot : 1e-6;;
-    psiDotDot -= psiDotDot > 1e-6 ? psiDot : 1e-6;
 
     return [phiDot, thetaDot, psiDot, phiDotDot, thetaDotDot, psiDotDot];
 };
