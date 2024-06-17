@@ -49,10 +49,10 @@ let racket;
 const loader = new GLTFLoader();
 const cacheBuster = new Date().getTime(); // Get the current timestamp
 
-loader.load('./assets/3d-models/racket.glb?v=${cacheBuster}', function (gltf) {
+loader.load('./assets/3d-models/racket.glb?v=${' + cacheBuster + '}', function (gltf) {
     racket = gltf.scene;
     racket.scale.set(0.119 / 1.6143269538879395, 0.119 / 1.6143269538879395, 0.119 / 1.6143269538879395);
-    racket.rotation.set(Math.PI/2, 0, Math.PI/2);
+    racket.rotation.set(Math.PI / 2, 0, Math.PI / 2);
     racket.position.set(0, -0.1, 0);
     racketOffset.add(racket);
 }
@@ -60,78 +60,19 @@ loader.load('./assets/3d-models/racket.glb?v=${cacheBuster}', function (gltf) {
 scene.add(racketOffset)
 
 
-// Constants
-const g = 9.80665; // acceleration due to gravity
-const m = 0.635; // mass of the ball
-const l = 0.119; // length to center of mass
-
-let y0 = [];
-const Parameters = {
-    Phi: { value: 0, min: 0, max: 360, id: '\\( \\phi_0 \\)', units: '\\( ^{\\circ} \\)' },
-    Theta: { value: 1e-1, min: 1e-1, max: 180, id: '\\( \\theta_0 \\)', units: '\\( ^{\\circ} \\)' },
-    Psi: { value: 90, min: 0, max: 360, id: '\\( \\psi_0 \\)', units: '\\( ^{\\circ} \\)' },
-    PhiDot: { value: 1e-3, min: 1e-3, max: 1000, id: '\\( \\dot{\\phi}_0 \\)', units: ' \\( \\frac{deg}{s} \\)' },
-    ThetaDot: { value: 200, min: 1e-3, max: 300, id: '\\( \\dot{\\theta}_0 \\)', units: ' \\( \\frac{deg}{s} \\)' },
-    PsiDot: { value: 1e-3, min: 1e-3, max: 1000, id: '\\( \\dot{\\psi}_0 \\)', units: ' \\( \\frac{deg}{s} \\)' },
-    Damping: { value: 0.1, min: 0, max: 2, id: 'Damping', units: '' },
-    Time: { value: 20, min: 1, max: 60, id: 'Run Time', units: ' \\( s \\)' }
+const parameters = {
+    Phi: { display_value: 0, min: 0, max: 360, id: '\\( \\phi_0 \\)', units: '\\( ^{\\circ} \\)', angle: true },
+    Theta: { display_value: 1e-1, min: 1e-1, max: 180, id: '\\( \\theta_0 \\)', units: '\\( ^{\\circ} \\)', angle: true },
+    Psi: { display_value: 90, min: 0, max: 360, id: '\\( \\psi_0 \\)', units: '\\( ^{\\circ} \\)', angle: true },
+    PhiDot: { display_value: 1e-3, min: 1e-3, max: 1000, id: '\\( \\dot{\\phi}_0 \\)', units: ' \\( \\frac{deg}{s} \\)', angle: true },
+    ThetaDot: { display_value: 200, min: 1e-3, max: 300, id: '\\( \\dot{\\theta}_0 \\)', units: ' \\( \\frac{deg}{s} \\)', angle: true },
+    PsiDot: { display_value: 1e-3, min: 1e-3, max: 1000, id: '\\( \\dot{\\psi}_0 \\)', units: ' \\( \\frac{deg}{s} \\)', angle: true },
+    Time: { display_value: 20, min: 1, max: 60, id: 'Run Time', units: ' \\( s \\)' },
+    Reset: { id: 'RESET' }
 };
 
-function setupSlider(parameter) {
-    let parameterWrapper = document.getElementsByTagName("parameterWrapper")[0];
-
-    // create a wrapper for the slider within parameterWrapper
-    let sliderWrapper = document.createElement("sliderWrapper");
-    parameterWrapper.appendChild(sliderWrapper);
-
-    // create a label for the slider
-    let label = document.createElement("label");
-    label.innerText = parameter.id;
-    label.htmlFor = parameter.id;
-    sliderWrapper.appendChild(label);
-
-    // create the slider
-    let slider = document.createElement("input");
-    slider.type = "range";
-    slider.class = "slider";
-    sliderWrapper.appendChild(slider);
-
-    // create the output
-    let output = document.createElement("output");
-    sliderWrapper.appendChild(output);
-
-    slider.min = parameter.min;
-    slider.max = parameter.max;
-    slider.value = parameter.value;
-    slider.step = 0.01;
-    output.innerHTML = parameter.value;
-
-    // create the units
-    let units = document.createElement("units");
-    units.innerHTML = parameter.units;
-    sliderWrapper.appendChild(units);
-
-    parameter.index = y0.push(parameter.value * Math.PI / 180) - 1;
-    slider.addEventListener("input", function () {
-        let variable = Math.round(this.value * 100) / 100 || parameter.min;
-        output.innerHTML = variable;
-        parameter.value = variable;
-        y0[parameter.index] = variable * Math.PI / 180;
-        restart();
-    });
-}
-
-setupSlider(Parameters.Phi);
-setupSlider(Parameters.Theta);
-setupSlider(Parameters.Psi);
-setupSlider(Parameters.PhiDot);
-setupSlider(Parameters.ThetaDot);
-setupSlider(Parameters.PsiDot);
-setupSlider(Parameters.Damping);
-setupSlider(Parameters.Time);
-
-const equations = function (t, y) {
-    let phi = y[Parameters.Phi.index], theta = y[Parameters.Theta.index], psi = y[Parameters.Psi.index], phiDot = y[Parameters.PhiDot.index], thetaDot = y[Parameters.ThetaDot.index], psiDot = y[Parameters.PsiDot.index];
+let equations = function (t, y) {
+    let phi = parameters.Phi.value, theta = parameters.Theta.value, psi = parameters.Psi.value, phiDot = parameters.PhiDot.value, thetaDot = parameters.ThetaDot.value, psiDot = parameters.PsiDot.value;
 
     // Calculate second derivatives based on your equations
     let psiDotDot = (
@@ -173,33 +114,175 @@ const equations = function (t, y) {
         + 1.97576256192498 * psiDot * thetaDot
     ) / Math.sin(theta);
 
-    thetaDotDot -= thetaDotDot > 1e-6 ? Parameters.Damping.value * thetaDot : 1e-6;
-    phiDotDot -= phiDotDot > 1e-6 ? Parameters.Damping.value * phiDot : 1e-6;;
-    psiDotDot -= psiDotDot > 1e-6 ? Parameters.Damping.value * psiDot : 1e-6;
+    thetaDotDot -= thetaDotDot > 1e-6 ? thetaDot : 1e-6;
+    phiDotDot -= phiDotDot > 1e-6 ? phiDot : 1e-6;;
+    psiDotDot -= psiDotDot > 1e-6 ? psiDot : 1e-6;
 
     return [phiDot, thetaDot, psiDot, phiDotDot, thetaDotDot, psiDotDot];
 };
 
-// Time span
-let t0 = 0, tf = Parameters.Time.value;
+function setParameter(parameter, value) {
+    let wrapper = document.getElementById(parameter.id);
+    parameter.value = value;
 
-// Call the ode solver
-let result = numeric.dopri(t0, Parameters.Time.value, y0, equations, 1e-6, 5e4);
+    // if it has options then it is a select
+    if (parameter.options) {
+        parameter.display_value = value;
 
-console.log(result)
+        let select = wrapper.getElementsByTagName("select")[0];
+        select.value = value;
+    }
 
-let pointToTrace = new THREE.Vector3(0, -0.43, 0);
-var points = [];
-var lines = [];
-var recentLines = [];
-let animationId;
+    // otherwise if it has a display value then it is a slider
+    else if (parameter.display_value != null) {
+        if (parameter.angle) {
+            value = value * 180 / Math.PI;
+        }
 
-let clock = new Clock();
-let time = clock.getElapsedTime();
+        else {
+            value = Math.round(value * 100) / 100;
+        }
+
+        parameter.display_value = value;
+
+        let slider = wrapper.getElementsByTagName("input")[0];
+        slider.value = value;
+        let output = wrapper.getElementsByTagName("output")[0];
+        output.innerHTML = value;
+    }
+}
+
+function setupParameter(parameter) {
+    return new Promise((resolve, reject) => {
+        let parameterWrapper = document.getElementsByTagName("parameterWrapper")[0];
+
+        // if it has options then create a select
+        if (parameter.options) {
+
+            // create a wrapper for the select within parameterWrapper
+            let selectWrapper = document.createElement("selectWrapper");
+            selectWrapper.id = parameter.id;
+            parameterWrapper.appendChild(selectWrapper);
+
+            // create a label for the select
+            let label = document.createElement("label");
+            label.innerText = parameter.id;
+            label.htmlFor = parameter.id;
+            selectWrapper.appendChild(label);
+
+            // create the select
+            let select = document.createElement("select");
+            selectWrapper.appendChild(select);
+
+            // create the options
+            for (let option in parameter.options) {
+                let optionElement = document.createElement("option");
+                optionElement.value = parameter.options[option];
+                optionElement.text = parameter.options[option];
+                select.appendChild(optionElement);
+            }
+
+            parameter.value = parameter.display_value;
+
+            // add an event listener to the select
+            select.addEventListener("change", function () {
+                parameter.display_value = this.value;
+                parameter.value = this.value;
+                restart();
+            });
+            resolve();
+            return;
+        }
+
+        // otherwise if it has a display value create a slider
+        if (parameter.display_value != null) {
+            // create a wrapper for the slider within parameterWrapper
+            let sliderWrapper = document.createElement("sliderWrapper");
+            parameterWrapper.appendChild(sliderWrapper);
+            sliderWrapper.id = parameter.id;
+
+            // create a label for the slider
+            let label = document.createElement("label");
+            label.innerText = parameter.id;
+            label.htmlFor = parameter.id;
+            sliderWrapper.appendChild(label);
+
+            // create the slider
+            let slider = document.createElement("input");
+            slider.type = "range";
+            slider.class = "slider";
+            sliderWrapper.appendChild(slider);
+
+            // create the output
+            let output = document.createElement("output");
+            sliderWrapper.appendChild(output);
+
+            slider.min = parameter.min;
+            slider.max = parameter.max;
+            slider.value = parameter.display_value;
+            slider.step = 0.01;
+            output.innerHTML = parameter.display_value;
+
+            // create the units
+            let units = document.createElement("units");
+            units.innerHTML = parameter.units;
+            sliderWrapper.appendChild(units);
+
+            if (parameter.angle) {
+                parameter.value = parameter.display_value * Math.PI / 180;
+                slider.addEventListener("input", function () {
+                    let variable = Math.round(this.value * 100) / 100 || parameter.min;
+                    output.innerHTML = variable;
+                    parameter.display_value = variable;
+                    parameter.value = variable * Math.PI / 180;
+                    restart();
+                });
+            }
+            else {
+                parameter.value = parameter.display_value;
+                slider.addEventListener("input", function () {
+                    let variable = Math.round(this.value * 100) / 100 || parameter.min;
+                    output.innerHTML = variable;
+                    parameter.display_value = variable;
+                    parameter.value = variable;
+                    restart();
+                });
+            }
+            resolve();
+            return;
+        }
+
+        // if it doesn't have a display value then it's a button
+        if (parameter.display_value == null) {
+            let parameterWrapper = document.getElementsByTagName("parameterWrapper")[0];
+
+            // create a wrapper for the button within parameterWrapper
+            let buttonWrapper = document.createElement("buttonWrapper");
+            parameterWrapper.appendChild(buttonWrapper);
+            buttonWrapper.id = parameter.id;
+
+            // create the button
+            let button = document.createElement("button");
+            button.innerText = parameter.id;
+            buttonWrapper.appendChild(button);
+
+            resolve();
+            return;
+        }
+
+        else {
+            parameter.value = 0;
+            resolve();
+            return;
+        }
+
+    });
+}
+
 function animate() {
     animationId = requestAnimationFrame(animate);
 
-    if (time >= Parameters.Time.value) {
+    if (time >= parameters.Time.value) {
         clock = new Clock();
 
         // remove all lines
@@ -249,15 +332,47 @@ function animate() {
     renderer.render(scene, camera);
 };
 
-window.onload = function () {
-    animate();
-};
-
 let restart = function () {
     cancelAnimationFrame(animationId);
     // Call the ode solver
-    result = numeric.dopri(t0, Parameters.Time.value, y0, equations, 1e-6, 5e4);
+    let y0 = [parameters.Phi.value, parameters.Theta.value, parameters.Psi.value, parameters.PhiDot.value, parameters.ThetaDot.value, parameters.PsiDot.value];
+    result = numeric.dopri(t0, parameters.Time.value, y0, equations, 1e-6, 5e4);
 
-    time = Parameters.Time.value;
+    time = parameters.Time.value;
     animate();
 }
+
+// Initialize parameters
+let promises = [];
+for (let parameter in parameters) {
+    promises.push(setupParameter(parameters[parameter]));
+}
+console.log(promises);
+await Promise.all(promises);
+let defaultParameters = JSON.parse(JSON.stringify(parameters));
+console.log("All parameters initialized");
+
+// add event listener to reset button
+document.getElementById("RESET").addEventListener("click", function () {
+    for (let parameter in parameters) {
+        setParameter(parameters[parameter], defaultParameters[parameter].value);
+    }
+    restart();
+});
+
+let y0 = [parameters.Phi.value, parameters.Theta.value, parameters.Psi.value, parameters.PhiDot.value, parameters.ThetaDot.value, parameters.PsiDot.value];
+let t0 = 0
+let result = numeric.dopri(t0, parameters.Time.value, y0, equations, 1e-6, 5e4);
+await result;
+console.log(result)
+
+let pointToTrace = new THREE.Vector3(0, -0.43, 0);
+var points = [];
+var lines = [];
+var recentLines = [];
+let animationId;
+
+let clock = new Clock();
+let time = clock.getElapsedTime();
+
+animate();
