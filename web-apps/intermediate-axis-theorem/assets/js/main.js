@@ -61,12 +61,12 @@ scene.add(racketOffset)
 
 
 const parameters = {
-    Phi: { display_value: 0, min: 0, max: 360, id: '\\( \\phi_0 \\)', units: '\\( ^{\\circ} \\)', angle: true },
+    Phi: { display_value: 1e-1, min: 1e-1, max: 360, id: '\\( \\phi_0 \\)', units: '\\( ^{\\circ} \\)', angle: true },
     Theta: { display_value: 1e-1, min: 1e-1, max: 180, id: '\\( \\theta_0 \\)', units: '\\( ^{\\circ} \\)', angle: true },
-    Psi: { display_value: 90, min: 0, max: 360, id: '\\( \\psi_0 \\)', units: '\\( ^{\\circ} \\)', angle: true },
-    PhiDot: { display_value: 1e-3, min: 1e-3, max: 1000, id: '\\( \\dot{\\phi}_0 \\)', units: ' \\( \\frac{deg}{s} \\)', angle: true },
-    ThetaDot: { display_value: 200, min: 1e-3, max: 300, id: '\\( \\dot{\\theta}_0 \\)', units: ' \\( \\frac{deg}{s} \\)', angle: true },
-    PsiDot: { display_value: 1e-3, min: 1e-3, max: 1000, id: '\\( \\dot{\\psi}_0 \\)', units: ' \\( \\frac{deg}{s} \\)', angle: true },
+    Psi: { display_value: 90, min: 1e-1, max: 360, id: '\\( \\psi_0 \\)', units: '\\( ^{\\circ} \\)', angle: true },
+    PhiDot: { display_value: 1e-1, min: 1e-1, max: 1000, id: '\\( \\dot{\\phi}_0 \\)', units: ' \\( \\frac{deg}{s} \\)', angle: true },
+    ThetaDot: { display_value: 200, min: 1e-1, max: 300, id: '\\( \\dot{\\theta}_0 \\)', units: ' \\( \\frac{deg}{s} \\)', angle: true },
+    PsiDot: { display_value: 1e-1, min: 1e-1, max: 1000, id: '\\( \\dot{\\psi}_0 \\)', units: ' \\( \\frac{deg}{s} \\)', angle: true },
     Time: { display_value: 20, min: 1, max: 60, id: 'Run Time', units: ' \\( s \\)' },
     Reset: { id: 'RESET' }
 };
