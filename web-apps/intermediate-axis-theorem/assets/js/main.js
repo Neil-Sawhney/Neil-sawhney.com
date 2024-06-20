@@ -49,11 +49,15 @@ let racket;
 const loader = new GLTFLoader();
 const cacheBuster = new Date().getTime(); // Get the current timestamp
 
+// the order is (green, -red, blue) for some reason
+// which corresponds to (-e1, -e3, -e2) in the model 
+// i think its a 131 phi theta psi
+
 loader.load('./assets/3d-models/racket.glb?v=${' + cacheBuster + '}', function (gltf) {
     racket = gltf.scene;
     racket.scale.set(0.119 / 1.6143269538879395, 0.119 / 1.6143269538879395, 0.119 / 1.6143269538879395);
-    racket.rotation.set(Math.PI / 2, 0, Math.PI / 2);
-    racket.position.set(0, -0.1, 0);
+    racket.rotation.set(0, -Math.PI/2, 0);
+    racket.position.set(-0.1, 0, 0);
     racketOffset.add(racket);
 }
 );
@@ -65,7 +69,7 @@ const parameters = {
     Theta: { display_value: 1e-1, min: 1e-1, max: 180, id: '\\( \\theta_0 \\)', units: '\\( ^{\\circ} \\)', angle: true },
     Psi: { display_value: 90, min: 1e-1, max: 360, id: '\\( \\psi_0 \\)', units: '\\( ^{\\circ} \\)', angle: true },
     PhiDot: { display_value: 1e-1, min: 1e-1, max: 1000, id: '\\( \\dot{\\phi}_0 \\)', units: ' \\( \\frac{deg}{s} \\)', angle: true },
-    ThetaDot: { display_value: 200, min: 1e-1, max: 300, id: '\\( \\dot{\\theta}_0 \\)', units: ' \\( \\frac{deg}{s} \\)', angle: true },
+    ThetaDot: { display_value: 200, min: 1e-1, max: 1000, id: '\\( \\dot{\\theta}_0 \\)', units: ' \\( \\frac{deg}{s} \\)', angle: true },
     PsiDot: { display_value: 1e-1, min: 1e-1, max: 1000, id: '\\( \\dot{\\psi}_0 \\)', units: ' \\( \\frac{deg}{s} \\)', angle: true },
     Time: { display_value: 20, min: 1, max: 60, id: 'Run Time', units: ' \\( s \\)' },
     Reset: { id: 'RESET' }
@@ -290,13 +294,16 @@ function animate() {
     let phi = result.at(time)[0];
     let theta = result.at(time)[1];
     let psi = result.at(time)[2];
-
+    
     // sphere and outline rotate together
     let coord_order = 'XYZ';
     let quaternion = new THREE.Quaternion();
-    quaternion.setFromEuler(new THREE.Euler(0, phi, 0, coord_order));
-    quaternion.multiply(new THREE.Quaternion().setFromEuler(new THREE.Euler(0, 0, theta, coord_order)));
-    quaternion.multiply(new THREE.Quaternion().setFromEuler(new THREE.Euler(0, psi, 0, coord_order)));
+    // quaternion.setFromEuler(new THREE.Euler(0, phi, 0, coord_order));
+    // quaternion.multiply(new THREE.Quaternion().setFromEuler(new THREE.Euler(0, 0, theta, coord_order)));
+    // quaternion.multiply(new THREE.Quaternion().setFromEuler(new THREE.Euler(0, psi, 0, coord_order)));
+    quaternion.setFromEuler(new THREE.Euler(0, 0, phi, coord_order));
+    quaternion.multiply(new THREE.Quaternion().setFromEuler(new THREE.Euler(0, theta, 0, coord_order)));
+    quaternion.multiply(new THREE.Quaternion().setFromEuler(new THREE.Euler(0, 0, psi, coord_order)));
     racketOffset.setRotationFromQuaternion(quaternion);
 
     var worldPointToTrace = racketOffset.localToWorld(pointToTrace.clone());
