@@ -49,15 +49,13 @@ let racket;
 const loader = new GLTFLoader();
 const cacheBuster = new Date().getTime(); // Get the current timestamp
 
-// the order is (green, -red, blue) for some reason
-// which corresponds to (-e1, -e3, -e2) in the model 
-// i think its a 131 phi theta psi
-
+// the order is indeed (red, green, blue)!!
+// that will get messed up with the initial conditions though so make sure to comment out the quarterion stuff when setting this up
 loader.load('./assets/3d-models/racket.glb?v=${' + cacheBuster + '}', function (gltf) {
     racket = gltf.scene;
     racket.scale.set(0.119 / 1.6143269538879395, 0.119 / 1.6143269538879395, 0.119 / 1.6143269538879395);
-    racket.rotation.set(0, -Math.PI/2, 0);
-    racket.position.set(-0.1, 0, 0);
+    racket.rotation.set(Math.PI/2, 0, 0);
+    racket.position.set(0, -0.05, 0);
     racketOffset.add(racket);
 }
 );
@@ -68,9 +66,9 @@ const parameters = {
     Phi: { display_value: 1e-1, min: 1e-1, max: 360, id: '\\( \\phi_0 \\)', units: '\\( ^{\\circ} \\)', angle: true },
     Theta: { display_value: 1e-1, min: 1e-1, max: 180, id: '\\( \\theta_0 \\)', units: '\\( ^{\\circ} \\)', angle: true },
     Psi: { display_value: 90, min: 1e-1, max: 360, id: '\\( \\psi_0 \\)', units: '\\( ^{\\circ} \\)', angle: true },
-    PhiDot: { display_value: 1e-1, min: 1e-1, max: 1000, id: '\\( \\dot{\\phi}_0 \\)', units: ' \\( \\frac{deg}{s} \\)', angle: true },
-    ThetaDot: { display_value: 200, min: 1e-1, max: 1000, id: '\\( \\dot{\\theta}_0 \\)', units: ' \\( \\frac{deg}{s} \\)', angle: true },
-    PsiDot: { display_value: 1e-1, min: 1e-1, max: 1000, id: '\\( \\dot{\\psi}_0 \\)', units: ' \\( \\frac{deg}{s} \\)', angle: true },
+    PhiDot: { display_value: 1e-1, min: 1e-1, max: 500, id: '\\( \\dot{\\phi}_0 \\)', units: ' \\( \\frac{deg}{s} \\)', angle: true },
+    ThetaDot: { display_value: 200, min: 1e-1, max: 500, id: '\\( \\dot{\\theta}_0 \\)', units: ' \\( \\frac{deg}{s} \\)', angle: true },
+    PsiDot: { display_value: 1e-1, min: 1e-1, max: 500, id: '\\( \\dot{\\psi}_0 \\)', units: ' \\( \\frac{deg}{s} \\)', angle: true },
     Time: { display_value: 20, min: 1, max: 60, id: 'Run Time', units: ' \\( s \\)' },
     Reset: { id: 'RESET' }
 };
@@ -79,44 +77,34 @@ let equations = function (t, y) {
     let phi = y[0], theta = y[1], psi = y[2], phiDot = y[3], thetaDot = y[4], psiDot = y[5];
 
     // Calculate second derivatives based on your equations
-    let psiDotDot = (
-        - 1.64443110675595 * Math.pow(Math.sin(psi), 2) * Math.pow(Math.sin(theta), 2) * phiDot * thetaDot
-        - 0.0406970983722576 * Math.pow(Math.sin(psi), 2) * Math.cos(theta) * psiDot * thetaDot
-        - 0.0406970983722576 * Math.pow(Math.sin(psi), 2) * phiDot * thetaDot
-        + 0.842564102564103 * Math.sin(psi) * Math.pow(Math.sin(theta), 3) * Math.cos(psi) * Math.pow(phiDot, 2)
-        + 0.0406970983722576 * Math.sin(psi) * Math.sin(theta) * Math.cos(psi) * Math.cos(theta) * phiDot * psiDot
-        + 1.10788693471338e-9 * Math.sin(psi) * Math.sin(theta) * Math.cos(psi) * Math.cos(theta)
-        - 0.842564102564103 * Math.sin(psi) * Math.sin(theta) * Math.cos(psi) * Math.pow(thetaDot, 2)
-        + 0.0203485491861288 * Math.sin(psi) * Math.sin(2.0 * theta) * Math.cos(psi) * Math.cos(theta) * Math.pow(phiDot, 2)
-        + 1.79797811530296 * Math.pow(Math.sin(theta), 2) * phiDot * thetaDot
-        - 1.95541401273885 * Math.cos(theta) * psiDot * thetaDot
-        + 0.0445859872611465 * phiDot * thetaDot
-    ) / Math.sin(theta);
+    let psiDotDot =
+        1.7572810169307 * Math.pow(Math.sin(psi), 2) * Math.sin(theta) * phiDot * thetaDot +
+        (0.153547008547009 * Math.pow(Math.sin(psi), 2) * psiDot * thetaDot) / Math.tan(theta) +
+        (0.153547008547009 * Math.pow(Math.sin(psi), 2) * phiDot * thetaDot) / Math.sin(theta) -
+        0.955414012738854 * Math.sin(psi) * Math.pow(Math.sin(theta), 2) * Math.cos(psi) * Math.pow(phiDot, 2) -
+        (0.0767735042735043 * Math.sin(psi) * Math.sin(2.0 * theta) * Math.cos(psi) * Math.pow(phiDot, 2)) / Math.tan(theta) -
+        0.153547008547009 * Math.sin(psi) * Math.cos(psi) * Math.cos(theta) * phiDot * psiDot +
+        0.955414012738854 * Math.sin(psi) * Math.cos(psi) * Math.pow(thetaDot, 2) -
+        1.79797811530296 * Math.sin(theta) * phiDot * thetaDot -
+        (0.157435897435897 * psiDot * thetaDot) / Math.tan(theta) +
+        (1.8425641025641 * phiDot * thetaDot) / Math.sin(theta);
 
-    let thetaDotDot = (
-        0.0406970983722576 * Math.pow(Math.sin(psi), 2) * Math.sin(theta) * phiDot * psiDot
-        + 1.10788693471338e-9 * Math.pow(Math.sin(psi), 2) * Math.sin(theta)
-        + 0.0203485491861289 * Math.pow(Math.sin(psi), 2) * Math.sin(2.0 * theta) * Math.pow(phiDot, 2)
-        + 0.0406970983722576 * Math.sin(psi) * Math.cos(psi) * Math.cos(theta) * phiDot * thetaDot
-        + 0.0406970983722576 * Math.sin(psi) * Math.cos(psi) * psiDot * thetaDot
-        - 1.99611111111111 * Math.sin(theta) * phiDot * psiDot
-        + 1.0586625e-10 * Math.sin(theta)
-        - 0.498055555555556 * Math.sin(2.0 * theta) * Math.pow(phiDot, 2)
-    );
-
-    let phiDotDot = (
-        -0.0050871372965322 * Math.cos(2 * psi - 2.0 * theta) * Math.pow(phiDot, 2)
-        - 0.0101742745930644 * Math.cos(2 * psi - theta) * phiDot * psiDot
-        - 0.0101742745930644 * Math.cos(2 * psi - theta) * phiDot * thetaDot
-        - 2.76971733678344e-10 * Math.cos(2 * psi - theta)
-        + 0.0101742745930644 * Math.cos(2 * psi + theta) * phiDot * psiDot
-        - 0.0101742745930644 * Math.cos(2 * psi + theta) * phiDot * thetaDot
-        + 2.76971733678344e-10 * Math.cos(2 * psi + theta)
-        + 0.0050871372965322 * Math.cos(2 * psi + 2.0 * theta) * Math.pow(phiDot, 2)
-        - 0.0203485491861288 * Math.cos(2 * psi) * psiDot * thetaDot
-        - 0.0242374380750177 * Math.cos(theta) * phiDot * thetaDot
-        + 1.97576256192498 * psiDot * thetaDot
-    ) / Math.sin(theta);
+    let thetaDotDot =
+        -0.153547008547009 * Math.sin(Math.pow(psi, 2)) * Math.sin(theta) * phiDot * psiDot
+        - 0.0767735042735043 * Math.sin(Math.pow(psi, 2)) * Math.sin(2.0 * theta) * Math.pow(phiDot, 2)
+        - 0.153547008547009 * Math.sin(psi) * Math.cos(psi) * Math.cos(theta) * phiDot * thetaDot
+        - 0.153547008547009 * Math.sin(psi) * Math.cos(psi) * psiDot * thetaDot
+        - 0.00388888888888889 * Math.sin(theta) * phiDot * psiDot
+        + 0.498055555555556 * Math.sin(2.0 * theta) * Math.pow(phiDot, 2);
+    let phiDotDot =
+        (
+            -0.153547008547009 * Math.pow(Math.sin(psi), 2) * Math.cos(theta) * phiDot * thetaDot
+            - 0.153547008547009 * Math.pow(Math.sin(psi), 2) * psiDot * thetaDot
+            + 0.153547008547009 * Math.sin(psi) * Math.sin(theta) * Math.cos(psi) * phiDot * psiDot
+            + 0.0767735042735043 * Math.sin(psi) * Math.sin(2.0 * theta) * Math.cos(psi) * Math.pow(phiDot, 2)
+            - 1.8425641025641 * Math.cos(theta) * phiDot * thetaDot
+            + 0.157435897435897 * psiDot * thetaDot
+        ) / Math.sin(theta);
 
     return [phiDot, thetaDot, psiDot, phiDotDot, thetaDotDot, psiDotDot];
 };
@@ -294,16 +282,19 @@ function animate() {
     let phi = result.at(time)[0];
     let theta = result.at(time)[1];
     let psi = result.at(time)[2];
-    
+
     // sphere and outline rotate together
     let coord_order = 'XYZ';
     let quaternion = new THREE.Quaternion();
-    // quaternion.setFromEuler(new THREE.Euler(0, phi, 0, coord_order));
-    // quaternion.multiply(new THREE.Quaternion().setFromEuler(new THREE.Euler(0, 0, theta, coord_order)));
-    // quaternion.multiply(new THREE.Quaternion().setFromEuler(new THREE.Euler(0, psi, 0, coord_order)));
-    quaternion.setFromEuler(new THREE.Euler(0, 0, phi, coord_order));
-    quaternion.multiply(new THREE.Quaternion().setFromEuler(new THREE.Euler(0, theta, 0, coord_order)));
-    quaternion.multiply(new THREE.Quaternion().setFromEuler(new THREE.Euler(0, 0, psi, coord_order)));
+
+    // these are important
+    // this model was solved with a 313 sequence
+    // because the viewport is rotated, blue = e1, red = e2, green = e3
+    // therefore we want to rotate around green, blue, green
+    // which means (0, phi, 0), (theta, 0, 0), (0, psi, 0)
+    quaternion.setFromEuler(new THREE.Euler(0, phi, 0, coord_order));
+    quaternion.multiply(new THREE.Quaternion().setFromEuler(new THREE.Euler(theta, 0, 0, coord_order)));
+    quaternion.multiply(new THREE.Quaternion().setFromEuler(new THREE.Euler(0, psi, 0, coord_order)));
     racketOffset.setRotationFromQuaternion(quaternion);
 
     var worldPointToTrace = racketOffset.localToWorld(pointToTrace.clone());
@@ -369,7 +360,7 @@ let result = numeric.dopri(t0, parameters.Time.value, y0, equations, 1e-6, 5e4);
 await result;
 console.log(result)
 
-let pointToTrace = new THREE.Vector3(0, -0.43, 0);
+let pointToTrace = new THREE.Vector3(0, -0.37, 0);
 var points = [];
 var lines = [];
 var recentLines = [];
