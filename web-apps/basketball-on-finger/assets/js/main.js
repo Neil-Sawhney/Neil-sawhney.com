@@ -152,9 +152,10 @@ setupSlider(Parameters.Time);
 const equations = function(t, y) {
     let phi = y[Parameters.Phi.index], theta = y[Parameters.Theta.index], psi = y[Parameters.Psi.index], phiDot = y[Parameters.PhiDot.index], thetaDot = y[Parameters.ThetaDot.index], psiDot = y[Parameters.PsiDot.index];
 
-    // Calculate second derivatives based on your equations
     let psiDotDot = -(5*Math.sin(theta)*phiDot + (2*psiDot)/Math.tan(theta) - (12*phiDot)/(Math.sin(theta)))*thetaDot/7;
+
     let thetaDotDot = (5*g*Math.sin(theta))/(7*l) - (5*Math.sin(psi - 3*theta)*Math.sin(psi)*Math.pow(phiDot,2))/(56*Math.sin(theta)) + (5*Math.sin(psi + theta)*Math.sin(psi)*Math.pow(phiDot,2))/(56*Math.sin(theta)) - (5*Math.sin(psi)*Math.cos(psi + theta)*Math.cos(theta)*Math.pow(phiDot,2))/14 + (5*Math.sin(theta)*Math.pow(Math.cos(psi), 2)*Math.cos(theta)*Math.pow(phiDot,2))/7 - (2*Math.sin(theta)*phiDot*psiDot)/7
+
     let phiDotDot = -(2*(6*Math.cos(theta)*phiDot - psiDot)*thetaDot)/(7*Math.sin(theta))
 
     thetaDotDot -= thetaDotDot > 1e-6 ? Parameters.Damping.value * thetaDot : 1e-6;
